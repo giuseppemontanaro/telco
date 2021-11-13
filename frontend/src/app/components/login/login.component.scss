@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    
+    .logo {
+        width: 30%;
+        color: #3F51B5;
+        font-size: 6rem;
+        padding: 3rem;
+    }
+
+    .inner-container {
+        width: 30%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: hidden;
+
+        h1 {
+            left: 0;
+        }
+
+        .login-card {
+            position: absolute;
+            width: 20%;
+            padding: 2rem 1rem 2rem 1rem;
+
+            mat-form-field {
+                width: 100%;
+            }
+
+            mat-card-actions {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        .signup-card {
+            position: absolute;
+            width: 20%;
+            padding: 2rem 1rem 2rem 1rem;
+
+            mat-form-field {
+                width: 100%;
+            }
+
+            mat-card-actions {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+
+.background {
+    left: 55%;
+    top: -100%;
+    position: relative;
+    background-color: #3F51B5;
+    height: 150%;
+    width: 90%;
+    z-index: -1;
+    transform: rotate(5deg);
+}
