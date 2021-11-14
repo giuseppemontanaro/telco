@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelService } from 'src/app/service/model.service';
-import { USER } from 'src/app/model/constants';
-import { User } from 'src/app/model/user';
+import { ModelService } from 'src/app/services/model.service';
+import { Const } from 'src/app/shared/constants';
+import { User } from 'src/app/models/user';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,11 @@ import { User } from 'src/app/model/user';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  
   user: User;
 
   constructor(private model: ModelService) {
-    this.user = model.getBean(USER) as User;
+    this.user = this.model.getBean(Const.USER)
   }
 
   ngOnInit(): void {

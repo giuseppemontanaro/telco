@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { UserDaoService } from 'src/app/service/user-dao.service';
-import { User } from 'src/app/model/user';
+import { UserDaoService } from 'src/app/services/user-dao.service';
+import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
-import { ModelService } from 'src/app/service/model.service';
-import { USER } from 'src/app/model/constants';
+import { ModelService } from 'src/app/services/model.service';
+import { Const } from 'src/app/shared/constants';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -55,15 +56,15 @@ export class LoginComponent implements OnInit {
     email: ''
   });
 
-  email = new FormControl('', Validators.required);
-  signUpPressed = false;
+  signUpPressed:boolean = false;
 
   constructor(
+    private authService: AuthenticationService,
     private userDao: UserDaoService,
     private formBuilder: FormBuilder,
     private router: Router,
     private model: ModelService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
@@ -74,10 +75,10 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     let user: User = this.loginForm.value;
-    this.userDao.authUser(user)
+    this.authService.login(user.username, user.password)
       .subscribe((response) => {
         if (!!response) {
-          this.model.putBean(USER, user);
+          this.model.putBean(Const.USER, user);
           this.router.navigate(['home'])
         } else {
           console.log("nooop")

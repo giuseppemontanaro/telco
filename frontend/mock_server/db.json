@@ -4,25 +4,15 @@
       "id": 1,
       "username": "user",
       "password": "password",
-      "email": "user@gmail.com"
+      "email": "user.@email.it",
+      "role": "User"
     },
     {
       "id": 2,
       "username": "employee",
       "password": "password",
-      "email": "employee@telco.com"
-    },
-    {
-      "username": "a",
-      "password": "b",
-      "email": "c",
-      "id": 3
-    },
-    {
-      "username": "a",
-      "password": "b",
-      "email": "c",
-      "id": 4
+      "email": "employee@etelco.it",
+      "role": "Emplyee"
     }
   ]
 }
