@@ -17,6 +17,12 @@
       "password": "b",
       "email": "c",
       "id": 3
+    },
+    {
+      "username": "a",
+      "password": "b",
+      "email": "c",
+      "id": 4
     }
   ]
 }

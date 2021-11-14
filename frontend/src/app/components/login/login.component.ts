@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserDaoService } from 'src/app/service/user-dao.service';
 import { User } from 'src/app/model/user';
 import { Router } from '@angular/router';
+import { ModelService } from 'src/app/service/model.service';
+import { USER } from 'src/app/model/constants';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private userDao: UserDaoService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private model: ModelService
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +77,7 @@ export class LoginComponent implements OnInit {
     this.userDao.authUser(user)
       .subscribe((response) => {
         if (!!response) {
+          this.model.putBean(USER, user);
           this.router.navigate(['home'])
         } else {
           console.log("nooop")

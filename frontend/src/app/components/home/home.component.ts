@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModelService } from 'src/app/service/model.service';
+import { USER } from 'src/app/model/constants';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+  constructor(private model: ModelService) {
+    this.user = model.getBean(USER) as User;
+  }
 
   ngOnInit(): void {
   }
