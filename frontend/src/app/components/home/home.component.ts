@@ -10,12 +10,11 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  
-  user: User;
 
-  constructor(private model: ModelService) {
-    this.user = this.model.getBean(Const.USER)
-  }
+  tiles = [
+  ];
+
+  constructor() { }
 
   ngOnInit(): void {
   }

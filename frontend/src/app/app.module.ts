@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { mockBackendProvider } from './helpers/mock-backend.interceptor';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

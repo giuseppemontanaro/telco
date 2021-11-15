@@ -1,6 +1,6 @@
-<mat-toolbar>
-    <div class="toolbar-container">
-        <span id="telco">Telco</span>
-        <span id="user" *ngIf="!!user">Hi, {{user.username}}!</span>
-    </div>
-</mat-toolbar>
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile [colspan]="3" [rowspan]="3" [style.background]="'green'">Basic</mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="6" [style.background]="'blue'">Family</mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="3" [style.background]="'red'">Business</mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="3" [style.background]="'yellow'">All Inclusive</mat-grid-tile>
+</mat-grid-list>

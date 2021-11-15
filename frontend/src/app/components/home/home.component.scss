@@ -1,18 +1,3 @@
-mat-toolbar {
-    background: #3F51B5;
-    color: #fff;
-
-    .toolbar-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-
-        #telco {
-            font-size: 2rem;
-        }
-
-        #user {
-            font-size: 1.5rem;
-        }
-    }
+mat-grid-list {
+    margin: 3% 10%;
 }

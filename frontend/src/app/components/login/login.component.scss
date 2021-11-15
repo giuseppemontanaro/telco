@@ -41,6 +41,11 @@
             width: 15rem;
             padding: 2rem 1rem 2rem 1rem;
 
+            mat-card-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
             mat-form-field {
                 width: 100%;
             }
@@ -57,7 +62,7 @@
     left: 55%;
     top: -120%;
     position: relative;
-    background-color: #3F51B5;
+    background: #cd533b;
     height: 150%;
     width: 150%;
     z-index: -1;

@@ -1,1 +1,8 @@
+<mat-toolbar>
+    <div class="toolbar-container">
+        <span id="telco">Telco</span>
+        <span id="user" *ngIf="!!user.username">Hi, {{user.username}}!</span>
+    </div>
+</mat-toolbar>
+
 <router-outlet>
