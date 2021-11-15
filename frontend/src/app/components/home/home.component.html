@@ -1,6 +1,6 @@
 <mat-toolbar>
     <div class="toolbar-container">
         <span id="telco">Telco</span>
-        <span id="user">Hi, {{user.username}}!</span>
+        <span id="user" *ngIf="!!user">Hi, {{user.username}}!</span>
     </div>
 </mat-toolbar>

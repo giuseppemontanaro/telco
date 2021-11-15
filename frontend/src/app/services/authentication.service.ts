@@ -34,4 +34,5 @@ export class AuthenticationService {
     this.model.putBean(Const.USER, null);
     this.router.navigate(['/login']);
   }
+
 }

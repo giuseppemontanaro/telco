@@ -40,6 +40,20 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
       transition('center => right', [
         animate('1s')
       ]),
+    ]),
+    trigger('rotate', [
+      state('right-rotation', style({
+        transform: 'rotate(5deg)'
+      })),
+      state('left-rotation', style({
+        transform: 'rotate(-5deg)' 
+      })),
+      transition('right-rotation => left-rotation', [
+        animate('1s')
+      ]),
+      transition('left-rotation => right-rotation', [
+        animate('1s')
+      ]),
     ])
   ]
 })
@@ -93,4 +107,5 @@ export class LoginComponent implements OnInit {
         this.signUpPressed = false;
       });
   }
+
 }
