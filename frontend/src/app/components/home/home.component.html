@@ -1,6 +1,10 @@
 <mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile [colspan]="3" [rowspan]="3" [style.background]="'green'">Basic</mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="6" [style.background]="'blue'">Family</mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="3" [style.background]="'red'">Business</mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="3" [style.background]="'yellow'">All Inclusive</mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="3" id="tile-1">Basic</mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="6" id="tile-2">Family</mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="3" id="tile-3">Business</mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="3" id="tile-4">All Inclusive</mat-grid-tile>
 </mat-grid-list>
+
+<button mat-fab color="primary">
+    <mat-icon>add_shopping_cart</mat-icon>
+</button>
