@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { UserDaoService } from 'src/app/services/user-dao.service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';

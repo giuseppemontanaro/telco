@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/role';
+import { BuyPageComponent } from './components/buy-page/buy-page.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 const routes: Routes = [
   { 
@@ -13,6 +15,14 @@ const routes: Routes = [
   { 
     path: 'home', 
     component: HomeComponent,
+  },
+  { 
+    path: 'buy-page', 
+    component: BuyPageComponent,
+  },
+  { 
+    path: 'confirmation', 
+    component: ConfirmationComponent,
   },
   // {
   //   path: 'employee',

@@ -6,9 +6,13 @@
     
     .logo {
         width: 30%;
-        color: #3F51B5;
         font-size: 6rem;
         padding: 3rem;
+        margin-right: 3rem;
+
+        span {
+            color: #cd533b;
+        }
     }
 
     .inner-container {
