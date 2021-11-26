@@ -21,10 +21,8 @@
         margin-bottom: 12px;
     }
 
-    .opt-prods-panel {
-        overflow-y: scroll;
-        height: 20vh;
-        max-height: 20vh;
-        width: 22vw;
+    li {
+        display: flex;
+        align-items: center;
     }
 }

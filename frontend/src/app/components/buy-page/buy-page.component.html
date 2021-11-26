@@ -13,21 +13,32 @@
       <mat-form-field>
         <mat-label>Validity period</mat-label>
         <mat-select formControlName="validityPeriod">
-          <mat-option *ngFor="let validity of currentPackage.validityPeriods" [value]="validity">{{validity}}</mat-option>
+          <mat-option *ngFor="let validity of currentPackage.validityPeriods" [value]="validity">
+            {{validity.monthsNumber}} months - ${{validity.monthlyFee}}</mat-option>
         </mat-select>
         <mat-error>validity period is required</mat-error>
       </mat-form-field>
 
-      <div class="opt-prods-panel" *ngIf="isServiceSelected">
-        <mat-form-field class="opts" *ngFor="let optProdsField of optProdsFields">
+      <div class="opt-prods-container">
+        <p *ngIf="numOptProdsFields == 0">No optional products</p>
+        <mat-form-field class="opts">
           <mat-label>Optional pruduct</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let optional of currentPackage.optionalProducts" [value]="optional">{{optional}}</mat-option>
+          <mat-select formControlName="validityPeriod" (selectionChange)="setSelectedOptional($event.value)">
+            <mat-option *ngFor="let optional of currentPackage.optionalProducts" [value]="optional">{{optional.name}} -
+              ${{optional.monthlyFee}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-mini-fab color="primary" (click)="addOptional()">
+        <button mat-mini-fab color="primary" (click)="addOptional()" [disabled]="!isServiceSelected">
           <mat-icon>add</mat-icon>
         </button>
+        <ul>
+          <li *ngFor="let optional of selectedOptionals; let i = index" [attr.data-index]="i">
+            <p>{{optional.name}}</p>
+            <button mat-icon-button (click)="removeOptional(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </li>
+        </ul>
       </div>
 
       <mat-form-field>
@@ -38,7 +49,8 @@
         <mat-error>starting date is required</mat-error>
       </mat-form-field>
 
-      <button (click)="goToConfirmation()" mat-raised-button color="primary">Confirm</button>
+      <button (click)="goToConfirmation()" mat-raised-button color="primary"
+        [disabled]="!buyForm.valid">Confirm</button>
 
     </form>
   </mat-card>
