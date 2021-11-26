@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelService } from 'src/app/services/model.service';
-import { Const } from 'src/app/shared/constants';
-import { User } from 'src/app/models/user';
-import { ThrowStmt } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { PackageDaoService } from 'src/app/services/package-dao.service';
+import { Package } from 'src/app/models/package';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +10,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  tiles = [
-  ];
+  packages: Package[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private packageDao: PackageDaoService) { }
 
   ngOnInit(): void {
+    this.packageDao.getPackages()
+      .subscribe(packages => this.packages = packages)
+    console.log(this.packages)
   }
 
   goToBuyPage(): void {

@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
+import { handleError } from '../shared/handleError';
 
 @Injectable({
   providedIn: 'root'
@@ -23,20 +24,10 @@ export class UserDaoService {
   }
 
   authUser(user: User): Observable<boolean> {
-    if (environment.mocked) {
-      this.http.post<boolean>(`${this.baseUrl}/auth/login`, user, this.httpOptions)
-        .pipe(
-          catchError(
-            this.handleError<boolean>('authUser', false)
-          )
-        );
-    } else {
-      
-    }
     return this.http.post<boolean>(`${this.baseUrl}/auth/login`, user, this.httpOptions)
       .pipe(
         catchError(
-          this.handleError<boolean>('authUser', false)
+          handleError<boolean>('authUser', false)
         )
       );
   }
@@ -45,16 +36,10 @@ export class UserDaoService {
     return this.http.post<boolean>(`${this.baseUrl}/users`, user, this.httpOptions)
       .pipe(
         catchError(
-          this.handleError<boolean>('signUpUser', false)
+          handleError<boolean>('signUpUser', false)
         )
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
 
 }

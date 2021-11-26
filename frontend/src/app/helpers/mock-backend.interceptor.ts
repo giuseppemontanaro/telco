@@ -5,39 +5,91 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
-  HTTP_INTERCEPTORS
+  HTTP_INTERCEPTORS,
+  HttpParams
 } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
 import { Role } from '../models/role';
 import { ModelService } from '../services/model.service';
 import { Const } from '../shared/constants';
-import { User } from '../models/user';
+import { Package } from '../models/package';
 
 @Injectable()
 export class MockBackendInterceptor implements HttpInterceptor {
 
   constructor(private model: ModelService) {
-    model.putBean(Const.MOCK_DB, { 
-      users: 
-      [
+    model.putBean(Const.MOCK_DB, {
+      users: [
         { id: 1, username: 'user', password: 'password', email: 'user.@email.it', role: Role.User },
         { id: 2, username: 'employee', password: 'password', email: 'employee@etelco.it', role: Role.Emplyee }
+      ],
+      packages: [
+        {
+          id: 1,
+          name: "Basic",
+          services: [
+            { title: "Mobile Internet", gigabytes: 10, gigabytesExtraFee: 4 },
+            { title: "Mobile Phone", minutes: 200, sms: 300, minutesExtraFee: 1, smsExtraFee: 0.5 }
+          ],
+          validityPeriods: [
+            { monthsNumber: 12, monthlyFee: 10 },
+            { monthsNumber: 24, monthlyFee: 17 },
+            { monthsNumber: 36, monthlyFee: 22 }
+          ],
+          optionalProducts: [
+            { name: "SMS news feed", monthlyFee: 1 },
+            { name: "internet TV channel", monthlyFee: 3 },
+          ]
+        },
+        {
+          id: 2,
+          name: "Family",
+          services: [
+            { title: "Mobile Internet", gigabytes: 10, gigabytesExtraFee: 4 },
+            { title: "Fixed Phone" },
+            { title: "Fixed Internet", gigabytes: 20, gigabytesExtraFee: 3 },
+          ],
+          validityPeriods: [
+            { monthsNumber: 12, monthlyFee: 7 },
+            { monthsNumber: 24, monthlyFee: 10 },
+            { monthsNumber: 36, monthlyFee: 12 }
+          ], 
+          optionalProducts: [
+            { name: "SMS news feed", monthlyFee: 1 },
+            { name: "internet TV channel", monthlyFee: 3 },
+          ]
+        }
       ]
     });
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const { url, method, headers, body } = request;
+    const { url, method, headers, body , params} = request;
 
     switch (true) {
       case url.endsWith('/auth/login') && method === 'POST':
         return this.authenticate(body);
       case url.endsWith('/users') && method === 'POST':
         return this.signUpUser(body);
+      case url.endsWith('/packages') && method === 'GET':
+        return this.getPackages();
+        case url.endsWith('/packages/details') && method === 'GET':
+          return this.getPackageDetails(params);
       default:
         return next.handle(request);
     }
+  }
+
+  getPackageDetails(params: HttpParams): Observable<HttpEvent<any>> {
+    let packages = this.model.getBean(Const.MOCK_DB).packages;
+    const chosen = params.get("package") as string;
+    return this.ok(packages.find((elem: Package) => elem.name = chosen))
+  }
+  
+  private getPackages(): Observable<HttpEvent<any>> {
+    let mockDb = this.model.getBean(Const.MOCK_DB);
+    return this.ok(mockDb.packages)
   }
 
   private signUpUser(body: any): Observable<HttpEvent<any>> {
@@ -59,7 +111,6 @@ export class MockBackendInterceptor implements HttpInterceptor {
       id: user.id,
       username: user.username,
       email: user.email,
-      password: user.password,
       role: user.role,
       token: `fake-jwt-token-${user.id}`
     });

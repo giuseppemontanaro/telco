@@ -30,7 +30,7 @@ const routes: Routes = [
   //   canActivate: [AuthGuard],
   //   data: { roles: [Role.Emplyee] }
   // },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

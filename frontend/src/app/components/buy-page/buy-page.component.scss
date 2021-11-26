@@ -1,20 +1,30 @@
-mat-form-field {
-    margin: 24px;
-}
+.container {
+    height: 92%;
+    width: 100%;
+    background-color: #cd533b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.opt-prods-panel {
-    overflow-y: scroll;
-    max-height: 50vh;
-    width: 22vw;
-}
+    .buy-card {
+        width: 35%;
+        height: 60%;
+    }
 
-.background {
-    left: 55%;
-    top: -100%;
-    position: relative;
-    background: #cd533b;
-    height: 150%;
-    width: 150%;
-    z-index: -1;
-    transform: rotate(-5deg);
+    mat-form-field {
+        margin: 24px;
+
+    }
+
+    .opts {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .opt-prods-panel {
+        overflow-y: scroll;
+        height: 20vh;
+        max-height: 20vh;
+        width: 22vw;
+    }
 }

@@ -12,16 +12,17 @@
                     <mat-form-field>
                         <mat-label>Username</mat-label>
                         <input matInput formControlName="username">
-                        <mat-error>aaa</mat-error>
+                        <mat-error>username is required</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Password</mat-label>
                         <input matInput type="password" formControlName="password">
+                        <mat-error>password is required</mat-error>
                     </mat-form-field>
                 </form>
                 <mat-card-actions>
                     <button (click)="goToSignUp()" mat-button color="primary">Sign up</button>
-                    <button (click)="login()" mat-raised-button type="submit" color="primary">Login</button>
+                    <button (click)="login()" [disabled]="!loginForm.valid" mat-raised-button type="submit" color="primary">Login</button>
                 </mat-card-actions>
             </mat-card>
             <a routerLink="/home" routerLinkActive="active">Access as guest</a>
@@ -34,19 +35,22 @@
                 <mat-form-field >
                     <mat-label>Username</mat-label>
                     <input matInput formControlName="username">
+                    <mat-error>username is required</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input matInput type="email" formControlName="email">
+                    <mat-error>email is required</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
                     <input matInput type="password" formControlName="password">
+                    <mat-error>password is required</mat-error>
                 </mat-form-field>
             </form>
             <mat-card-actions>
                 <button (click)="goToSignUp()" mat-button color="primary">Back</button>
-                <button (click)="signup()" mat-raised-button color="primary">Confirm</button>
+                <button (click)="signup()" [disabled]="!loginForm.valid" mat-raised-button color="primary">Confirm</button>
             </mat-card-actions>
         </mat-card>
 

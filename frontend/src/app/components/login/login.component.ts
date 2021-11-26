@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserDaoService } from 'src/app/services/user-dao.service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
@@ -59,15 +59,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = this.formBuilder.group({
-    username: '',
-    password: ''
-  });
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  })
 
   signupForm = this.formBuilder.group({
-    username: '',
-    password: '',
-    email: ''
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required])
   });
 
   signUpPressed:boolean = false;
