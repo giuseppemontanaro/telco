@@ -4,6 +4,9 @@ import { PackageDaoService } from 'src/app/services/package-dao.service';
 import { Package } from 'src/app/models/package';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OptionalProduct } from 'src/app/models/optionalProduct';
+import { ValidityPeriod } from 'src/app/models/validityPeriod';
+import { ModelService } from 'src/app/services/model.service';
+import { Const } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-buy-page',
@@ -13,14 +16,14 @@ import { OptionalProduct } from 'src/app/models/optionalProduct';
 export class BuyPageComponent implements OnInit {
 
   isServiceSelected: boolean = false;
-  numOptProdsFields: number = 1;
-  optProdsFields: number[] = [1];
+  optionalsLen!: number;
+  chosenValidityPeriod!: ValidityPeriod;
   packages: Package[] = [];
   currentPackage: Package = {name: '', services: [], validityPeriods: [], optionalProducts: []};
   selectedOptionals: OptionalProduct[] = [];
   selectedOptional!: OptionalProduct;
 
-  constructor(private router: Router, private packageDao: PackageDaoService) { }
+  constructor(private router: Router, private packageDao: PackageDaoService, private model: ModelService) { }
 
   buyForm = new FormGroup({
     package: new FormControl('', [Validators.required]),
@@ -49,6 +52,13 @@ export class BuyPageComponent implements OnInit {
   }
 
   goToConfirmation(): void {
+    let chosenPackage: Package = {
+      name: this.currentPackage.name,
+      services: this.currentPackage.services,
+      validityPeriods: [this.chosenValidityPeriod],
+      optionalProducts: this.selectedOptionals
+    }
+    this.model.putBean(Const.CHOSEN_PACKAGE, chosenPackage);
     this.router.navigate(['confirmation']);
   }
 
@@ -57,12 +67,13 @@ export class BuyPageComponent implements OnInit {
     this.buyForm.enable();
     this.packageDao.getPackageDetails(currentPackage)
       .subscribe(currentPackage => {
-        this.currentPackage = currentPackage
+        this.currentPackage = currentPackage;
+        this.optionalsLen = currentPackage.optionalProducts.length;
       })
   }
 
-  buy(): void {
-
+  getValidityPeriod(validity: ValidityPeriod): void {
+    this.chosenValidityPeriod = validity;
   }
 
 }

@@ -1,4 +1,5 @@
 export enum Const {
   USER,
-  MOCK_DB
+  MOCK_DB,
+  CHOSEN_PACKAGE
 }

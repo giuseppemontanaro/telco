@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card class="buy-card">
     <mat-card-title>Choose your configuration</mat-card-title>
-    <form [formGroup]="buyForm" (ngSubmit)="buy()">
+    <form [formGroup]="buyForm">
       <mat-form-field>
         <mat-label>Service Package</mat-label>
         <mat-select formControlName="package" (selectionChange)="updateForm($event.value)">
@@ -12,7 +12,7 @@
 
       <mat-form-field>
         <mat-label>Validity period</mat-label>
-        <mat-select formControlName="validityPeriod">
+        <mat-select formControlName="validityPeriod" (selectionChange)="getValidityPeriod($event.value)">
           <mat-option *ngFor="let validity of currentPackage.validityPeriods" [value]="validity">
             {{validity.monthsNumber}} months - ${{validity.monthlyFee}}</mat-option>
         </mat-select>
@@ -20,21 +20,21 @@
       </mat-form-field>
 
       <div class="opt-prods-container">
-        <p *ngIf="numOptProdsFields == 0">No optional products</p>
+        <p *ngIf="!selectedOptionals">No optional products</p>
         <mat-form-field class="opts">
           <mat-label>Optional pruduct</mat-label>
-          <mat-select formControlName="validityPeriod" (selectionChange)="setSelectedOptional($event.value)">
+          <mat-select formControlName="optional" (selectionChange)="setSelectedOptional($event.value)" [disabled]="selectedOptionals.length == optionalsLen">
             <mat-option *ngFor="let optional of currentPackage.optionalProducts" [value]="optional">{{optional.name}} -
               ${{optional.monthlyFee}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-mini-fab color="primary" (click)="addOptional()" [disabled]="!isServiceSelected">
+        <button type="button" mat-mini-fab color="primary" (click)="addOptional()" [disabled]="!isServiceSelected || selectedOptionals.length == optionalsLen">
           <mat-icon>add</mat-icon>
         </button>
         <ul>
           <li *ngFor="let optional of selectedOptionals; let i = index" [attr.data-index]="i">
             <p>{{optional.name}}</p>
-            <button mat-icon-button (click)="removeOptional(i)">
+            <button type="button" mat-icon-button (click)="removeOptional(i)">
               <mat-icon>close</mat-icon>
             </button>
           </li>
@@ -49,7 +49,7 @@
         <mat-error>starting date is required</mat-error>
       </mat-form-field>
 
-      <button (click)="goToConfirmation()" mat-raised-button color="primary"
+      <button (click)="goToConfirmation()" type="submit" mat-raised-button color="primary"
         [disabled]="!buyForm.valid">Confirm</button>
 
     </form>

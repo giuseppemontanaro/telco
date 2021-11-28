@@ -54,7 +54,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
             { monthsNumber: 12, monthlyFee: 7 },
             { monthsNumber: 24, monthlyFee: 10 },
             { monthsNumber: 36, monthlyFee: 12 }
-          ], 
+          ],
           optionalProducts: [
             { name: "SMS news feed", monthlyFee: 1 },
             { name: "internet TV channel", monthlyFee: 3 },
@@ -65,7 +65,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const { url, method, headers, body , params} = request;
+    const { url, method, headers, body, params } = request;
 
     switch (true) {
       case url.endsWith('/auth/login') && method === 'POST':
@@ -74,8 +74,10 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.signUpUser(body);
       case url.endsWith('/packages') && method === 'GET':
         return this.getPackages();
-        case url.endsWith('/packages/details') && method === 'GET':
-          return this.getPackageDetails(params);
+      case url.endsWith('/packages/details') && method === 'GET':
+        return this.getPackageDetails(params);
+      case url.endsWith('/packages/confirm') && method === 'POST':
+        return this.getPackageDetails(params);
       default:
         return next.handle(request);
     }
@@ -86,7 +88,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
     const chosen = params.get("package") as string;
     return this.ok(packages.find((elem: Package) => elem.name = chosen))
   }
-  
+
   private getPackages(): Observable<HttpEvent<any>> {
     let mockDb = this.model.getBean(Const.MOCK_DB);
     return this.ok(mockDb.packages)
@@ -118,7 +120,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
   private ok(body: any) {
     return of(new HttpResponse({ status: 200, body }))
-      .pipe(delay(500)); // delay observable to simulate server api call
+      .pipe(delay(500));
   }
 
   private error(message: any) {
