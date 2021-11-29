@@ -70,7 +70,9 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required])
   });
 
-  signUpPressed:boolean = false;
+  signUpPressed: boolean = false;
+  isLandingFromSignup: boolean = false;
+  isLandingFromLogin: boolean = false;
 
   constructor(
     private authService: AuthenticationService,
@@ -81,6 +83,16 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.model.getBean(Const.LANDING_FROM_SIGNUP)) {
+      this.signUpPressed = true;
+      this.isLandingFromSignup = true;
+      this.model.putBean(Const.LANDING_FROM_SIGNUP, undefined);
+    }
+    if (this.model.getBean(Const.LANDING_FROM_LOGIN)) {
+      this.isLandingFromLogin = true;
+      this.model.putBean(Const.LANDING_FROM_LOGIN, undefined);
+    }
+    
   }
 
   goToSignUp(): void {
@@ -93,11 +105,12 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         if (!!response) {
           this.model.putBean(Const.USER, user);
-          this.router.navigate(['home'])
+          this.isLandingFromLogin ? this.router.navigate(['confirmation']) : this.router.navigate(['home'])
         } else {
-          console.log("nooop")
+          console.log("user not found")
         }
       });
+
   }
 
   signup(): void {
@@ -105,6 +118,7 @@ export class LoginComponent implements OnInit {
     this.userDao.signUpUser(user)
       .subscribe((response) => {
         this.signUpPressed = false;
+        if (this.isLandingFromLogin) this.router.navigate(['confirmation'])
       });
   }
 

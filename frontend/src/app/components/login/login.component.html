@@ -21,11 +21,11 @@
                     </mat-form-field>
                 </form>
                 <mat-card-actions>
-                    <button (click)="goToSignUp()" mat-button color="primary">Sign up</button>
+                    <button *ngIf="!isLandingFromLogin" (click)="goToSignUp()" mat-button color="primary">Sign up</button>
                     <button (click)="login()" [disabled]="!loginForm.valid" mat-raised-button type="submit" color="primary">Login</button>
                 </mat-card-actions>
             </mat-card>
-            <a routerLink="/home" routerLinkActive="active">Access as guest</a>
+            <a *ngIf="!isLandingFromLogin" routerLink="/home" routerLinkActive="active">Access as guest</a>
         </div>
         
 
@@ -49,7 +49,7 @@
                 </mat-form-field>
             </form>
             <mat-card-actions>
-                <button (click)="goToSignUp()" mat-button color="primary">Back</button>
+                <button *ngIf="!isLandingFromSignup" (click)="goToSignUp()" mat-button color="primary">Back</button>
                 <button (click)="signup()" [disabled]="!loginForm.valid" mat-raised-button color="primary">Confirm</button>
             </mat-card-actions>
         </mat-card>
