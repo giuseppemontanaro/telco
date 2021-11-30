@@ -7,6 +7,7 @@ import { OptionalProduct } from 'src/app/models/optionalProduct';
 import { ValidityPeriod } from 'src/app/models/validityPeriod';
 import { ModelService } from 'src/app/services/model.service';
 import { Const } from 'src/app/shared/constants';
+import { ChosenPackage } from 'src/app/models/chosenPackage';
 
 @Component({
   selector: 'app-buy-page',
@@ -18,6 +19,7 @@ export class BuyPageComponent implements OnInit {
   isServiceSelected: boolean = false;
   optionalsLen!: number;
   chosenValidityPeriod!: ValidityPeriod;
+  chosenDate!: Date;
   packages: Package[] = [];
   currentPackage: Package = {name: '', services: [], validityPeriods: [], optionalProducts: []};
   selectedOptionals: OptionalProduct[] = [];
@@ -29,7 +31,7 @@ export class BuyPageComponent implements OnInit {
     package: new FormControl('', [Validators.required]),
     validityPeriod: new FormControl({value: '', disabled: !this.isServiceSelected}, [Validators.required]),
     startDate: new FormControl({value: '', disabled: !this.isServiceSelected}, [Validators.required]),
-    optional: new FormControl({value: '', disabled: !this.isServiceSelected})
+    optional: new FormControl({value: '', disabled: [!this.isServiceSelected, this.selectedOptionals.length == this.optionalsLen]})
   })
 
   ngOnInit(): void {
@@ -52,12 +54,8 @@ export class BuyPageComponent implements OnInit {
   }
 
   goToConfirmation(): void {
-    let chosenPackage: Package = {
-      name: this.currentPackage.name,
-      services: this.currentPackage.services,
-      validityPeriods: [this.chosenValidityPeriod],
-      optionalProducts: this.selectedOptionals
-    }
+    let chosenPackage = new ChosenPackage(this.currentPackage.name, this.currentPackage.services, this.chosenValidityPeriod, this.selectedOptionals, this.chosenDate);
+    console.log(chosenPackage)
     this.model.putBean(Const.CHOSEN_PACKAGE, chosenPackage);
     this.router.navigate(['confirmation']);
   }
@@ -74,6 +72,10 @@ export class BuyPageComponent implements OnInit {
 
   getValidityPeriod(validity: ValidityPeriod): void {
     this.chosenValidityPeriod = validity;
+  }
+
+  getDate(date: Date) {
+    this.chosenDate = date;
   }
 
 }

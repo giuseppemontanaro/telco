@@ -1,4 +1,4 @@
-export class Service {
+export abstract class Service {
 
     private _title: string;
 
@@ -13,4 +13,6 @@ export class Service {
     public set title(title: string) {
         this._title = title;
     }
+
+    public abstract get cost(): number
 }

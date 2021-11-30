@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.packageDao.getPackages()
       .subscribe(packages => this.packages = packages)
-    console.log(this.packages)
   }
 
   goToBuyPage(): void {

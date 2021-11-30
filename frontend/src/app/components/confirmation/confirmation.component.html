@@ -4,16 +4,18 @@
 <ul>
     <li *ngFor="let service of chosenPackage.services">{{service.title}}</li>
 </ul>
-<h2>validity period: {{chosenPackage.validityPeriods[0].monthsNumber}} months</h2>
+<h2>validity period: {{chosenPackage.validityPeriod.monthsNumber}} months</h2>
 <h2>optional products:</h2>
 <ul>
     <li *ngFor="let optional of chosenPackage.optionalProducts">{{optional.name}}</li>
 </ul>
+<h2>total: {{chosenPackage.totalCost}}$</h2>
 
-<ng-container *ngIf="false; then loggedIn; else notLogged">
+<ng-container *ngIf="isLoggedIn; then loggedIn; else notLogged">
 </ng-container>
 <ng-template #loggedIn>
-    <button (click)="buy()" mat-raised-button color="primary">Buy</button>
+    <button (click)="buy(false)" mat-raised-button color="primary">Buy</button>
+    <button (click)="buy(true)" mat-raised-button color="warn">Buy</button>
 </ng-template>
 <ng-template #notLogged>
     <button (click)="toLogin()" mat-raised-button color="primary">Log in</button>

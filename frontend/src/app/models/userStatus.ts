@@ -1,4 +1,5 @@
 export enum UserStatus {
     Insolvent = 'Insolvent',
-    Solvent = 'Solvent'
+    Solvent = 'Solvent',
+    Disposed = 'Disposed'
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card class="buy-card">
     <mat-card-title>Choose your configuration</mat-card-title>
-    <form [formGroup]="buyForm">
+    <form [formGroup]="buyForm" (ngSubmit)="goToConfirmation()">
       <mat-form-field>
         <mat-label>Service Package</mat-label>
         <mat-select formControlName="package" (selectionChange)="updateForm($event.value)">
@@ -23,7 +23,7 @@
         <p *ngIf="!selectedOptionals">No optional products</p>
         <mat-form-field class="opts">
           <mat-label>Optional pruduct</mat-label>
-          <mat-select formControlName="optional" (selectionChange)="setSelectedOptional($event.value)" [disabled]="selectedOptionals.length == optionalsLen">
+          <mat-select formControlName="optional" (selectionChange)="setSelectedOptional($event.value)">
             <mat-option *ngFor="let optional of currentPackage.optionalProducts" [value]="optional">{{optional.name}} -
               ${{optional.monthlyFee}}</mat-option>
           </mat-select>
@@ -43,7 +43,7 @@
 
       <mat-form-field>
         <mat-label>Starting date</mat-label>
-        <input matInput [matDatepicker]="picker1" formControlName="startDate">
+        <input matInput [matDatepicker]="picker1" formControlName="startDate" (dateChange)="getDate($event.value)">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error>starting date is required</mat-error>

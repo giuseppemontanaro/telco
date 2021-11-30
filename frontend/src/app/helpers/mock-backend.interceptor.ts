@@ -21,8 +21,20 @@ export class MockBackendInterceptor implements HttpInterceptor {
   constructor(private model: ModelService) {
     model.putBean(Const.MOCK_DB, {
       users: [
-        { id: 1, username: 'user', password: 'password', email: 'user.@email.it', role: Role.User },
-        { id: 2, username: 'employee', password: 'password', email: 'employee@etelco.it', role: Role.Emplyee }
+        {
+          id: 1, username: 'user', password: 'password', email: 'user.@email.it', role: Role.User,
+          orders: {
+            accepted: [],
+            rejected: []
+          }
+        },
+        {
+          id: 2, username: 'employee', password: 'password', email: 'employee@etelco.it', role: Role.Emplyee,
+          orders: {
+            accepted: [],
+            rejected: []
+          }
+        }
       ],
       packages: [
         {
@@ -78,12 +90,18 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.getPackageDetails(params);
       case url.endsWith('/packages/confirm') && method === 'POST':
         return this.getPackageDetails(params);
+      case url.endsWith('/createorder') && method === 'POST':
+        return this.createOrder(body);
       default:
         return next.handle(request);
     }
   }
 
-  getPackageDetails(params: HttpParams): Observable<HttpEvent<any>> {
+  private createOrder(body: any): Observable<HttpEvent<any>> {
+    return this.ok({});
+  }
+
+  private getPackageDetails(params: HttpParams): Observable<HttpEvent<any>> {
     let packages = this.model.getBean(Const.MOCK_DB).packages;
     const chosen = params.get("package") as string;
     return this.ok(packages.find((elem: Package) => elem.name = chosen))
