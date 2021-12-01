@@ -1,0 +1,21 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="Telco" transaction-type="RESOURCE_LOCAL">    
+    
+        <class>it.polimi.model.entities.Service</class>
+        <class>it.polimi.model.entities.User</class>
+        <class>it.polimi.model.entities.Order</class>
+        <validation-mode>NONE</validation-mode>
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/Telco" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password"
+				value="06011998" />
+            <property name="eclipselink.logging.level" value="FINE"/>
+
+            <!-- enable this property to see SQL and other logging -->
+        </properties>
+    </persistence-unit>
+</persistence>
