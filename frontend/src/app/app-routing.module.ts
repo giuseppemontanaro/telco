@@ -6,6 +6,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/role';
 import { BuyPageComponent } from './components/buy-page/buy-page.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { EmployeeHomeComponent } from './components/employee-home/employee-home.component';
 
 const routes: Routes = [
   { 
@@ -24,12 +25,12 @@ const routes: Routes = [
     path: 'confirmation', 
     component: ConfirmationComponent,
   },
-  // {
-  //   path: 'employee',
-  //   component: AdminComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: [Role.Emplyee] }
-  // },
+  {
+     path: 'employee-home',
+     component: EmployeeHomeComponent,
+     canActivate: [AuthGuard],
+     data: { roles: [Role.Emplyee] }
+   },
   { path: '**', redirectTo: 'login' }
 ];
 

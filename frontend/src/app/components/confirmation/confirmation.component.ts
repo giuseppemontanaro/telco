@@ -7,6 +7,7 @@ import { ChosenPackage } from 'src/app/models/chosenPackage';
 import { Order } from 'src/app/models/order';
 import { UserStatus } from 'src/app/models/userStatus';
 
+
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -34,6 +35,7 @@ export class ConfirmationComponent implements OnInit {
     }
     const user = this.model.getBean(Const.USER);
     this.orderDao.createOrder({order: order, isRejected: isRejected, user: user});
+    this.router.navigate(['/home']);
   }
 
   toLogin() {

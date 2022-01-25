@@ -3,10 +3,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserDaoService } from 'src/app/services/user-dao.service';
 import { User } from 'src/app/models/user';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ModelService } from 'src/app/services/model.service';
 import { Const } from 'src/app/shared/constants';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-login',
@@ -104,8 +105,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(user.username, user.password)
       .subscribe((response) => {
         if (!!response) {
-          this.model.putBean(Const.USER, user);
-          this.isLandingFromLogin ? this.router.navigate(['confirmation']) : this.router.navigate(['home'])
+          this.model.putBean(Const.USER, response);
+          if (response.role == Role.Emplyee) {
+            this.router.navigate(['employee-home']);
+            return;
+          }
+           this.isLandingFromLogin ? this.router.navigate(['confirmation']) : this.router.navigate(['home'])
         } else {
           console.log("user not found")
         }

@@ -20,7 +20,6 @@ export class AppComponent {
     this.model.getBean$(Const.USER).subscribe(
       user => {
         this.user = user
-        console.log(user)
       }
     )
   }

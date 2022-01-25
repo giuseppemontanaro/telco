@@ -1,5 +1,7 @@
 <h1 *ngFor="let package of packages">{{package.name}}</h1>
 
+<h1 *ngFor="let order of rejected; let i = index" [attr.data-index]="i" (click)="toConfirmation(i)">{{order}}</h1>
+
 <button mat-fab color="primary" (click)="goToBuyPage()">
     <mat-icon>add_shopping_cart</mat-icon>
 </button>

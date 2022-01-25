@@ -79,6 +79,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const { url, method, headers, body, params } = request;
 
+    console.log(request)
     switch (true) {
       case url.endsWith('/auth/login') && method === 'POST':
         return this.authenticate(body);
@@ -90,15 +91,35 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.getPackageDetails(params);
       case url.endsWith('/packages/confirm') && method === 'POST':
         return this.getPackageDetails(params);
-      case url.endsWith('/createorder') && method === 'POST':
+      case url.endsWith('/order/create') && method === 'POST':
         return this.createOrder(body);
+      case url.endsWith('/order/rejected') && method === 'POST':
+        return this.getRejectedOrders(body);
       default:
         return next.handle(request);
     }
   }
 
   private createOrder(body: any): Observable<HttpEvent<any>> {
+    let mockDb = this.model.getBean(Const.MOCK_DB);
+    let users = mockDb.users
+    let user = users.find((x: any) => (x.username === body.username));
+    // body.isRejected ? user.orders.rejected.push(body.order) : user.orders.accepted.push(body.order);
+    // users.array.forEach((element: any) => {
+    //   if (element.username === body.username) {
+    //     element = user
+    //   }
+    // });
+    mockDb.users = users;
+    this.model.putBean(Const.MOCK_DB, mockDb);
     return this.ok({});
+  }
+
+  private getRejectedOrders(body: any): Observable<HttpEvent<any>> {
+    let users = this.model.getBean(Const.MOCK_DB).users
+    console.log(users)
+    const user = users.find((x: any) => (x.username === body.username));
+    return this.ok(user.orders.rejected);
   }
 
   private getPackageDetails(params: HttpParams): Observable<HttpEvent<any>> {

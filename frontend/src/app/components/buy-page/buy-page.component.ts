@@ -55,7 +55,6 @@ export class BuyPageComponent implements OnInit {
 
   goToConfirmation(): void {
     let chosenPackage = new ChosenPackage(this.currentPackage.name, this.currentPackage.services, this.chosenValidityPeriod, this.selectedOptionals, this.chosenDate);
-    console.log(chosenPackage)
     this.model.putBean(Const.CHOSEN_PACKAGE, chosenPackage);
     this.router.navigate(['confirmation']);
   }

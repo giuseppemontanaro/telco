@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { EmployeeHomeComponent } from './components/employee-home/employee-home.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatMenuModule } from '@angular/material/menu';
     LoginComponent,
     HomeComponent,
     BuyPageComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    EmployeeHomeComponent
   ],
   imports: [
     BrowserModule,
