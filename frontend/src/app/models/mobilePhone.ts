@@ -1,7 +1,7 @@
 import { Service } from './service';
 
 export class MobilePhone extends Service {
-
+    
     private _minutes: number;
     private _sms: number;
     private _minutesExtraFee: number;
@@ -27,7 +27,7 @@ export class MobilePhone extends Service {
     public get sms(): number {
         return this._sms;
     }
-
+    
     public set sms(value: number) {
         this._sms = value;
     }
@@ -35,7 +35,7 @@ export class MobilePhone extends Service {
     public get minutesExtraFee(): number {
         return this._minutesExtraFee;
     }
-
+    
     public set minutesExtraFee(value: number) {
         this._minutesExtraFee = value;
     }
@@ -43,7 +43,7 @@ export class MobilePhone extends Service {
     public get smsExtraFee(): number {
         return this._smsExtraFee;
     }
-
+    
     public set smsExtraFee(value: number) {
         this._smsExtraFee = value;
     }

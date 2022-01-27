@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { mockBackendProvider } from './helpers/mock-backend.interceptor';
@@ -52,7 +54,9 @@ import { EmployeeHomeComponent } from './components/employee-home/employee-home.
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

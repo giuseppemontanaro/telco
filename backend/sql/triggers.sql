@@ -3,7 +3,7 @@ CREATE TABLE service_package_view(service_pkg_id INT, total INT, total_val_per_1
 
 CREATE TABLE insolvent_users_view(user ddl);
 
-CREATE TABLE suspended_order(order ddl);
+CREATE TABLE suspended_order_view(order ddl);
 
 CREATE TABLE alert_view(user_id INT, username VARCHAR(30), email VARCHAR(30), order_id INT, amount DOUBLE, last_rejection_date DATETIME);
 

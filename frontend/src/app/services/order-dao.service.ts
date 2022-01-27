@@ -21,8 +21,6 @@ export class OrderDaoService {
   }
 
   createOrder(orderDTO: any) {
-    console.log(`${this.baseUrl}/order/create`)
-    console.log(orderDTO)
     return this.http.post<any>(`${this.baseUrl}/order/create`, orderDTO, this.httpOptions)
       .pipe(
         catchError(

@@ -9,7 +9,15 @@ export class ChosenPackage {
     _validityPeriod: ValidityPeriod;
     _optionalProducts: OptionalProduct[];
     private _startDate: Date;
-
+    
+    constructor(name: string, services: Service[], validityPeriod: ValidityPeriod, optionalProducts: OptionalProduct[], startDate: Date) {
+        this._name = name;
+        this._services = services;
+        this._validityPeriod = validityPeriod;
+        this._optionalProducts = optionalProducts; 
+        this._startDate = startDate;
+    }
+    
     public get startDate(): Date {
         return this._startDate;
     }
@@ -47,14 +55,6 @@ export class ChosenPackage {
     }
     public set services(value: Service[]) {
         this._services = value;
-    }
-
-    constructor(name: string, services: Service[], validityPeriod: ValidityPeriod, optionalProducts: OptionalProduct[], startDate: Date) {
-        this._name = name;
-        this._services = services;
-        this._validityPeriod = validityPeriod;
-        this._optionalProducts = optionalProducts; 
-        this._startDate = startDate;
     }
 
     public get totalCost(): number {

@@ -1,7 +1,7 @@
 import { Service } from './service';
 
 export class MobileInternet extends Service {
-
+    
     private _gigabytes: number;
     private _gigabytesExtraFee: number;
     
@@ -23,7 +23,7 @@ export class MobileInternet extends Service {
     public get gigabytesExtraFee(): number {
         return this._gigabytesExtraFee;
     }
-
+    
     public set gigabytesExtraFee(value: number) {
         this._gigabytesExtraFee = value;
     }

@@ -27,5 +27,5 @@ export class FixedInternet extends Service {
     public set gigabytesExtraFee(value: number) {
         this._gigabytesExtraFee = value;
     }
-    
+
 }

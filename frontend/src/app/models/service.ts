@@ -14,5 +14,4 @@ export abstract class Service {
         this._title = title;
     }
 
-    public abstract get cost(): number
 }

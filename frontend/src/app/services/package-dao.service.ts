@@ -35,4 +35,14 @@ export class PackageDaoService {
         )
       );
   }
+  
+  addPackage(packageToAdd: Package) {
+    return this.http.post<any>(`${this.baseUrl}/packages/add`, packageToAdd)
+      .pipe(
+        catchError(
+          handleError<any>('authUser', undefined)
+        )
+      );
+  }
+
 }
