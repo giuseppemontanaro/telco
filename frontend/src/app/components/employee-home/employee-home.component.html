@@ -65,7 +65,7 @@
                 <mat-label>36 months cost</mat-label>
                 <input formControlName="cost36" [(ngModel)]="months36Cost" matInput type="number" placeholder="Cost"
                     min="1">
-                    <span matPrefix>$&nbsp;</span>
+                <span matPrefix>$&nbsp;</span>
                 <mat-error>36 months cost is required</mat-error>
             </mat-form-field>
 
@@ -96,7 +96,139 @@
 
         </form>
     </mat-tab>
-    <mat-tab label="Sales report">
 
+
+    <mat-tab label="Sales report">
+        <h1>Service package report</h1>
+        <table mat-table [dataSource]="report.servicesReports" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="purchasestotal">
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let element"> {{element.purchasestotal}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="purchases12months">
+                <th mat-header-cell *matHeaderCellDef> Purchases 12 months </th>
+                <td mat-cell *matCellDef="let element"> {{element.purchases12months}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="purchases24months">
+                <th mat-header-cell *matHeaderCellDef> Purchases 24 months </th>
+                <td mat-cell *matCellDef="let element"> {{element.purchases24months}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="purchases36months">
+                <th mat-header-cell *matHeaderCellDef> Purchases 36 months </th>
+                <td mat-cell *matCellDef="let element"> {{element.purchases36months}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalSales">
+                <th mat-header-cell *matHeaderCellDef> Total sales </th>
+                <td mat-cell *matCellDef="let element"> {{element.totalSales}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="salesWithOptionals">
+                <th mat-header-cell *matHeaderCellDef> Total sales with optional products</th>
+                <td mat-cell *matCellDef="let element"> {{element.salesWithOptionals}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="avgOptionals">
+                <th mat-header-cell *matHeaderCellDef> Average optional products </th>
+                <td mat-cell *matCellDef="let element"> {{element.avgOptionals}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsServicesTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsServicesTable;"></tr>
+        </table>
+
+        <h1>Insolvent users</h1>
+        <table mat-table [dataSource]="report.insolventsUsers" class="mat-elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> E-mail </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsUsersTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsUsersTable;"></tr>
+        </table>
+
+        <h1>Suspended orders</h1>
+        <table mat-table [dataSource]="report.suspendedOrders" class="mat-elevation-z8">
+            <ng-container matColumnDef="creationDate">
+                <th mat-header-cell *matHeaderCellDef> Creation date </th>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.creationDate, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="subscriptionDate">
+                <th mat-header-cell *matHeaderCellDef> Subscription date </th>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.subscriptionDate, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="packageName">
+                <th mat-header-cell *matHeaderCellDef> Package name </th>
+                <td mat-cell *matCellDef="let element"> {{element.package.name}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsOrdersTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsOrdersTable;"></tr>
+        </table>
+
+        <h1>Alerts</h1>
+        <table mat-table [dataSource]="report.alerts" class="mat-elevation-z8">
+            <ng-container matColumnDef="userId">
+                <th mat-header-cell *matHeaderCellDef> User id</th>
+                <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> E-mail </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsAlertTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsAlertTable;"></tr>
+        </table>
+
+        <h1>Best seller optional</h1>
+        <h2>{{ report.bestSellerOptional.name }}</h2>
     </mat-tab>
 </mat-tab-group>

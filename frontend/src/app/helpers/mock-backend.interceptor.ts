@@ -14,6 +14,7 @@ import { Role } from '../models/role';
 import { ModelService } from '../services/model.service';
 import { Const } from '../shared/constants';
 import { Package } from '../models/package';
+import { UserStatus } from '../models/userStatus';
 
 @Injectable()
 export class MockBackendInterceptor implements HttpInterceptor {
@@ -69,7 +70,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
         { title: "Mobile Internet", gigabytes: 10, gigabytesExtraFee: 4 },
         { title: "Mobile Phone", minutes: 200, sms: 300, minutesExtraFee: 1, smsExtraFee: 0.5 },
         { title: "Fixed Internet", gigabytes: 20, gigabytesExtraFee: 3 },
-        { title: "Fixed Phone"}
+        { title: "Fixed Phone" }
       ],
       optionalProducts: [
         { name: "SMS news feed", monthlyFee: 1 },
@@ -105,9 +106,69 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.addOptionalProducts(body);
       case url.endsWith('/services') && method === 'GET':
         return this.getServices();
+      case url.endsWith('/salesreport') && method === 'GET':
+        return this.getSalesReport();
       default:
         return next.handle(request);
     }
+  }
+
+  private getSalesReport() {
+    return this.ok(
+      {
+        servicesReports: [
+          {
+            name: 'Basic',
+            purchasestotal: 3,
+            purchases12months: 2,
+            purchases24months: 4,
+            purchases36months: 5,
+            totalSales: 6,
+            salesWithOptionals: 7,
+            avgOptionals: 8
+          },
+          {
+            name: 'Family',
+            purchasestotal: 3,
+            purchases12months: 2,
+            purchases24months: 4,
+            purchases36months: 5,
+            totalSales: 6,
+            salesWithOptionals: 7,
+            avgOptionals: 8
+          }
+        ],
+        insolventsUsers: [
+          { id: 1, username: 'user', password: '', email: 'user.@email.it', role: Role.User }
+        ],
+        suspendedOrders: [
+          {
+            creationDate: Date.now(),
+            total: 231,
+            subscriptionDate: Date.now(),
+            status: 'status',
+            package: { name: 'package' },
+          }
+        ],
+        alerts: [
+          {
+            userId: '1234',
+            username: 'pippo',
+            email: 'pippo@email.it',
+            amount: 23,
+            date: Date.now()
+          },
+          {
+            userId: '5678',
+            username: 'pluto',
+            email: 'pluto@email.it',
+            amount: 65,
+            date: Date.now()
+          }
+        ],
+        bestSellerOptional: { name: "SMS news feed", monthlyFee: 1 }
+      }
+    );
   }
 
   private addOptionalProducts(body: any) {

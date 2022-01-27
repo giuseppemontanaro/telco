@@ -12,7 +12,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
 import { HomeComponent } from './components/home/home.component';
 import { mockBackendProvider } from './helpers/mock-backend.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
@@ -56,7 +58,9 @@ import { EmployeeHomeComponent } from './components/employee-home/employee-home.
     MatNativeDateModule,
     MatMenuModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
