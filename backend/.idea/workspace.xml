@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b6441d8e-c835-4dfd-82a4-53c9baef8c71" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/buy-page/buy-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/buy-page/buy-page.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/confirmation/confirmation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/confirmation/confirmation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/confirmation/confirmation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/confirmation/confirmation.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/employee-home/employee-home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/employee-home/employee-home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/employee-home/employee-home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/employee-home/employee-home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/home/home.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="24KksjmRIHLkIjgAdvubya9jqFK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6441d8e-c835-4dfd-82a4-53c9baef8c71" name="Changes" comment="" />
+      <created>1643386874974</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1643386874974</updated>
+    </task>
+    <servers />
+  </component>
+</project>

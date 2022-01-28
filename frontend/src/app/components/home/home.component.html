@@ -1,7 +1,19 @@
-<h1 *ngFor="let package of packages">{{package.name}}</h1>
+<div class="background">
+    <mat-card *ngFor="let package of packages" class="package">
+        <h2>{{package.name}}</h2>
+        <h3>Services:</h3>
+        <div *ngFor="let service of package.services">
+            <h4>{{service.title}}</h4>
+            <h5>{{printDetails(service)}}</h5>
+        </div>
 
-<h1 *ngFor="let order of rejected; let i = index" [attr.data-index]="i" (click)="toConfirmation(i)">{{order}}</h1>
+        <h2>Optional products:</h2>
+        <h3 *ngFor="let optional of package.optionalProducts">{{optional.name}} - ${{optional.monthlyFee}}/month</h3>
+    </mat-card>
 
-<button mat-fab color="primary" (click)="goToBuyPage()">
-    <mat-icon>add_shopping_cart</mat-icon>
-</button>
+    <h1 *ngFor="let order of rejected; let i = index" [attr.data-index]="i" (click)="toConfirmation(i)">{{order}}</h1>
+
+    <button mat-fab color="primary" (click)="goToBuyPage()">
+        <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+</div>

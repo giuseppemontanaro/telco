@@ -1,16 +1,21 @@
-mat-grid-list {
-    margin: 3% 13%;
+.background {
+    height: 93.75%;
+    width: 100%;
+    background-color: #cd533b;
+    display: grid;
 
-    mat-grid-tile {
-        border: solid #cd533b 5px;
-        font-size: 3rem;
+    mat-card {
+        margin: 2rem;
     }
 
-}
+    button {
+        position: absolute;
+        z-index: 10;
+        top: 90vh;
+        right: 4vw;
+    }
 
-button {
-    position: absolute;
-    z-index: 10;
-    top: 90vh;
-    right: 4vw;
+    .package {
+        width: 30%;
+    }
 }

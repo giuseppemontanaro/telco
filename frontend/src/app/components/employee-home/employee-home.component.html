@@ -1,78 +1,84 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Create service package">
-        <form [formGroup]="createPackageForm" (ngSubmit)="createServicePackage()">
-            <mat-form-field>
-                <mat-label>Service package name</mat-label>
-                <input formControlName="name" [(ngModel)]="nameService" matInput>
-                <mat-error>Service package name is required</mat-error>
-            </mat-form-field>
+        <div class="container">
+            <mat-card>
+                <form [formGroup]="createPackageForm" (ngSubmit)="createServicePackage()">
+                    <mat-form-field>
+                        <mat-label>Service package name</mat-label>
+                        <input formControlName="name" [(ngModel)]="nameService" matInput>
+                        <mat-error>Service package name is required</mat-error>
+                    </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Optional pruduct</mat-label>
-                <mat-select formControlName="optionals" (selectionChange)="setCurrentOptional($event.value)">
-                    <mat-option *ngFor="let optional of optionals" [value]="optional">{{optional.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button type="button" mat-mini-fab color="primary" (click)="addOptional()"
-                [disabled]="!currentOptional || optionals.length == 0">
-                <mat-icon>add</mat-icon>
-            </button>
-            <ul>
-                <li *ngFor="let optional of selectedOptionals; let i = index" [attr.data-index]="i">
-                    <p>{{optional.name}}</p>
-                    <button type="button" mat-icon-button (click)="removeOptional(i)">
-                        <mat-icon>close</mat-icon>
+                    <mat-form-field>
+                        <mat-label>Optional pruduct</mat-label>
+                        <mat-select formControlName="optionals" (selectionChange)="setCurrentOptional($event.value)">
+                            <mat-option *ngFor="let optional of optionals" [value]="optional">{{optional.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="primary" (click)="addOptional()"
+                        [disabled]="!currentOptional || optionals.length == 0">
+                        <mat-icon>add</mat-icon>
                     </button>
-                </li>
-            </ul>
+                    <ul>
+                        <li *ngFor="let optional of selectedOptionals; let i = index" [attr.data-index]="i">
+                            <p>{{optional.name}}</p>
+                            <button type="button" mat-icon-button (click)="removeOptional(i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
 
-            <mat-form-field>
-                <mat-label>Services</mat-label>
-                <mat-select formControlName="services" (selectionChange)="setSelectedServices($event.value)">
-                    <mat-option *ngFor="let service of services" [value]="service">{{service.title}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button type="button" mat-mini-fab color="primary" (click)="addService()"
-                [disabled]="!currentService || services.length == 0">
-                <mat-icon>add</mat-icon>
-            </button>
-            <ul>
-                <li *ngFor="let service of selectedServices; let i = index" [attr.data-index]="i">
-                    <p>{{service.title}}</p>
-                    <button type="button" mat-icon-button (click)="removeService(i)">
-                        <mat-icon>close</mat-icon>
+                    <mat-form-field>
+                        <mat-label>Services</mat-label>
+                        <mat-select formControlName="services" (selectionChange)="setSelectedServices($event.value)">
+                            <mat-option *ngFor="let service of services" [value]="service">{{service.title}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="primary" (click)="addService()"
+                        [disabled]="!currentService || services.length == 0">
+                        <mat-icon>add</mat-icon>
                     </button>
-                </li>
-            </ul>
+                    <ul>
+                        <li *ngFor="let service of selectedServices; let i = index" [attr.data-index]="i">
+                            <p>{{service.title}}</p>
+                            <button type="button" mat-icon-button (click)="removeService(i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
 
-            <mat-form-field>
-                <mat-label>12 months cost</mat-label>
-                <input formControlName="cost12" [(ngModel)]="months12Cost" matInput type="number" placeholder="Cost"
-                    min="1">
-                <mat-error>12 months cost is required</mat-error>
-                <span matPrefix>$&nbsp;</span>
-            </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>12 months cost</mat-label>
+                        <input formControlName="cost12" [(ngModel)]="months12Cost" matInput type="number"
+                            placeholder="Cost" min="1">
+                        <mat-error>12 months cost is required</mat-error>
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>24 months cost</mat-label>
-                <input formControlName="cost24" [(ngModel)]="months24Cost" matInput type="number" placeholder="Cost"
-                    min="1">
-                <mat-error>24 months cost is required</mat-error>
-                <span matPrefix>$&nbsp;</span>
-            </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>24 months cost</mat-label>
+                        <input formControlName="cost24" [(ngModel)]="months24Cost" matInput type="number"
+                            placeholder="Cost" min="1">
+                        <mat-error>24 months cost is required</mat-error>
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>36 months cost</mat-label>
-                <input formControlName="cost36" [(ngModel)]="months36Cost" matInput type="number" placeholder="Cost"
-                    min="1">
-                <span matPrefix>$&nbsp;</span>
-                <mat-error>36 months cost is required</mat-error>
-            </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>36 months cost</mat-label>
+                        <input formControlName="cost36" [(ngModel)]="months36Cost" matInput type="number"
+                            placeholder="Cost" min="1">
+                        <span matPrefix>$&nbsp;</span>
+                        <mat-error>36 months cost is required</mat-error>
+                    </mat-form-field>
 
-            <button (click)="createServicePackage()" type="submit" mat-raised-button color="primary"
-                [disabled]="!createPackageForm.valid || !selectedServices.length">Confirm</button>
+                    <button (click)="createServicePackage()" type="submit" mat-raised-button color="primary"
+                        [disabled]="!createPackageForm.valid || !selectedServices.length">Confirm</button>
 
-        </form>
+                </form>
+            </mat-card>
+        </div>
     </mat-tab>
 
 
@@ -170,7 +176,8 @@
         <table mat-table [dataSource]="report.suspendedOrders" class="mat-elevation-z8">
             <ng-container matColumnDef="creationDate">
                 <th mat-header-cell *matHeaderCellDef> Creation date </th>
-                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.creationDate, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.creationDate, 'yyyy-MM-dd
+                    HH:mm:ss', 'it')}} </td>
             </ng-container>
 
             <ng-container matColumnDef="total">
@@ -180,7 +187,8 @@
 
             <ng-container matColumnDef="subscriptionDate">
                 <th mat-header-cell *matHeaderCellDef> Subscription date </th>
-                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.subscriptionDate, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.subscriptionDate, 'yyyy-MM-dd
+                    HH:mm:ss', 'it')}} </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
@@ -221,7 +229,8 @@
 
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef> Date </th>
-                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date, 'yyyy-MM-dd HH:mm:ss', 'it')}} </td>
+                <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date, 'yyyy-MM-dd HH:mm:ss',
+                    'it')}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsAlertTable"></tr>
