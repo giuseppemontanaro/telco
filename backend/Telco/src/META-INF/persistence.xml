@@ -4,6 +4,8 @@
         <class>it.polimi.model.entities.Service</class>
         <class>it.polimi.model.entities.User</class>
         <class>it.polimi.model.entities.Order</class>
+        <class>it.polimi.model.entities.ServicePackage</class>
+        <class>it.polimi.model.entities.Product</class>
         <validation-mode>NONE</validation-mode>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"

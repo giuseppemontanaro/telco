@@ -12,6 +12,7 @@ import it.polimi.model.entities.Order;
 import it.polimi.model.entities.User;
 import it.polimi.model.exceptions.CredentialsException;
 import it.polimi.model.exceptions.UpdateProfileException;
+import it.polimi.model.exceptions.UserNotFound;
 
 
 public class UserService {
@@ -26,9 +27,9 @@ public class UserService {
 	}
 	
 	
-	public User createUser(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email, int order_id) {
-		Order order = em.find(Order.class, order_id);
-		System.out.println("Is object managed?  " + em.contains(order));
+	public User createUser(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email) {
+		//Order order = em.find(Order.class, order_id);
+		//System.out.println("Is object managed?  " + em.contains(order));
 
 		User user = new User(id);
 		user.setUsername(username);
@@ -36,39 +37,40 @@ public class UserService {
 		user.setInsolvent(isInsolvent);
 		user.setEmployee(isEmployee);
 		user.seteMail(email);
-		user.setOrder(order);
 		em.getTransaction().begin();
 
 		em.persist(user);
 		em.getTransaction().commit();
 		//em.flush();
 		
-
 		return user;
-		
 	}
 	
 	
 	public User findUser(int id) {
-		
-        return em.find(User.class, id);
-		
+        return em.find(User.class, id);	
 	}
 	
 	
-	public User checkCredentials(String usrn, String pwd) throws CredentialsException, CredentialsException, NonUniqueResultException {
+	public List<User> checkCredentials(String usrn, String pwd) throws CredentialsException, CredentialsException, NonUniqueResultException, UserNotFound {
 		List<User> uList = null;
+		System.out.println(usrn + pwd);
+
 		try {
-			uList = em.createNamedQuery("User.checkCredentials", User.class).setParameter(1, usrn).setParameter(2, pwd)
+			uList = em.createNamedQuery("checkCredentials", User.class).setParameter(1, usrn).setParameter(2, pwd)
 					.getResultList();
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Could not verify credentals");
 		
 		}
-		if (uList.isEmpty())
-			return null;
-		else if (uList.size() == 1)
-			return uList.get(0);
+		if (uList.isEmpty()) {
+			throw new UserNotFound("Nessun utente trovato");
+
+		}
+		else if (uList.size() == 1) {
+			return uList;
+		}
+			
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 
 	}

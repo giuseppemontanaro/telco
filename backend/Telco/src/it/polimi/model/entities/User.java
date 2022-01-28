@@ -1,6 +1,7 @@
 package it.polimi.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,14 +9,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 
 @Entity
 @Table(name = "User", schema = "Telco")
+@NamedQuery(name = "checkCredentials", query = "SELECT r FROM User r  WHERE r.Username = ?1 and r.Password = ?2")
+
 
 public class User{
 	
@@ -39,10 +42,9 @@ public class User{
 				* username and surname attributes of the user and do not want to cascade
 				* detached changes to relationship.
 			*/
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
-	@JoinColumn(name="orderid")
-	private Order order;
+	private List<Order> orders;
 
 	public User() {
 	}
@@ -51,12 +53,11 @@ public class User{
 	public User(int id) {
 		this.id = id;
 		
-		// TODO Auto-generated constructor stub
 	}
 	
 
 
-	public User(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email, Order order) {
+	public User(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.Username = username;
@@ -64,18 +65,7 @@ public class User{
 		this.isInsolvent = isInsolvent;
 		this.isEmployee = isEmployee;
 		this.eMail = email;
-		this.order = order;
 		
-	}
-
-
-	public Order getOrder() {
-		return order;
-	}
-
-
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 
 
@@ -140,6 +130,9 @@ public class User{
 		this.eMail = eMail;
 	}
 	
+	public List<Order> getOrders() {
+		return this.orders;
+	}
 	
 	
 	
