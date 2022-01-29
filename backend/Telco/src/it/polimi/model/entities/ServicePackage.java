@@ -40,6 +40,18 @@ public class ServicePackage {
 	private Collection<Product> products;
 	
 	
+	@ManyToMany 
+	@JoinTable(name="service_package_service",
+			joinColumns=@JoinColumn(name="service_package_fk"),
+			inverseJoinColumns=@JoinColumn(name="service_fk"))
+	private Collection<Service> services;
+	
+	@ManyToMany 
+	@JoinTable(name="service_package_validity_period",
+			joinColumns=@JoinColumn(name="service_package_fk"),
+			inverseJoinColumns=@JoinColumn(name="validity_period_fk"))
+	private Collection<ValidityPeriod> periods;
+	
 	public ServicePackage() {
 		
 	}
@@ -87,8 +99,38 @@ public class ServicePackage {
 	}
 	
 	
+	
+	public Collection<Service> getServices() {
+		return services;
+	}
+
+
+	public void setServices(Collection<Service> services) {
+		this.services = services;
+	}
+
+
+
+	public Collection<ValidityPeriod> getPeriods() {
+		return periods;
+	}
+
+
+	public void setPeriods(Collection<ValidityPeriod> periods) {
+		this.periods = periods;
+	}
+
+
 	public void addProduct(Product p) {
 		this.getProducts().add(p);
+	}
+	
+	public void addService(Service s) {
+		this.getServices().add(s);
+	}
+	
+	public void addPeriod(ValidityPeriod s) {
+		this.getPeriods().add(s);
 	}
 	
 

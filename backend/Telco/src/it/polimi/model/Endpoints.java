@@ -47,14 +47,14 @@ public class Endpoints {
 			SrvServicePackage srvpck = new SrvServicePackage(em);
 			
 			
-			@RequestMapping(
-				    value = "/auth/signUp", 
-				    method = RequestMethod.POST)
-			public void signUp(@RequestParam Map<String, String> payload){
-				System.out.println("Created " + payload.get("test"));
+			@PostMapping("/auth/signUp")		
+			@ResponseBody
+			public void signUp(@RequestBody User user){
 
-				//User user = usersrv.createUser(body.getId(), body.getUsername(), body.getPassword(), false, body.isInsolvent(), body.geteMail());
-				//System.out.println("Created " + user);
+				System.out.println(user.getId() + user.getUsername()+ user.getPassword()+ user.isEmployee() + user.isInsolvent()+ user.geteMail());
+
+				User user2 = usersrv.createUser(user.getId(), user.getUsername(), user.getPassword(), user.isEmployee() , user.isInsolvent(), user.geteMail());
+				System.out.println("Created " + user2);
 			}
 			
 			@PostMapping("/auth/login")		

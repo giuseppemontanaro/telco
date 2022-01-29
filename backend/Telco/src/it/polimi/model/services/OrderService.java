@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.model.entities.Order;
+import it.polimi.model.entities.Product;
 import it.polimi.model.entities.ServicePackage;
 import it.polimi.model.entities.User;
 import it.polimi.model.entities.ValidityPeriod;
@@ -44,26 +45,22 @@ public class OrderService {
 
 		em.persist(order);
 		em.getTransaction().commit();
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	
+	public Order addProduct(int productid, int orderid) {
+		Product p = em.find(Product.class, productid);
+		Order s = em.find(Order.class, orderid);
+		if (!s.getProducts().contains(p))
+			s.addProduct(p);
+		
+		em.getTransaction().begin();
 
+		em.persist(s);
+		em.getTransaction().commit();
+		return s;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 
 }

@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 
-import it.polimi.model.entities.Order;
 import it.polimi.model.entities.User;
 import it.polimi.model.exceptions.CredentialsException;
 import it.polimi.model.exceptions.UpdateProfileException;

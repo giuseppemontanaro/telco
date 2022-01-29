@@ -1,6 +1,7 @@
 package it.polimi.model.entities;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,8 +20,6 @@ import javax.persistence.Table;
 @Table(name = "ordering", schema = "Telco")
 
 public class Order{
-	//		//To generate automatically primary keys
-
 	
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +44,14 @@ public class Order{
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_foreignk")
 	private User user;
+	
+	
+	@ManyToMany 
+	@JoinTable(name="order_product",
+			joinColumns=@JoinColumn(name="order_fk"),
+			inverseJoinColumns=@JoinColumn(name="product_fk"))
+	private Collection<Product> products;
+	
 	
 	public Order(int ID, float total, String status, LocalDate subscription_date, LocalDate date, ValidityPeriod val_period, ServicePackage service_pkg, User user) {
 		this.ID = ID;
@@ -104,6 +113,18 @@ public class Order{
 
 	public void setSubscription_date(LocalDate subscription_date) {
 		this.subscription_date = subscription_date;
+	}
+
+	public Collection<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
+	}
+	
+	public void addProduct(Product p) {
+		this.getProducts().add(p);
 	}
 
 

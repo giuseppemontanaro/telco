@@ -35,13 +35,16 @@ public class Launcher{
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("Telco");	
 		SpringApplication.run(Launcher.class, args);
 		Endpoints server = new Endpoints();
-		/*EntityManager em = emf.createEntityManager();
+		//EntityManager em = emf.createEntityManager();
+		/*
 		SrvService service = new SrvService(em);
-		OrderService rd = new OrderService(em);
+		
 		UserService usersrv = new UserService(em);
-		SrvServicePackage srvpck = new SrvServicePackage(em);
 		
 		*/
+		//OrderService rd = new OrderService(em);
+		//SrvServicePackage srvpck = new SrvServicePackage(em);
+
 		
 		//OKOKOKOKOK
 		/*
@@ -99,12 +102,25 @@ public class Launcher{
 		*/
 		
 		
-		//MODIFICA MANY_TO_MANY TABLE TRA SERVICEPACKAGE E PRODUCT
+		//MODIFICA MANY_TO_MANY TABLE 
 		/*ServicePackage srvp; 
 		srvp = srvpck.addSrvPkg(3,2);
 		System.out.println(srvp);
 		*/
-	//L'IDEA è CHE PROBABILEMTE SIA NECESSARIO FARE UNA TABELLA DI JOIN TRA SERVICE PACKAGE, PRODUCT E VALIDITY PERIOD.
+		
+		
+		//Order r;
+		//r = rd.addOrder(1,3);
+		//System.out.println(r);
+		
+		
+		//ServicePackage s;
+		//s = srvpck.addService(2, 2);
+		//System.out.println(s);
+		
+		//ServicePackage s;
+		//s = srvpck.addPeriod(1, 2);
+		//System.out.println(s);
 	
 	}
 	

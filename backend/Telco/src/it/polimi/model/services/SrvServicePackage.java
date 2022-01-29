@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import it.polimi.model.entities.Product;
+import it.polimi.model.entities.Service;
 import it.polimi.model.entities.ServicePackage;
+import it.polimi.model.entities.ValidityPeriod;
 
 
 public class SrvServicePackage {
@@ -34,7 +36,7 @@ public class SrvServicePackage {
 	}
 	
 	
-	public ServicePackage addSrvPkg(int productid, int srvpkgid) {
+	public ServicePackage addProduct(int productid, int srvpkgid) {
 		Product p = em.find(Product.class, productid);
 		ServicePackage s = em.find(ServicePackage.class, srvpkgid);
 		if (!s.getProducts().contains(p))
@@ -45,6 +47,35 @@ public class SrvServicePackage {
 		em.persist(s);
 		em.getTransaction().commit();
 		return s;
+	}
+	
+	
+	public ServicePackage addService(int serviceid, int srvpkgid) {
+		Service s = em.find(Service.class, serviceid);
+		ServicePackage svp = em.find(ServicePackage.class, srvpkgid);
+		if (!svp.getServices().contains(s))
+			svp.addService(s);
+		
+		em.getTransaction().begin();
+
+		em.persist(s);
+		em.getTransaction().commit();
+		return svp;
+	}
+	
+	
+	
+	public ServicePackage addPeriod(int periodid, int srvpkgid) {
+		ValidityPeriod s = em.find(ValidityPeriod.class, periodid);
+		ServicePackage svp = em.find(ServicePackage.class, srvpkgid);
+		if (!svp.getPeriods().contains(s))
+			svp.addPeriod(s);
+		
+		em.getTransaction().begin();
+
+		em.persist(s);
+		em.getTransaction().commit();
+		return svp;
 	}
 	
 	
