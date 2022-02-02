@@ -17,9 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ordering", schema = "Telco")
+@Table(name = "purchase", schema = "Telco")
 
-public class Order{
+public class Purchase{
 	
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,6 @@ public class Order{
 	private String status;
 	private LocalDate subscription_date;
 	
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
-		@JoinColumn(name="val_period_fk")
-	private ValidityPeriod val_period;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
@@ -53,23 +48,22 @@ public class Order{
 	private Collection<Product> products;
 	
 	
-	public Order(int ID, float total, String status, LocalDate subscription_date, LocalDate date, ValidityPeriod val_period, ServicePackage service_pkg, User user) {
+	public Purchase(int ID, float total, String status, LocalDate subscription_date, LocalDate date, ServicePackage service_pkg, User user) {
 		this.ID = ID;
 		this.Date = date;
 		this.total = total; 
 		this.status = status;
 		this.subscription_date = subscription_date;
-		this.val_period = val_period;
 		this.service_pkg = service_pkg;
 		this.user = user;
 	}
 	
-	public Order() {
+	public Purchase() {
 	}
 	
 	
 	
-	public Order(int id) {
+	public Purchase(int id) {
 		this.ID = id;
 	}
 	

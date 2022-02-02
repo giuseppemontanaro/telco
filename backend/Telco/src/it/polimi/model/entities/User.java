@@ -44,7 +44,7 @@ public class User{
 			*/
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
-	private List<Order> orders;
+	private List<Purchase> orders;
 
 	public User() {
 	}
@@ -55,19 +55,6 @@ public class User{
 		
 	}
 	
-
-
-	public User(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email) {
-		// TODO Auto-generated constructor stub
-		this.id = id;
-		this.Username = username;
-		this.Password = password;
-		this.isInsolvent = isInsolvent;
-		this.isEmployee = isEmployee;
-		this.eMail = email;
-		
-	}
-
 
 	public int getId() {
 		return id;
@@ -101,7 +88,7 @@ public class User{
 
 
 
-	public boolean isInsolvent() {
+	public boolean getIsInsolvent() {
 		return isInsolvent;
 	}
 
@@ -111,7 +98,7 @@ public class User{
 	}
 
 
-	public boolean isEmployee() {
+	public boolean getIsEmployee() {
 		return isEmployee;
 	}
 
@@ -130,7 +117,7 @@ public class User{
 		this.eMail = eMail;
 	}
 	
-	public List<Order> getOrders() {
+	public List<Purchase> getOrders() {
 		return this.orders;
 	}
 	
