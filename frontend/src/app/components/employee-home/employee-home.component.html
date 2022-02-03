@@ -11,7 +11,8 @@
 
                     <mat-form-field>
                         <mat-label>Optional pruduct</mat-label>
-                        <mat-select formControlName="optionals" (selectionChange)="setCurrentOptional($event.value)">
+                        <mat-select formControlName="optionals" (selectionChange)="setCurrentOptional($event.value)"
+                            [disabled]="selectedOptionals.length === optionalsLen">
                             <mat-option *ngFor="let optional of optionals" [value]="optional">{{optional.name}}
                             </mat-option>
                         </mat-select>
@@ -31,10 +32,49 @@
 
                     <mat-form-field>
                         <mat-label>Services</mat-label>
-                        <mat-select formControlName="services" (selectionChange)="setSelectedServices($event.value)">
-                            <mat-option *ngFor="let service of services" [value]="service">{{service.title}}
+                        <mat-select formControlName="services" (selectionChange)="setSelectedServices($event.value)"
+                            [disabled]="selectedServices.length === 4">
+                            <mat-option *ngFor="let service of services" [value]="service">{{service}}
                             </mat-option>
                         </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>Gigabytes</mat-label>
+                        <input type="number" [(ngModel)]="gigabytes" min="0" [ngModelOptions]="{standalone: true}"
+                            matInput>
+                        <mat-error>field required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Gigabytes extra fee</mat-label>
+                        <input type="number" [(ngModel)]="gigabytesExtraFee" min="0"
+                            [ngModelOptions]="{standalone: true}" matInput>
+                        <mat-error>field required</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>SMS</mat-label>
+                        <input type="number" [(ngModel)]="sms" min="0" [ngModelOptions]="{standalone: true}" matInput>
+                        <mat-error>field required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>SMS extra fee</mat-label>
+                        <input type="number" [(ngModel)]="smsExtraFee" min="0" [ngModelOptions]="{standalone: true}"
+                            matInput>
+                        <mat-error>field required</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>Minutes</mat-label>
+                        <input type="number" [(ngModel)]="minutes" min="0" [ngModelOptions]="{standalone: true}"
+                            matInput>
+                        <mat-error>field required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Minutes extra fee</mat-label>
+                        <input type="number" [(ngModel)]="minutesExtraFee" min="0" [ngModelOptions]="{standalone: true}"
+                            matInput>
+                        <mat-error>field required</mat-error>
                     </mat-form-field>
                     <button type="button" mat-mini-fab color="primary" (click)="addService()"
                         [disabled]="!currentService || services.length == 0">
@@ -52,23 +92,23 @@
                     <mat-form-field>
                         <mat-label>12 months cost</mat-label>
                         <input formControlName="cost12" [(ngModel)]="months12Cost" matInput type="number"
-                            placeholder="Cost" min="1">
+                            placeholder="Cost" min="0">
                         <mat-error>12 months cost is required</mat-error>
                         <span matPrefix>$&nbsp;</span>
                     </mat-form-field>
-
+                    <br>
                     <mat-form-field>
                         <mat-label>24 months cost</mat-label>
                         <input formControlName="cost24" [(ngModel)]="months24Cost" matInput type="number"
-                            placeholder="Cost" min="1">
+                            placeholder="Cost" min="0">
                         <mat-error>24 months cost is required</mat-error>
                         <span matPrefix>$&nbsp;</span>
                     </mat-form-field>
-
+                    <br>
                     <mat-form-field>
                         <mat-label>36 months cost</mat-label>
                         <input formControlName="cost36" [(ngModel)]="months36Cost" matInput type="number"
-                            placeholder="Cost" min="1">
+                            placeholder="Cost" min="0">
                         <span matPrefix>$&nbsp;</span>
                         <mat-error>36 months cost is required</mat-error>
                     </mat-form-field>
@@ -81,26 +121,29 @@
         </div>
     </mat-tab>
 
-
     <mat-tab label="Create optional product">
-        <form [formGroup]="createOptionalForm" (ngSubmit)="createServicePackage()">
-            <mat-form-field>
-                <mat-label>Optional product name</mat-label>
-                <input formControlName="nameOptional" [(ngModel)]="nameOptional" matInput>
-                <mat-error>Optional product name is required</mat-error>
-            </mat-form-field>
+        <div class="container bigger">
+            <mat-card class="littler">
+                <form [formGroup]="createOptionalForm" (ngSubmit)="createServicePackage()" class="card">
+                    <mat-form-field>
+                        <mat-label>Optional product name</mat-label>
+                        <input formControlName="nameOptional" [(ngModel)]="nameOptional" matInput>
+                        <mat-error>Optional product name is required</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>Optional product monthly fee</mat-label>
+                        <input formControlName="feeOptional" type="number" [(ngModel)]="feeOptional" matInput>
+                        <span matPrefix>$&nbsp;</span>
+                        <mat-error>Optional product monthly fee is required</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <button (click)="createOptional()" type="submit" mat-raised-button color="primary"
+                        [disabled]="!createOptionalForm.valid">Confirm</button>
+                </form>
+            </mat-card>
+        </div>
 
-            <mat-form-field>
-                <mat-label>Optional product monthly fee</mat-label>
-                <input formControlName="feeOptional" type="number" [(ngModel)]="feeOptional" matInput>
-                <span matPrefix>$&nbsp;</span>
-                <mat-error>Optional product monthly fee is required</mat-error>
-            </mat-form-field>
-
-            <button (click)="createOptional()" type="submit" mat-raised-button color="primary"
-                [disabled]="!createOptionalForm.valid">Confirm</button>
-
-        </form>
     </mat-tab>
 
 

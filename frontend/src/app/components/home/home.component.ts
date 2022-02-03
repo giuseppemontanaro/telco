@@ -7,10 +7,8 @@ import { Order } from 'src/app/models/order';
 import { ModelService } from 'src/app/services/model.service';
 import { Const } from 'src/app/shared/constants';
 import { Service } from 'src/app/models/service';
-import { FixedInternet } from 'src/app/models/fixedInternet';
-import { FixedPhone } from 'src/app/models/fixedPhone';
-import { MobileInternet } from 'src/app/models/mobileInternet';
 import { MobilePhone } from 'src/app/models/mobilePhone';
+import { Internet } from 'src/app/models/internet';
 
 @Component({
   selector: 'app-home',
@@ -43,7 +41,7 @@ export class HomeComponent implements OnInit {
 
   printDetails(service: Service) {
     if (service.title == 'Mobile Internet' || service.title == 'Fixed Internet') {
-      return (service as MobileInternet).gigabytes + ' GB - $' + (service as MobileInternet).gigabytesExtraFee + ' extra fee'
+      return (service as Internet).gigabytes + ' GB - $' + (service as Internet).gigabytesExtraFee + ' extra fee'
     } else if (service.title == 'Mobile Phone') {
       return (service as MobilePhone).sms + ' SMS - $' + (service as MobilePhone).smsExtraFee + ' extra fee ' + (service as MobilePhone).minutes + ' minutes - $' + (service as MobilePhone).smsExtraFee + ' extra fee'
     }

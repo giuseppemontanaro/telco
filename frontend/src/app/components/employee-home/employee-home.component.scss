@@ -1,10 +1,40 @@
 .container {
-    height: 93.75%;
-    width: 100%;
+    height: fit-content;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100vw;
     background-color: #cd533b;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    mat-card {
+        width: 50%;
+
+        mat-form-field {
+            margin: 1rem;
+        }
+    }
+
+    .littler {
+        width: 30%;
+
+        mat-form-field {
+            margin: 1rem;
+        }
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        width: 30rem;
+    }
+}
+
+.bigger {
+    height: 89vh;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 table {
