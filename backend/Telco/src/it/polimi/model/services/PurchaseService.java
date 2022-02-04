@@ -12,13 +12,13 @@ import it.polimi.model.entities.ServicePackage;
 import it.polimi.model.entities.User;
 import it.polimi.model.entities.ValidityPeriod;
 
-public class OrderService {
+public class PurchaseService {
 	
 	
 	@PersistenceContext(unitName = "Telco")
 	private EntityManager em;
 	
-	public OrderService(EntityManager em) {
+	public PurchaseService(EntityManager em) {
 		this.em = em;
 	}
 	

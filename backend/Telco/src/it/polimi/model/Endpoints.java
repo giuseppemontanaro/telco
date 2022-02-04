@@ -18,7 +18,7 @@ import it.polimi.model.entities.ServicePackage;
 import it.polimi.model.entities.User;
 import it.polimi.model.exceptions.CredentialsException;
 import it.polimi.model.exceptions.UserNotFound;
-import it.polimi.model.services.OrderService;
+import it.polimi.model.services.PurchaseService;
 import it.polimi.model.services.SrvService;
 import it.polimi.model.services.SrvServicePackage;
 import it.polimi.model.services.UserService;
@@ -42,7 +42,7 @@ public class Endpoints {
 			
 			EntityManager em = emf.createEntityManager();
 			SrvService service = new SrvService(em);
-			OrderService rd = new OrderService(em);
+			PurchaseService rd = new PurchaseService(em);
 			UserService usersrv = new UserService(em);
 			SrvServicePackage srvpck = new SrvServicePackage(em);
 			
@@ -61,7 +61,7 @@ public class Endpoints {
 			public void newOrder(){
 				LocalDate date = LocalDate.now();    
 
-				rd.CreateOrder(100, 100, "ok",  date, date , 1, 2, 1000);
+				rd.CreateOrder(100, 100, "ok",  date, date , 2, 1000);
 			}
 					
 			
