@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.polimi.model.entities.Order;
+import it.polimi.model.entities.Purchase;
 import it.polimi.model.entities.Service;
 import it.polimi.model.entities.ServicePackage;
 
@@ -51,15 +51,23 @@ public class Endpoints {
 			@ResponseBody
 			public void signUp(@RequestBody User user){
 
-				System.out.println(user.getId() + user.getUsername()+ user.getPassword()+ user.isEmployee() + user.isInsolvent()+ user.geteMail());
-
-				User user2 = usersrv.createUser(user.getId(), user.getUsername(), user.getPassword(), user.isEmployee() , user.isInsolvent(), user.geteMail());
-				System.out.println("Created " + user2);
+				usersrv.createUser(user);
+				System.out.println("Created");
 			}
+						
+			
+			@PostMapping("/auth/createOrder")		
+			@ResponseBody
+			public void newOrder(){
+				LocalDate date = LocalDate.now();    
+
+				rd.CreateOrder(100, 100, "ok",  date, date , 1, 2, 1000);
+			}
+					
 			
 			@PostMapping("/auth/login")		
 			@ResponseBody
-			public List<User> test(@RequestBody User user) {
+			public List<User> login(@RequestBody User user) {
 				
 				try {
 
@@ -96,71 +104,6 @@ public class Endpoints {
 	            return list;
 
 			} 
-			
-			
-			
-			
-			
-			
-			
-			
-			//Service srv; 
-			//srv = service.findService(2); 
-			//System.out.println("Found " + srv.getTitle());
-			
-			//service.createService(2, "test2");
-
-			// FUNZIONA RECUPERO ORDINI RELATIVI A USER ID
-			//List<Order> ord;
-			//ord = rd.findOrderByUserId(1); 
-			//for (Order order : ord) {
-			//	System.out.println("Found order " + order.getId());
-			//}
-			
-			
-			//CREAZIONE DI UN NUOVO ORDINE
-			//LocalDate date = LocalDate.now();    
-			//rd.CreateOrder(5, 10, "ok", date, date, 1, 1, 1);
-			
-			
-		
-
-			 // FUNZIONA RICERCA USER PER ID
-			//User user = usersrv.findUser(1);
-			//System.out.println("Found user " + user);
-			
-			// FUNZIONA RICERCA UTENTE PER USRN E PASSWD
-				/*
-				 * try { User user = usersrv.checkCredentials("test20", "test222");
-				 * System.out.println("Credenziali ok per " + user);
-				 * 
-				 * } catch (NonUniqueResultException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); } catch (CredentialsException e) { // TODO
-				 * Auto-generated catch block e.printStackTrace(); } catch (UserNotFound e) { //
-				 * TODO Auto-generated catch block e.printStackTrace(); }
-				 */
-
-			
-			
-			/*
-			*/
-			
-			
-			/*ServicePackage srvp; 
-			srvp = srvpck.findPackage("service2"); 
-			System.out.println("Found " + srvp.getUser().getId()); //al di là del fatto che funziona, con quel sysout stampo id. Se tolgo getId mi ridà l'oggetto user
-			*/
-			
-			
-			//MODIFICA MANY_TO_MANY TABLE TRA SERVICEPACKAGE E PRODUCT
-			/*ServicePackage srvp; 
-			srvp = srvpck.addSrvPkg(3,2);
-			System.out.println(srvp);
-			*/
-
-			
-
-
 	
 
 }

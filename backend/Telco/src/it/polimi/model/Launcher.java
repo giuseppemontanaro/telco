@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import it.polimi.model.entities.Order;
+import it.polimi.model.entities.Purchase;
 import it.polimi.model.entities.Service;
 import it.polimi.model.entities.ServicePackage;
 

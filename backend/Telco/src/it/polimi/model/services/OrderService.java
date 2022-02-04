@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import it.polimi.model.entities.Order;
+import it.polimi.model.entities.Purchase;
 import it.polimi.model.entities.Product;
 import it.polimi.model.entities.ServicePackage;
 import it.polimi.model.entities.User;
@@ -22,24 +22,23 @@ public class OrderService {
 		this.em = em;
 	}
 	
-	public List<Order> findOrderByUserId(int userID) {
+	public List<Purchase> findOrderByUserId(int userID) {
 		User user = em.find(User.class, userID);
-		List<Order> orders = user.getOrders();
+		List<Purchase> orders = user.getOrders();
 		return orders;
 	}
 	
-	public Order findOrder(int id) {
+	public Purchase findOrder(int id) {
     	
-        return em.find(Order.class, id);
+        return em.find(Purchase.class, id);
     }
 	
 	
-	public void CreateOrder(int ID, float total, String status, LocalDate subscription_date, LocalDate date, int valperiod, int servicepkg, int userid) {
+	public void CreateOrder(int ID, float total, String status, LocalDate subscription_date, LocalDate date, int servicepkg, int userid) {
 		ServicePackage service_pkg = em.find(ServicePackage.class, servicepkg);
 		User user = em.find(User.class, userid);
-		ValidityPeriod val_period = em.find(ValidityPeriod.class, valperiod);
 		
-		Order order = new Order(ID, total, status, subscription_date, date, val_period, service_pkg, user);
+		Purchase order = new Purchase(ID, total, status, subscription_date, date, service_pkg, user);
 
 		em.getTransaction().begin();
 
@@ -48,9 +47,9 @@ public class OrderService {
 	}
 	
 	
-	public Order addProduct(int productid, int orderid) {
+	public Purchase addProduct(int productid, int orderid) {
 		Product p = em.find(Product.class, productid);
-		Order s = em.find(Order.class, orderid);
+		Purchase s = em.find(Purchase.class, orderid);
 		if (!s.getProducts().contains(p))
 			s.addProduct(p);
 		

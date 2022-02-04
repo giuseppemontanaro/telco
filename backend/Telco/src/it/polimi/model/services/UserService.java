@@ -26,23 +26,14 @@ public class UserService {
 	}
 	
 	
-	public User createUser(int id, String username, String password, boolean isInsolvent, boolean isEmployee, String email) {
-		//Order order = em.find(Order.class, order_id);
-		//System.out.println("Is object managed?  " + em.contains(order));
-
-		User user = new User(id);
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setInsolvent(isInsolvent);
-		user.setEmployee(isEmployee);
-		user.seteMail(email);
+	public void createUser(User u) {
+	
 		em.getTransaction().begin();
 
-		em.persist(user);
+		em.persist(u);
 		em.getTransaction().commit();
 		//em.flush();
 		
-		return user;
 	}
 	
 	
@@ -53,7 +44,6 @@ public class UserService {
 	
 	public List<User> checkCredentials(String usrn, String pwd) throws CredentialsException, CredentialsException, NonUniqueResultException, UserNotFound {
 		List<User> uList = null;
-		System.out.println(usrn + pwd);
 
 		try {
 			uList = em.createNamedQuery("checkCredentials", User.class).setParameter(1, usrn).setParameter(2, pwd)
