@@ -1,110 +1,133 @@
 package it.polimi.model;
 
+import it.polimi.model.dto.PurchaseDTO;
+import it.polimi.model.entities.*;
+import it.polimi.model.services.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.polimi.model.entities.Purchase;
-import it.polimi.model.entities.Service;
-import it.polimi.model.entities.ServicePackage;
-
-import it.polimi.model.entities.User;
 import it.polimi.model.exceptions.CredentialsException;
 import it.polimi.model.exceptions.UserNotFound;
-import it.polimi.model.services.OrderService;
-import it.polimi.model.services.SrvService;
-import it.polimi.model.services.SrvServicePackage;
-import it.polimi.model.services.UserService;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
 public class Endpoints {
-	
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("Telco");	
-			
-			EntityManager em = emf.createEntityManager();
-			SrvService service = new SrvService(em);
-			OrderService rd = new OrderService(em);
-			UserService usersrv = new UserService(em);
-			SrvServicePackage srvpck = new SrvServicePackage(em);
-			
-			
-			@PostMapping("/auth/signUp")		
-			@ResponseBody
-			public void signUp(@RequestBody User user){
 
-				usersrv.createUser(user);
-				System.out.println("Created");
-			}
-						
-			
-			@PostMapping("/auth/createOrder")		
-			@ResponseBody
-			public void newOrder(){
-				LocalDate date = LocalDate.now();    
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Telco");
 
-				rd.CreateOrder(100, 100, "ok",  date, date , 1, 2, 1000);
-			}
-					
-			
-			@PostMapping("/auth/login")		
-			@ResponseBody
-			public List<User> login(@RequestBody User user) {
-				
-				try {
+    EntityManager em = emf.createEntityManager();
+    SrvService srvService = new SrvService(em);
+    OrderService orderService = new OrderService(em);
+    UserService userService = new UserService(em);
+    SrvServicePackage srvServicePackage = new SrvServicePackage(em);
+    ProductService productService = new ProductService(em);
 
-					List<User> userLogin = usersrv.checkCredentials(user.getUsername(), user.getPassword());
-					return (userLogin);
-					
-				} catch (NonUniqueResultException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (CredentialsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UserNotFound e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return null;	 
-				
-			}
-			
-			
-			@GetMapping("/package/details")
-			public List<ServicePackage> packagesDetails() {
-				List<ServicePackage> list;
-				list = srvpck.findAllServicePackages();
-				return list;
-			}
-			
-			
-			@GetMapping("/packages")
-			public List<String> Packages() {
-				List<String> list;
-				list = srvpck.findAllServicePackageNames();
-	            return list;
+//    AUTH ENDPOINTS
 
-			} 
-	
+    @PostMapping("/auth/signUp")
+    @ResponseBody
+    public void signUp(@RequestBody User user) {
+
+        System.out.println(user.getId() + user.getUsername() + user.getPassword() + user.isEmployee() + user.isInsolvent() + user.geteMail());
+
+        User user2 = userService.createUser(user.getId(), user.getUsername(), user.getPassword(), user.isEmployee(), user.isInsolvent(), user.geteMail());
+        System.out.println("Created " + user2);
+    }
+
+    @PostMapping("/auth/login")
+    @ResponseBody
+    public List<User> test(@RequestBody User user) {
+
+        try {
+
+            List<User> userLogin = userService.checkCredentials(user.getUsername(), user.getPassword());
+            return (userLogin);
+
+        } catch (NonUniqueResultException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (CredentialsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UserNotFound e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+
+//    PACKAGE ENDPOINTS
+
+
+    @GetMapping("/packages")
+    public List<String> getPackages() {
+        List<String> list;
+        list = srvServicePackage.findAllServicePackageNames();
+        return list;
+    }
+
+    @GetMapping("/package/package")
+    public ServicePackage getPackages(@RequestParam String packageName) {
+        ServicePackage result;
+        result = srvServicePackage.findPackage(packageName);
+        return result;
+    }
+
+    @PostMapping("/package/add")
+    @ResponseBody
+    public void addPackage(@RequestBody ServicePackage servicePackage) {
+        srvServicePackage.addServicePackage(servicePackage);
+    }
+
+
+//    ORDER ENDPOINTS
+
+    @PostMapping("/order/create")
+    @ResponseBody
+    public void createOrder(@RequestBody PurchaseDTO purchaseDTO) {
+        orderService.createOrder(purchaseDTO);
+    }
+
+    @PostMapping("/order/rejected")
+    @ResponseBody
+    public List<Purchase> getRejectedOrders(@RequestBody User user) {
+        return orderService.getRejectedOrders(user);
+    }
+
+
+//    OPTIONALS ENDPOINTS
+
+    @GetMapping("/optionalproducts")
+    public List<Product> getOptionalProducts() {
+        return productService.getAllOptionalProducts();
+    }
+
+    @PostMapping("/optionalproducts/add")
+    public void addOptionalProducts(@RequestBody Product product) {
+        productService.addOptionalProducts(product);
+    }
+
+
+    @GetMapping("/services")
+    public List<Service> getServices() {
+        return srvService.findAllEmployees();
+    }
+//      case url.endsWith('/salesreport') && method === 'GET':
+
 
 }
 
