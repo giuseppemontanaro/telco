@@ -1,6 +1,6 @@
 package it.polimi.model.services;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,12 +25,10 @@ public class SrvService {
     }
     
     public Service findService(int id) {
-    	
         return em.find(Service.class, id);
     }
     
-    
-    public Collection<Service> findAllEmployees() {
+    public List<Service> findAllEmployees() {
         TypedQuery query = em.createQuery("SELECT e FROM Employee e", Service.class);
         return query.getResultList();
     }

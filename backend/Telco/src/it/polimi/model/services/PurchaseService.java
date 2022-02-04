@@ -5,12 +5,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-import it.polimi.model.entities.Purchase;
-import it.polimi.model.entities.Product;
-import it.polimi.model.entities.ServicePackage;
-import it.polimi.model.entities.User;
-import it.polimi.model.entities.ValidityPeriod;
+import it.polimi.model.dto.PurchaseDTO;
+import it.polimi.model.entities.*;
 
 public class PurchaseService {
 	
@@ -34,14 +32,10 @@ public class PurchaseService {
     }
 	
 	
-	public void CreateOrder(int ID, float total, String status, LocalDate subscription_date, LocalDate date, int servicepkg, int userid) {
-		ServicePackage service_pkg = em.find(ServicePackage.class, servicepkg);
-		User user = em.find(User.class, userid);
-		
-		Purchase order = new Purchase(ID, total, status, subscription_date, date, service_pkg, user);
-
+	public void createOrder(PurchaseDTO purchaseDTO) {
+		Purchase order = purchaseDTO.getPurchase();
+		order.setUser(purchaseDTO.getUser());
 		em.getTransaction().begin();
-
 		em.persist(order);
 		em.getTransaction().commit();
 	}
@@ -59,7 +53,10 @@ public class PurchaseService {
 		em.getTransaction().commit();
 		return s;
 	}
-	
 
 
+	public List<Purchase> getRejectedOrders(User user) {
+		TypedQuery query = em.createQuery("SELECT e FROM purchase p, user u WHERE p.fk_user = u.id and p.isRejected = true", Purchase.class);
+		return query.getResultList();
+	}
 }

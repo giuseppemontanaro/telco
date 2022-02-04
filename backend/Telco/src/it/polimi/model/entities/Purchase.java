@@ -121,5 +121,19 @@ public class Purchase{
 		this.getProducts().add(p);
 	}
 
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public ServicePackage getService_pkg() {
+		return service_pkg;
+	}
+
+	public void setService_pkg(ServicePackage service_pkg) {
+		this.service_pkg = service_pkg;
+	}
 }

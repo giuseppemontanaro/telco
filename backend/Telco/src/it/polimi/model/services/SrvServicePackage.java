@@ -62,6 +62,12 @@ public class SrvServicePackage {
 		em.getTransaction().commit();
 		return svp;
 	}
+
+	public void addServicePackage(ServicePackage servicePackage) {
+		em.getTransaction().begin();
+		em.persist(servicePackage);
+		em.getTransaction().commit();
+	}
 	
 	
 	
