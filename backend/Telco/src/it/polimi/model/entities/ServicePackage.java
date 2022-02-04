@@ -27,7 +27,7 @@ public class ServicePackage {
 	private int ID;
 	private String name;
 	
-
+	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_id")

@@ -29,7 +29,7 @@ public class Endpoints {
 
     EntityManager em = emf.createEntityManager();
     SrvService srvService = new SrvService(em);
-    OrderService orderService = new OrderService(em);
+    PurchaseService orderService = new PurchaseService(em);
     UserService userService = new UserService(em);
     SrvServicePackage srvServicePackage = new SrvServicePackage(em);
     ProductService productService = new ProductService(em);
@@ -40,10 +40,9 @@ public class Endpoints {
     @ResponseBody
     public void signUp(@RequestBody User user) {
 
-        System.out.println(user.getId() + user.getUsername() + user.getPassword() + user.isEmployee() + user.isInsolvent() + user.geteMail());
+        System.out.println(user.getId() + user.getUsername() + user.getPassword() + user.getIsEmployee() + user.getIsInsolvent() + user.geteMail());
 
-        User user2 = userService.createUser(user.getId(), user.getUsername(), user.getPassword(), user.isEmployee(), user.isInsolvent(), user.geteMail());
-        System.out.println("Created " + user2);
+        userService.createUser(user);
     }
 
     @PostMapping("/auth/login")

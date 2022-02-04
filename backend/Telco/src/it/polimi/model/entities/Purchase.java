@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "purchase", schema = "Telco")
@@ -24,12 +26,17 @@ public class Purchase{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
+	@Temporal(TemporalType.
+			   DATE)
     private LocalDate Date; 
 	private float total;
 	private String status;
+	@Temporal(TemporalType.
+			   DATE)
 	private LocalDate subscription_date;
 	
 	
+	// Eager because when we check a purchase, we also wanto to know what and who
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="service_pkg_fk")
