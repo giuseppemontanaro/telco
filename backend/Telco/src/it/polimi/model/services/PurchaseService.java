@@ -20,11 +20,11 @@ public class PurchaseService {
 		this.em = em;
 	}
 	
-	public List<Purchase> findOrderByUserId(int userID) {
+	/*public List<Purchase> findOrderByUserId(int userID) {
 		User user = em.find(User.class, userID);
 		List<Purchase> orders = user.getOrders();
 		return orders;
-	}
+	}*/
 	
 	public Purchase findOrder(int id) {
     	
@@ -34,10 +34,20 @@ public class PurchaseService {
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
-		order.setUser(purchaseDTO.getUser());
+		ServicePackage s = em.find(ServicePackage.class, order.getService_pkg().getID());
+		if (s==null) {
+			System.out.println("NO SVPKG");
+			return;
+		}
+			
+		
+
+		//order.setUser(purchaseDTO.getUser());
 		em.getTransaction().begin();
 		em.persist(order);
 		em.getTransaction().commit();
+		
+		
 	}
 	
 	

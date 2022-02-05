@@ -1,6 +1,7 @@
 package it.polimi.model.entities;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -28,10 +33,17 @@ public class ServicePackage {
 	private String name;
 	
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@JsonBackReference(value="user-svp")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@JsonManagedReference(value="svp-orders")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
+	private List<Purchase> purchaseList;
+	
 	
 	@ManyToMany 
 	@JoinTable(name="service_package_product",
@@ -40,12 +52,13 @@ public class ServicePackage {
 	private Collection<Product> products;
 	
 	
-	@ManyToMany 
+	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable(name="service_package_service",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="service_fk"))
 	private Collection<Service> services;
 	
+	//@JsonManagedReference
 	@ManyToMany 
 	@JoinTable(name="service_package_validity_period",
 			joinColumns=@JoinColumn(name="service_package_fk"),
@@ -116,6 +129,17 @@ public class ServicePackage {
 	}
 
 
+
+	public List<Purchase> getPurchaseList() {
+		return purchaseList;
+	}
+
+
+	public void setPurchaseList(List<Purchase> purchaseList) {
+		this.purchaseList = purchaseList;
+	}
+
+
 	public void setPeriods(Collection<ValidityPeriod> periods) {
 		this.periods = periods;
 	}
@@ -132,6 +156,9 @@ public class ServicePackage {
 	public void addPeriod(ValidityPeriod s) {
 		this.getPeriods().add(s);
 	}
+	
+	
+	
 	
 
 }

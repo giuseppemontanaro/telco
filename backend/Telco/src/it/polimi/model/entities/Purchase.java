@@ -2,6 +2,7 @@ package it.polimi.model.entities;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "purchase", schema = "Telco")
 
@@ -26,23 +30,23 @@ public class Purchase{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	@Temporal(TemporalType.
-			   DATE)
-    private LocalDate Date; 
+	
+    private Date date; 
 	private float total;
 	private String status;
-	@Temporal(TemporalType.
-			   DATE)
-	private LocalDate subscription_date;
+	
+	private Date subscription_date;
 	
 	
 	// Eager because when we check a purchase, we also wanto to know what and who
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@JsonBackReference(value="svp-orders")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="service_pkg_fk")
 	private ServicePackage service_pkg;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@JsonBackReference(value="user-orders")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_foreignk")
 	private User user;
@@ -55,9 +59,9 @@ public class Purchase{
 	private Collection<Product> products;
 	
 	
-	public Purchase(int ID, float total, String status, LocalDate subscription_date, LocalDate date, ServicePackage service_pkg, User user) {
+	public Purchase(int ID, float total, String status, Date subscription_date, Date date, ServicePackage service_pkg, User user) {
 		this.ID = ID;
-		this.Date = date;
+		this.date = date;
 		this.total = total; 
 		this.status = status;
 		this.subscription_date = subscription_date;
@@ -74,15 +78,6 @@ public class Purchase{
 		this.ID = id;
 	}
 	
-	
-	public int getId() {
-		return ID;
-	}
-
-	public void setId(int id) {
-		this.ID = id;
-	}
-
 
 	public float getTotal() {
 		return total;
@@ -100,19 +95,19 @@ public class Purchase{
 		this.status = status;
 	}
 
-	public LocalDate getDate() {
-		return Date;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDate(LocalDate date) {
-		Date = date;
+	public void setDate(Date datet) {
+		date = datet;
 	}
 
-	public LocalDate getSubscription_date() {
+	public Date getSubscription_date() {
 		return subscription_date;
 	}
 
-	public void setSubscription_date(LocalDate subscription_date) {
+	public void setSubscription_date(Date subscription_date) {
 		this.subscription_date = subscription_date;
 	}
 
@@ -143,4 +138,14 @@ public class Purchase{
 	public void setService_pkg(ServicePackage service_pkg) {
 		this.service_pkg = service_pkg;
 	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+	
+	
 }

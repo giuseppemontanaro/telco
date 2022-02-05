@@ -13,12 +13,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Entity
 @Table(name = "User", schema = "Telco")
 @NamedQuery(name = "checkCredentials", query = "SELECT r FROM User r  WHERE r.Username = ?1 and r.Password = ?2")
-
 
 public class User{
 	
@@ -32,9 +34,16 @@ public class User{
 	private String eMail;
 	
 	//Eager because orders will be few for a user
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@JsonManagedReference(value="user-orders")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> orders;
+	
+	
+	@JsonManagedReference(value="user-svp")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
+	private List<ServicePackage> packageList;
 
 	public User() {
 	}
@@ -110,6 +119,24 @@ public class User{
 	public List<Purchase> getOrders() {
 		return this.orders;
 	}
+
+
+
+
+	public List<ServicePackage> getPackageList() {
+		return packageList;
+	}
+
+
+	public void setPackageList(List<ServicePackage> packageList) {
+		this.packageList = packageList;
+	}
+
+
+	public void setOrders(List<Purchase> orders) {
+		this.orders = orders;
+	}
+	
 	
 	
 	

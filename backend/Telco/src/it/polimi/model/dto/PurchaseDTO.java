@@ -7,9 +7,9 @@ public class PurchaseDTO {
 
     Purchase purchase;
     boolean isRejected;
-    User user;
+    int user;
 
-    public PurchaseDTO(Purchase purchase, boolean isRejected, User user) {
+    public PurchaseDTO(Purchase purchase, boolean isRejected, int user) {
         this.purchase = purchase;
         this.isRejected = isRejected;
         this.user = user;
@@ -31,11 +31,13 @@ public class PurchaseDTO {
         isRejected = rejected;
     }
 
-    public User getUser() {
-        return user;
-    }
+	public int getUser() {
+		return user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(int user) {
+		this.user = user;
+	}
+
+    
 }

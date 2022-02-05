@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "validity_period", schema = "Telco")
 
@@ -22,10 +24,12 @@ public class ValidityPeriod {
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	private int month_number;	//TO BE DEFINED
+	private int month_number;
 	private int monthly_fee;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@JsonBackReference
+	//Eager because we load the period and it's useful to get immediately the package related to
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="package_id")
 		private ServicePackage srvpackage;

@@ -4,6 +4,7 @@ import it.polimi.model.dto.PurchaseDTO;
 import it.polimi.model.entities.*;
 import it.polimi.model.services.*;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,8 +41,6 @@ public class Endpoints {
     @ResponseBody
     public void signUp(@RequestBody User user) {
 
-        System.out.println(user.getId() + user.getUsername() + user.getPassword() + user.getIsEmployee() + user.getIsInsolvent() + user.geteMail());
-
         userService.createUser(user);
     }
 
@@ -73,20 +72,21 @@ public class Endpoints {
 
 
     @GetMapping("/packages")
-    public List<String> getPackages() {
-        List<String> list;
-        list = srvServicePackage.findAllServicePackageNames();
+    public List<ServicePackage> getPackages() {
+        List<ServicePackage> list;
+        list = srvServicePackage.findAllServicePackages();
         return list;
     }
 
-    @GetMapping("/package/package")
+    @GetMapping("/packages/package")
     public ServicePackage getPackages(@RequestParam String packageName) {
         ServicePackage result;
         result = srvServicePackage.findPackage(packageName);
         return result;
     }
 
-    @PostMapping("/package/add")
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, value = "/packages/add")
+    
     @ResponseBody
     public void addPackage(@RequestBody ServicePackage servicePackage) {
         srvServicePackage.addServicePackage(servicePackage);
