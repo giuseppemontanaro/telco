@@ -34,16 +34,30 @@ public class PurchaseService {
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
-		ServicePackage s = em.find(ServicePackage.class, order.getService_pkg().getID());
-		if (s==null) {
-			System.out.println("NO SVPKG");
-			return;
-		}
-			
+		User user = em.find(User.class, purchaseDTO.getUser());
+		ServicePackage s = em.find(ServicePackage.class, purchaseDTO.getSvpkgID());
+		
+		System.out.println( purchaseDTO.getSvpkgID());
+
+		
 		
 
-		//order.setUser(purchaseDTO.getUser());
+		//			MANCA CONTROLLO SUL DUPLICATO SERVICEPACKAGE. CIOE SE C'è GIA, NON POSSO METTERE UN ALTRO USER ID
+		
+		
 		em.getTransaction().begin();
+		
+		if (s.getUser()== null)
+			em.createQuery(
+			        "UPDATE ServicePackage s "
+			        + "SET s.user = '" + purchaseDTO.getUser() + "' "
+			        + "WHERE s.ID = '" + purchaseDTO.getSvpkgID() + "' ")
+			        .executeUpdate();
+			 
+
+		order.setUser(user);
+		order.setService_pkg(s);
+		
 		em.persist(order);
 		em.getTransaction().commit();
 		

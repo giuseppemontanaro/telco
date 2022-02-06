@@ -52,7 +52,7 @@ public class ServicePackage {
 	private Collection<Product> products;
 	
 	
-	@ManyToMany (fetch = FetchType.LAZY)
+	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(name="service_package_service",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="service_fk"))

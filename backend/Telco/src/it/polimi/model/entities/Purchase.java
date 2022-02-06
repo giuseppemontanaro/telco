@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "purchase", schema = "Telco")
 
+
 public class Purchase{
 	
 	@Id

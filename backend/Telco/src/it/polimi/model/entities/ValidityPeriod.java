@@ -29,7 +29,7 @@ public class ValidityPeriod {
 	
 	@JsonBackReference
 	//Eager because we load the period and it's useful to get immediately the package related to
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="package_id")
 		private ServicePackage srvpackage;

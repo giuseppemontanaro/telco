@@ -86,7 +86,6 @@ public class Endpoints {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, value = "/packages/add")
-    
     @ResponseBody
     public void addPackage(@RequestBody ServicePackage servicePackage) {
         srvServicePackage.addServicePackage(servicePackage);
@@ -101,7 +100,7 @@ public class Endpoints {
         orderService.createOrder(purchaseDTO);
     }
 
-    @PostMapping("/order/rejected")
+    @PostMapping("/order/rejected")				// NON C'E' COME CAMPO, è STATUS??????
     @ResponseBody
     public List<Purchase> getRejectedOrders(@RequestBody User user) {
         return orderService.getRejectedOrders(user);
