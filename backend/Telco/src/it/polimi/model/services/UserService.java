@@ -32,7 +32,6 @@ public class UserService {
 
 		em.persist(u);
 		em.getTransaction().commit();
-		//em.flush();
 		
 	}
 	

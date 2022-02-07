@@ -17,6 +17,16 @@ public class ValPeriodService {
 	public ValidityPeriod findValPeriodById(int id) {
         return em.find(ValidityPeriod.class, id);	
 	}
+	
+	
+	public void addValidityPeriod(ValidityPeriod v) {
+		
+		em.getTransaction().begin();
+
+		em.persist(v);
+		em.getTransaction().commit();
+		
+	}
 
 	
 }

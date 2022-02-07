@@ -35,7 +35,7 @@ public class Purchase{
     private Date date; 
 	private float total;
 	private String status;
-	
+	private boolean isRejected;
 	private Date subscription_date;
 	
 	
@@ -147,6 +147,16 @@ public class Purchase{
 	public void setID(int iD) {
 		ID = iD;
 	}
+
+	public Boolean getIsRejected() {
+		return isRejected;
+	}
+
+	public void setIsRejected(Boolean isRejected) {
+		this.isRejected = isRejected;
+	}
+	
+	
 	
 	
 }

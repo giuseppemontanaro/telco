@@ -1,8 +1,14 @@
 package it.polimi.model.entities;
 
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -13,6 +19,9 @@ public class Product {
 	private int monthly_fee;
 	private String name;
 	
+	@JsonBackReference
+	@ManyToMany(mappedBy="products")
+	private Collection<ServicePackage> servicePackages;
 	
 	
 	public Product() {
@@ -23,5 +32,39 @@ public class Product {
 		this.monthly_fee = monthly_fee;
 		this.name = name;
 	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public int getMonthly_fee() {
+		return monthly_fee;
+	}
+
+	public void setMonthly_fee(int monthly_fee) {
+		this.monthly_fee = monthly_fee;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Collection<ServicePackage> getServicePackages() {
+		return servicePackages;
+	}
+
+	public void setServicePackages(Collection<ServicePackage> servicePackages) {
+		this.servicePackages = servicePackages;
+	}
+	
+	
 
 }

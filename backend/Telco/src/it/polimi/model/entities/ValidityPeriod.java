@@ -27,12 +27,16 @@ public class ValidityPeriod {
 	private int month_number;
 	private int monthly_fee;
 	
-	@JsonBackReference
+	/*@JsonBackReference
 	//Eager because we load the period and it's useful to get immediately the package related to
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="package_id")
 		private ServicePackage srvpackage;
+	*/
+	@JsonBackReference
+	@ManyToMany(mappedBy="periods")
+	private Collection<ServicePackage> servicePackages;
 	
 	
 	public ValidityPeriod() {
@@ -69,7 +73,17 @@ public class ValidityPeriod {
 	}
 
 
-	public ServicePackage getSrvpackage() {
+	public Collection<ServicePackage> getServicePackages() {
+		return servicePackages;
+	}
+
+
+	public void setServicePackages(Collection<ServicePackage> servicePackages) {
+		this.servicePackages = servicePackages;
+	}
+
+
+	/*public ServicePackage getSrvpackage() {
 		return srvpackage;
 	}
 
@@ -77,6 +91,8 @@ public class ValidityPeriod {
 	public void setSrvpackage(ServicePackage srvpackage) {
 		this.srvpackage = srvpackage;
 	}
+*/
+	
 	
 	
 	

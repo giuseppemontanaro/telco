@@ -80,7 +80,7 @@ public class PurchaseService {
 
 
 	public List<Purchase> getRejectedOrders(User user) {
-		TypedQuery query = em.createQuery("SELECT e FROM purchase p, user u WHERE p.fk_user = u.id and p.isRejected = true", Purchase.class);
+		TypedQuery query = em.createQuery("SELECT p FROM Purchase p WHERE p.user = '" + user.getId() + "' and p.isRejected = true", Purchase.class);
 		return query.getResultList();
 	}
 }

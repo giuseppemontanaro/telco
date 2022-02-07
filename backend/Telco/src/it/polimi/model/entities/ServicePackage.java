@@ -16,10 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Table(name = "service_package", schema = "Telco")
 @NamedQuery(name = "AllServicePackage", query = "SELECT p FROM ServicePackage p")
 @NamedQuery(name = "AllServicePackageNames", query = "SELECT p.name FROM ServicePackage p")
@@ -39,11 +41,11 @@ public class ServicePackage {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@JsonManagedReference(value="svp-orders")
+	//@JsonManagedReference(value="svp-orders")
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> purchaseList;
-	
 	
 	@ManyToMany 
 	@JoinTable(name="service_package_product",
@@ -58,7 +60,6 @@ public class ServicePackage {
 			inverseJoinColumns=@JoinColumn(name="service_fk"))
 	private Collection<Service> services;
 	
-	//@JsonManagedReference
 	@ManyToMany 
 	@JoinTable(name="service_package_validity_period",
 			joinColumns=@JoinColumn(name="service_package_fk"),
