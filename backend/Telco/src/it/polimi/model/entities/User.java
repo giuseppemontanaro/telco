@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class User{
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
+	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
 	private int id;
 	private String Username;
 	private String Password;
@@ -39,11 +39,6 @@ public class User{
 			CascadeType.REFRESH })
 	private List<Purchase> orders;
 	
-	
-	@JsonManagedReference(value="user-svp")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
-	private List<ServicePackage> packageList;
 
 	public User() {
 	}
@@ -118,18 +113,6 @@ public class User{
 	
 	public List<Purchase> getOrders() {
 		return this.orders;
-	}
-
-
-
-
-	public List<ServicePackage> getPackageList() {
-		return packageList;
-	}
-
-
-	public void setPackageList(List<ServicePackage> packageList) {
-		this.packageList = packageList;
 	}
 
 

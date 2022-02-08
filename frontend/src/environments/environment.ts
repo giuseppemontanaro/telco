@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   mocked: true,
-  baseUrl: 'http://localhost:3000'
+  baseUrl: 'http://localhost:8080'
 };
 
 /*

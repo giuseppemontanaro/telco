@@ -28,7 +28,7 @@ export class PackageDaoService {
   }
 
   getPackageDetails(packageName: string) {
-    return this.http.get<Package>(`${this.baseUrl}/packages/details`, {params: {package: packageName}})
+    return this.http.get<Package>(`${this.baseUrl}/packages/package`, {params: {packageName: packageName}})
       .pipe(
         catchError(
           handleError<Package>('authUser', undefined)

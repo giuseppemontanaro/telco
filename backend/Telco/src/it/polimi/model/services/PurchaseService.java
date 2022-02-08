@@ -47,13 +47,13 @@ public class PurchaseService {
 		
 		em.getTransaction().begin();
 		
-		if (s.getUser()== null)
+		/*if (s.getUser()== null)
 			em.createQuery(
 			        "UPDATE ServicePackage s "
 			        + "SET s.user = '" + purchaseDTO.getUser() + "' "
 			        + "WHERE s.ID = '" + purchaseDTO.getSvpkgID() + "' ")
 			        .executeUpdate();
-			 
+			 */
 
 		order.setUser(user);
 		order.setService_pkg(s);

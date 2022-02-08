@@ -4,17 +4,24 @@ package it.polimi.model.entities;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
+@NamedQuery(name = "AllProduct", query = "SELECT p FROM Product p")
+
 public class Product {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
+
 	private int ID;
 	private int monthly_fee;
 	private String name;

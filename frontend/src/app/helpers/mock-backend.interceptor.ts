@@ -84,7 +84,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
     console.log(request)
     switch (true) {
-      case url.endsWith('/auth/login') && method === 'POST':
+      /*case url.endsWith('/auth/login') && method === 'POST':
         return this.authenticate(body);
       case url.endsWith('/users') && method === 'POST':
         return this.signUpUser(body);
@@ -108,8 +108,10 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.getServices();
       case url.endsWith('/salesreport') && method === 'GET':
         return this.getSalesReport();
+        */
       default:
         return next.handle(request);
+        
     }
   }
 

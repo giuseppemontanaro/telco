@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,15 +33,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class ServicePackage {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
+
 	private int ID;
 	private String name;
 	
-	
-	@JsonBackReference(value="user-svp")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-		CascadeType.REFRESH })
-	@JoinColumn(name="user_id")
-	private User user;
+
 	
 	//@JsonManagedReference(value="svp-orders")
 	@JsonBackReference
@@ -47,20 +46,23 @@ public class ServicePackage {
 			CascadeType.REFRESH })
 	private List<Purchase> purchaseList;
 	
-	@ManyToMany 
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	@JoinTable(name="service_package_product",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="product_fk"))
 	private Collection<Product> products;
 	
 	
-	@ManyToMany (fetch = FetchType.EAGER)
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	@JoinTable(name="service_package_service",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="service_fk"))
 	private Collection<Service> services;
 	
-	@ManyToMany 
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	@JoinTable(name="service_package_validity_period",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="validity_period_fk"))
@@ -89,17 +91,6 @@ public class ServicePackage {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 
 
 	public Collection<Product> getProducts() {

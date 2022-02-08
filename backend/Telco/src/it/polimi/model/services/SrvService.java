@@ -29,7 +29,7 @@ public class SrvService {
     }
     
     public List<Service> findAllEmployees() {
-        TypedQuery query = em.createQuery("SELECT e FROM Employee e", Service.class);
+        TypedQuery query = em.createQuery("SELECT s FROM Service s", Service.class);
         return query.getResultList();
     }
 	
