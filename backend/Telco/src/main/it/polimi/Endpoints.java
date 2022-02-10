@@ -119,10 +119,10 @@ public class Endpoints {
         return srvService.findAllServices();
     }
 
-    /*@GetMapping("/salesreport")
+    @GetMapping("/salesreport")
     public ReportDTO getReport() {
         return reportService.getReport();
-    }*/
+    }
 	
 }
 

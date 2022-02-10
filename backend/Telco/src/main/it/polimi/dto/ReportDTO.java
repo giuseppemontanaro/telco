@@ -4,6 +4,7 @@ import main.it.polimi.entities.Alert;
 import main.it.polimi.entities.InsolventUser;
 import main.it.polimi.entities.Product;
 import main.it.polimi.entities.Purchase;
+import main.it.polimi.entities.ServiceReport;
 import main.it.polimi.entities.SuspendedPurchase;
 import main.it.polimi.entities.User;
 import main.it.polimi.services.ReportService;
@@ -21,9 +22,6 @@ public class ReportDTO {
     
 	public ReportDTO() {
 	}
-
-
-	
 
 
 	public List<InsolventUser> getInsolventUsers() {
@@ -63,6 +61,16 @@ public class ReportDTO {
 
 	public void setBestSeller(Product bestSeller) {
 		this.bestSeller = bestSeller;
+	}
+
+
+	public List<ServiceReport> getReport() {
+		return report;
+	}
+
+
+	public void setReport(List<ServiceReport> report) {
+		this.report = report;
 	}
 	
 	
