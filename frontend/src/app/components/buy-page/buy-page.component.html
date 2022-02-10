@@ -13,8 +13,8 @@
       <mat-form-field>
         <mat-label>Validity period</mat-label>
         <mat-select formControlName="validityPeriod" (selectionChange)="getValidityPeriod($event.value)">
-          <mat-option *ngFor="let validity of currentPackage.validityPeriods" [value]="validity">
-            {{validity.monthsNumber}} months - ${{validity.monthlyFee}}</mat-option>
+          <mat-option *ngFor="let validity of currentPackage.periods" [value]="validity">
+            {{validity.month_number}} months - ${{validity.monthly_fee}}</mat-option>
         </mat-select>
         <mat-error>validity period is required</mat-error>
       </mat-form-field>
@@ -24,8 +24,8 @@
         <mat-form-field class="opts">
           <mat-label>Optional pruduct</mat-label>
           <mat-select formControlName="optional" (selectionChange)="setSelectedOptional($event.value)">
-            <mat-option *ngFor="let optional of currentPackage.optionalProducts" [value]="optional">{{optional.name}} -
-              ${{optional.monthlyFee}}</mat-option>
+            <mat-option *ngFor="let optional of currentPackage.products" [value]="optional">{{optional.name}} -
+              ${{optional.monthly_fee}}</mat-option>
           </mat-select>
         </mat-form-field>
         <button type="button" mat-mini-fab color="primary" (click)="addOptional()" [disabled]="!isServiceSelected || selectedOptionals.length == optionalsLen">

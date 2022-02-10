@@ -80,22 +80,20 @@ export class EmployeeHomeComponent implements OnInit {
         this.optionals = optionals;
         this.optionalsLen = optionals.length;
       });
-    this.salesReportDao.getSalesReport()
-    .subscribe(report => {
-      this.report = report
-      console.log(this.report);
-    });
+    // this.salesReportDao.getSalesReport()
+    // .subscribe(report => {
+    //   this.report = report
+    // });
   }
 
   createServicePackage() {
     let validities: ValidityPeriod[] = [];
-    validities.push(new ValidityPeriod(12, this.months12Cost));
-    validities.push(new ValidityPeriod(24, this.months24Cost));
-    validities.push(new ValidityPeriod(36, this.months36Cost));
-    let toAdd: Package = { name: this.nameService, services: this.selectedServices, validityPeriods: validities, optionalProducts: this.selectedOptionals};
-    console.log(toAdd);
+    validities.push({ month_number: 12, monthly_fee: this.months12Cost });
+    validities.push({ month_number: 24, monthly_fee: this.months24Cost });
+    validities.push({ month_number: 36, monthly_fee: this.months36Cost });
+    let toAdd: Package = { name: this.nameService, services: this.selectedServices, periods: validities, products: this.selectedOptionals};
     this.packageDao.addPackage(toAdd).subscribe();
-    this.snackBar.open('Service package created');
+    this.snackBar.open('Service package created', '', {duration: 5000});
     this.createPackageForm.reset();
   }
 
@@ -146,7 +144,7 @@ export class EmployeeHomeComponent implements OnInit {
   }
 
   createOptional() {
-    let optional: OptionalProduct = new OptionalProduct(this.nameOptional, this.feeOptional);
+    let optional: OptionalProduct = {name: this.nameOptional, monthly_fee: this.feeOptional};
     this.optionalDao.addOptionalProducts(optional).subscribe();
     this.snackBar.open('Optional product created', '', {duration: 5000});
     this.createOptionalForm.reset();

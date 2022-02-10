@@ -1,10 +1,7 @@
 package main.it.polimi.services;
 
 import main.it.polimi.dto.PurchaseDTO;
-import main.it.polimi.entities.Product;
-import main.it.polimi.entities.Purchase;
-import main.it.polimi.entities.ServicePackage;
-import main.it.polimi.entities.User;
+import main.it.polimi.entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,34 +32,16 @@ public class PurchaseService {
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
-		User user = em.find(User.class, purchaseDTO.getUser());
-		ServicePackage s = em.find(ServicePackage.class, purchaseDTO.getSvpkgID());
-		
-		System.out.println( purchaseDTO.getSvpkgID());
+		User user = em.find(User.class, purchaseDTO.getUser().getId());
+		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getPackageName()).getSingleResult();
+		ValidityPeriod v = em.find(ValidityPeriod.class, purchaseDTO.getValidityPeriod().getID());
 
-		
-		
-
-		//			MANCA CONTROLLO SUL DUPLICATO SERVICEPACKAGE. CIOE SE C'è GIA, NON POSSO METTERE UN ALTRO USER ID
-		
-		
 		em.getTransaction().begin();
-		
-		/*if (s.getUser()== null)
-			em.createQuery(
-			        "UPDATE ServicePackage s "
-			        + "SET s.user = '" + purchaseDTO.getUser() + "' "
-			        + "WHERE s.ID = '" + purchaseDTO.getSvpkgID() + "' ")
-			        .executeUpdate();
-			 */
-
 		order.setUser(user);
 		order.setService_pkg(s);
-		
+		order.setValidityPeriod(v);
 		em.persist(order);
 		em.getTransaction().commit();
-		
-		
 	}
 	
 	
@@ -73,7 +52,6 @@ public class PurchaseService {
 			s.addProduct(p);
 		
 		em.getTransaction().begin();
-
 		em.persist(s);
 		em.getTransaction().commit();
 		return s;

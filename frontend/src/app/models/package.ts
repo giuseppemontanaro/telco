@@ -5,6 +5,6 @@ import { OptionalProduct } from './optionalProduct';
 export interface Package {
     name: string;
     services: Service[];
-    validityPeriods: ValidityPeriod[];
-    optionalProducts: OptionalProduct[];
+    periods: ValidityPeriod[];
+    products: OptionalProduct[];
 }

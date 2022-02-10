@@ -77,7 +77,10 @@ public class Endpoints {
         return result;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, value = "/packages/add")
+    @PostMapping(
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            value = "/packages/add"
+    )
     @ResponseBody
     public void addPackage(@RequestBody ServicePackage servicePackage) {
         srvServicePackage.addServicePackage(servicePackage);
@@ -92,7 +95,7 @@ public class Endpoints {
         orderService.createOrder(purchaseDTO);
     }
 
-    @PostMapping("/order/rejected")				// NON C'E' COME CAMPO, è STATUS??????
+    @PostMapping("/order/rejected")
     @ResponseBody
     public List<Purchase> getRejectedOrders(@RequestBody User user) {
         return orderService.getRejectedOrders(user);
@@ -111,16 +114,15 @@ public class Endpoints {
         productService.addOptionalProducts(product);
     }
 
-
     @GetMapping("/services")
     public List<Service> getServices() {
         return srvService.findAllEmployees();
     }
 
-    @GetMapping("/salesreport")
-    public List<Service> getReport() {
-        return srvService.findAllEmployees();
-    }
+//    @GetMapping("/salesreport")
+//    public List<Service> getReport() {
+//        return srvService.findAllEmployees();
+//    }
 
 }
 

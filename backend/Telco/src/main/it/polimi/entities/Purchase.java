@@ -4,37 +4,23 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "purchase", schema = "Telco")
-
-
 public class Purchase implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	
     private Date date; 
 	private float total;
 	private boolean isRejected;
 	private Date subscription_date;
 	
 	
-	// Eager because when we check a purchase, we also wanto to know what and who
 	@JsonBackReference(value="svp-orders")
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
@@ -42,19 +28,24 @@ public class Purchase implements Serializable {
 	private ServicePackage service_pkg;
 	
 	@JsonBackReference(value="user-orders")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_foreignk")
 	private User user;
-	
-	
+
 	@ManyToMany 
 	@JoinTable(name="order_product",
 			joinColumns=@JoinColumn(name="order_fk"),
 			inverseJoinColumns=@JoinColumn(name="product_fk"))
 	private Collection<Product> products;
-	
-	
+
+	@JsonBackReference(value="val-orders")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+			CascadeType.REFRESH })
+	@JoinColumn(name="validity_period_fk")
+	private ValidityPeriod validityPeriod;
+
+
 	public Purchase(int ID, float total, Date subscription_date, Date date, ServicePackage service_pkg, User user) {
 		this.ID = ID;
 		this.date = date;
@@ -67,12 +58,25 @@ public class Purchase implements Serializable {
 	public Purchase() {
 	}
 	
-	
-	
 	public Purchase(int id) {
 		this.ID = id;
 	}
-	
+
+	public boolean isRejected() {
+		return isRejected;
+	}
+
+	public void setRejected(boolean rejected) {
+		isRejected = rejected;
+	}
+
+	public void setValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	public ValidityPeriod getValidityPeriod() {
+		return validityPeriod;
+	}
 
 	public float getTotal() {
 		return total;
@@ -141,8 +145,18 @@ public class Purchase implements Serializable {
 	public void setIsRejected(Boolean isRejected) {
 		this.isRejected = isRejected;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Purchase{" +
+				"ID=" + ID +
+				", date=" + date +
+				", total=" + total +
+				", isRejected=" + isRejected +
+				", subscription_date=" + subscription_date +
+				", service_pkg=" + service_pkg +
+				", user=" + user +
+				", products=" + products +
+				'}';
+	}
 }

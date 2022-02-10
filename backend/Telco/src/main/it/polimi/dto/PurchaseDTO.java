@@ -1,19 +1,21 @@
 package main.it.polimi.dto;
 
 import main.it.polimi.entities.Purchase;
+import main.it.polimi.entities.User;
+import main.it.polimi.entities.ValidityPeriod;
 
 public class PurchaseDTO {
 
     Purchase purchase;
-    boolean isRejected;
-    int svpkgID;
-    int user;
+    String packageName;
+    User user;
+    ValidityPeriod validityPeriod;
 
-    public PurchaseDTO(Purchase purchase, boolean isRejected, int svpkgID, int user) {
+    public PurchaseDTO(Purchase purchase, String packageName, User user, ValidityPeriod validityPeriod) {
         this.purchase = purchase;
-        this.isRejected = isRejected;
+        this.packageName = packageName;
         this.user = user;
-        this.svpkgID = svpkgID;
+        this.validityPeriod = validityPeriod;
     }
 
     public Purchase getPurchase() {
@@ -24,31 +26,37 @@ public class PurchaseDTO {
         this.purchase = purchase;
     }
 
-    public boolean isRejected() {
-        return isRejected;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setRejected(boolean rejected) {
-        isRejected = rejected;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
-	public int getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(int user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public int getSvpkgID() {
-		return svpkgID;
-	}
+    public ValidityPeriod getValidityPeriod() {
+        return validityPeriod;
+    }
 
-	public void setSvpkgID(int svpkgID) {
-		this.svpkgID = svpkgID;
-	}
-	
-	
+    public void setValidityPeriod(ValidityPeriod validityPeriod) {
+        this.validityPeriod = validityPeriod;
+    }
 
-    
+    @Override
+    public String toString() {
+        return "PurchaseDTO{" +
+                "purchase=" + purchase +
+                ", packageName='" + packageName + '\'' +
+                ", user=" + user +
+                ", validityPeriod=" + validityPeriod +
+                '}';
+    }
 }

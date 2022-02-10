@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { handleError } from '../shared/handleError';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
+import { OrderDTO } from '../models/orderDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class OrderDaoService {
     this.baseUrl = environment.baseUrl;
   }
 
-  createOrder(orderDTO: any) {
+  createOrder(orderDTO: OrderDTO) {
     return this.http.post<any>(`${this.baseUrl}/order/create`, orderDTO, this.httpOptions)
       .pipe(
         catchError(

@@ -3,18 +3,15 @@ package main.it.polimi.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "validity_period", schema = "Telco")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ValidityPeriod implements Serializable {
 
 
@@ -23,77 +20,54 @@ public class ValidityPeriod implements Serializable {
 	private int ID;
 	private int month_number;
 	private int monthly_fee;
-	
-	/*@JsonBackReference
-	//Eager because we load the period and it's useful to get immediately the package related to
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+
+	@JsonManagedReference(value="val-orders")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="validityPeriod", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
-		@JoinColumn(name="package_id")
-		private ServicePackage srvpackage;
-	*/
-	@JsonBackReference
-	@ManyToMany(mappedBy="periods")
-	private Collection<ServicePackage> servicePackages;
-	
+	private Collection<Purchase> purchases;
 	
 	public ValidityPeriod() {
 	}
-
 
 	public int getID() {
 		return ID;
 	}
 
-
 	public void setID(int iD) {
 		ID = iD;
 	}
-
 
 	public int getMonth_number() {
 		return month_number;
 	}
 
-
 	public void setMonth_number(int month_number) {
 		this.month_number = month_number;
 	}
-
 
 	public int getMonthly_fee() {
 		return monthly_fee;
 	}
 
-
 	public void setMonthly_fee(int monthly_fee) {
 		this.monthly_fee = monthly_fee;
 	}
 
-
-	public Collection<ServicePackage> getServicePackages() {
-		return servicePackages;
+	public Collection<Purchase> getPurchases() {
+		return purchases;
 	}
 
-
-	public void setServicePackages(Collection<ServicePackage> servicePackages) {
-		this.servicePackages = servicePackages;
+	public void setPurchases(Collection<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
-
-	/*public ServicePackage getSrvpackage() {
-		return srvpackage;
+	@Override
+	public String toString() {
+		return "ValidityPeriod{" +
+				"ID=" + ID +
+				", month_number=" + month_number +
+				", monthly_fee=" + monthly_fee +
+				", purchases=" + purchases +
+				'}';
 	}
-
-
-	public void setSrvpackage(ServicePackage srvpackage) {
-		this.srvpackage = srvpackage;
-	}
-*/
-	
-	
-	
-	
-	
-	
-	
 }

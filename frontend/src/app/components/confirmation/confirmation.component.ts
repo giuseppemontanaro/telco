@@ -27,14 +27,14 @@ export class ConfirmationComponent implements OnInit {
 
   buy(isRejected: boolean) {
     const order: Order = {
-      creationDate: new Date(Date.now()),
+      date: new Date(Date.now()),
       total: this.chosenPackage.totalCost,
-      subscriptionDate: this.chosenPackage.startDate,
-      status: UserStatus.Disposed,
+      subscription_date: this.chosenPackage.startDate,
+      isRejected: isRejected,
       package: this.chosenPackage
     }
     const user = this.model.getBean(Const.USER);
-    this.orderDao.createOrder({order: order, isRejected: isRejected, user: user});
+    this.orderDao.createOrder({purchase: order, user: user, packageName: this.chosenPackage.name, validityPeriod: this.chosenPackage.validityPeriod}).subscribe();
     this.router.navigate(['/home']);
   }
 

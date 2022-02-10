@@ -16,12 +16,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @NamedQuery(name = "AllProduct", query = "SELECT p FROM Product p")
-
 public class Product implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	private int monthly_fee;
 	private String name;
@@ -71,7 +69,14 @@ public class Product implements Serializable {
 	public void setServicePackages(Collection<ServicePackage> servicePackages) {
 		this.servicePackages = servicePackages;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Product{" +
+				"ID=" + ID +
+				", monthly_fee=" + monthly_fee +
+				", name='" + name + '\'' +
+				", servicePackages=" + servicePackages +
+				'}';
+	}
 }

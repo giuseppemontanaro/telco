@@ -3,11 +3,11 @@ package main.it.polimi.services;
 import java.util.List;
 import javax.persistence.EntityManager;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import main.it.polimi.entities.ValidityPeriod;
 import main.it.polimi.entities.Product;
 import main.it.polimi.entities.Service;
 import main.it.polimi.entities.ServicePackage;
-
 
 public class SrvServicePackage {
 	
@@ -20,18 +20,14 @@ public class SrvServicePackage {
 	
 	public List<ServicePackage> findAllServicePackages() {
 		List<ServicePackage> srvPackage = null;
-		
 		srvPackage = em.createNamedQuery("AllServicePackage", ServicePackage.class).getResultList();
-		
 		return srvPackage;
 	}
 	
 	
 	public List<String> findAllServicePackageNames() {
 		List<String> srvPackage = null;
-		
 		srvPackage = em.createNamedQuery("AllServicePackageNames", String.class).getResultList();
-		
 		return srvPackage;
 	}
 	
@@ -41,9 +37,8 @@ public class SrvServicePackage {
 		ServicePackage s = em.find(ServicePackage.class, srvpkgid);
 		if (!s.getProducts().contains(p))
 			s.addProduct(p);
-		
-		em.getTransaction().begin();
 
+		em.getTransaction().begin();
 		em.persist(s);
 		em.getTransaction().commit();
 		return s;
@@ -64,7 +59,6 @@ public class SrvServicePackage {
 	}
 
 	public void addServicePackage(ServicePackage servicePackage) {
-		
 		em.getTransaction().begin();
 		em.persist(servicePackage);
 		em.getTransaction().commit();

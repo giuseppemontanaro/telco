@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -27,9 +28,8 @@ public class User implements Serializable {
 	private boolean isEmployee;
 	@Column
 	private String eMail;
-	
-	//Eager because orders will be few for a user
-	@JsonManagedReference(value="user-orders")
+
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> orders;
@@ -98,4 +98,16 @@ public class User implements Serializable {
 		this.orders = orders;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", isInsolvent=" + isInsolvent +
+				", isEmployee=" + isEmployee +
+				", eMail='" + eMail + '\'' +
+				", orders=" + orders +
+				'}';
+	}
 }

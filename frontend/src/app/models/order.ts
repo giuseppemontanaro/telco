@@ -2,9 +2,9 @@ import { UserStatus } from './userStatus';
 import { ChosenPackage } from './chosenPackage';
 
 export interface Order {
-    creationDate: Date;
+    date: Date;
     total: number;
-    subscriptionDate: Date;
-    status: UserStatus;
+    subscription_date: Date;
     package: ChosenPackage;
+    isRejected: boolean
 }

@@ -19,15 +19,20 @@ export class HomeComponent implements OnInit {
 
   packages: Package[] = [];
   rejected: Order[] = [];
+  isLoaded: boolean = false;
 
   constructor(private router: Router, private packageDao: PackageDaoService, private orderDao: OrderDaoService, private model: ModelService) { }
 
   ngOnInit(): void {
-    this.packageDao.getPackages()
-      .subscribe(packages => this.packages = packages);
     const user = this.model.getBean(Const.USER);
     this.orderDao.getRejectedOrders(user)
-      .subscribe(rejected => this.rejected = rejected);
+      .subscribe(rejected => {
+        this.rejected = rejected;
+        console.log(this.rejected);
+        this.isLoaded = true;
+      });
+    this.packageDao.getPackages()
+      .subscribe(packages => this.packages = packages);
   }
 
   goToBuyPage(): void {
