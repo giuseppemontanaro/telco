@@ -30,7 +30,7 @@ public class User implements Serializable {
 	
 	//Eager because orders will be few for a user
 	@JsonManagedReference(value="user-orders")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> orders;
 

@@ -41,7 +41,7 @@ public class ServicePackage implements Serializable {
 	
 	//@JsonManagedReference(value="svp-orders")
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> purchaseList;
 	
