@@ -1,15 +1,13 @@
--- TODO: cambiare c'nome tabella order se no conflitti in java
-
 -- mat view
 CREATE TABLE service_package_view(service_pkg_id INT, total INT, total_val_per_12 INT, total_val_per_24 INT, total_val_per_36 INT, sales_pkg_only DOUBLE, sales_with_opt_prods DOUBLE, avg_prods DOUBLE);
 
-CREATE TABLE insolvent_users_view(user ddl);
+CREATE TABLE insolvent_users_view(id int AUTO_INCREMENT, username VARCHAR(45), email VARCHAR(45), PRIMARY KEY(id));
 
-CREATE TABLE suspended_order_view(order ddl);
+CREATE TABLE suspended_order_view(id int AUTO_INCREMENT, total float, subscription_date datetime, date datetime, PRIMARY KEY(id));
 
-CREATE TABLE alert_view(user_id INT, username VARCHAR(30), email VARCHAR(30), order_id INT, amount DOUBLE, last_rejection_date DATETIME);
+CREATE TABLE alert_view(user_id INT, username VARCHAR(45), email VARCHAR(45), order_id INT, amount DOUBLE, last_rejection_date DATETIME);
 
-CREATE TABLE best_seller_view(id INT, name VARCHAR(50));
+CREATE TABLE best_seller_view(name VARCHAR(50), purchases int);
 
 
 -- trigger
@@ -25,7 +23,7 @@ INSERT INTO service_package_view
 		sum(s.cost) as sales_pkg_only,
 		sum(s.cost) + sum(op.cost) sales_with_opt_prods,
 		count(*) / count(distinct s.service_pkg_id) avg_prods
-	FROM order o, service_package s, optional_products op, validity_period p
+	FROM purchase o, service_package s, optional_products op, validity_period p
 	WHERE o.service_pkg_id = s.id and o.optional_products_fk = op.id and o.validity_period_fk = p.id
 	GROUP BY s.id;
 
@@ -43,16 +41,27 @@ FOR EACH ROW
 WHEN new.is_rejected = true
 INSERT INTO suspended_order VALUES (row);
 
-user_id INT, username VARCHAR(30), email VARCHAR(30), order_id INT, amount DOUBLE, last_rejection_date DATETIME
+
 CREATE TRIGGER alert_trigger
 AFTER UPDATE ON order
 FOR EACH ROW
 INSERT INTO alert_view 
 	SELECT u.id, u.username, u.email, sum(o.cost), max(o.date)
-	FROM order o, user u
+	FROM purchase o, user u
 	WHERE o.user_fk = u.id and u.insolvent = true
 	GROUP BY u.id
 	HAVING count(*) >= 3;
 
 
--- trigger best seller
+CREATE TRIGGER bestseller_trigger
+AFTER UPDATE ON order
+FOR EACH ROW
+DELETE FROM best_seller_view bsw
+INSERT INTO best_seller_view
+	SELECT tmp.name, max(num_orders)
+	FROM (
+		SELECT p.name, count(*) as num_orders
+		FROM purchase o, order_product op, product p
+		WHERE op.order_fk = o.id and op.product_fk = p.id
+		GROUP BY p.name) tmp
+

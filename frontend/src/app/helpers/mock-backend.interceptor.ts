@@ -15,6 +15,7 @@ import { ModelService } from '../services/model.service';
 import { Const } from '../shared/constants';
 import { Package } from '../models/package';
 import { UserStatus } from '../models/userStatus';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MockBackendInterceptor implements HttpInterceptor {
@@ -83,8 +84,10 @@ export class MockBackendInterceptor implements HttpInterceptor {
     const { url, method, headers, body, params } = request;
 
     console.log(request)
+    if (!environment.mocked) return next.handle(request);
+
     switch (true) {
-      /*case url.endsWith('/auth/login') && method === 'POST':
+      case url.endsWith('/auth/login') && method === 'POST':
         return this.authenticate(body);
       case url.endsWith('/users') && method === 'POST':
         return this.signUpUser(body);
@@ -108,10 +111,8 @@ export class MockBackendInterceptor implements HttpInterceptor {
         return this.getServices();
       case url.endsWith('/salesreport') && method === 'GET':
         return this.getSalesReport();
-        */
       default:
         return next.handle(request);
-        
     }
   }
 

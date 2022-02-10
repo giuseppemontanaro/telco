@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,
     private model: ModelService
   ) {
     this.model.getBean$(Const.USER).subscribe({
@@ -28,7 +27,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.user) {
-      if (route.data.roles && route.data.roles.indexOf(this.user.role) === -1) {
+      if (route.data.roles && route.data.roles.indexOf(this.user.isEmployee) === -1) {
         this.router.navigate(['/']);
         return false;
       }

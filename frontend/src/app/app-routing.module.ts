@@ -29,7 +29,6 @@ const routes: Routes = [
      path: 'employee-home',
      component: EmployeeHomeComponent,
      canActivate: [AuthGuard],
-     data: { roles: [Role.Emplyee] }
    },
   { path: '**', redirectTo: 'login' }
 ];

@@ -105,8 +105,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(user.username, user.password)
       .subscribe((response) => {
         if (!!response) {
-          this.model.putBean(Const.USER, response);
-          if (response.role == Role.Emplyee) {
+          this.model.putBean(Const.USER, response[0]);
+          if (response[0].isEmployee) {
             this.router.navigate(['employee-home']);
             return;
           }

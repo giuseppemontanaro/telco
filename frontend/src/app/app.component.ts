@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   
   title = 'Telco';
-  user: User = {username: '', password: '', email: '', role: Role.User};
+  user: User = {username: '', password: '', email: '', isEmployee: false};
 
   constructor(private model: ModelService, private router: Router) {
     this.model.getBean$(Const.USER).subscribe(
