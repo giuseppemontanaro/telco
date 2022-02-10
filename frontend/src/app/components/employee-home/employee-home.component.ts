@@ -80,11 +80,11 @@ export class EmployeeHomeComponent implements OnInit {
         this.optionals = optionals;
         this.optionalsLen = optionals.length;
       });
-    this.salesReportDao.getSalesReport()
+    /*this.salesReportDao.getSalesReport()
     .subscribe(report => {
       this.report = report
       console.log(this.report);
-    });
+    });*/
   }
 
   createServicePackage() {

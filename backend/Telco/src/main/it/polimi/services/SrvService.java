@@ -28,7 +28,7 @@ public class SrvService {
         return em.find(Service.class, id);
     }
     
-    public List<Service> findAllEmployees() {
+    public List<Service> findAllServices() {
         TypedQuery query = em.createQuery("SELECT s FROM Service s", Service.class);
         return query.getResultList();
     }

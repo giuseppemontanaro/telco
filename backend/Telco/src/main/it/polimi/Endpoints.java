@@ -1,6 +1,7 @@
 package main.it.polimi;
 
 import main.it.polimi.dto.PurchaseDTO;
+import main.it.polimi.dto.ReportDTO;
 import main.it.polimi.entities.*;
 import main.it.polimi.exceptions.CredentialsException;
 import main.it.polimi.exceptions.UserNotFound;
@@ -26,6 +27,7 @@ public class Endpoints {
     UserService userService = new UserService(em);
     SrvServicePackage srvServicePackage = new SrvServicePackage(em);
     ProductService productService = new ProductService(em);
+    ReportService reportService = new ReportService(em);
 
 //    AUTH ENDPOINTS
 
@@ -114,13 +116,13 @@ public class Endpoints {
 
     @GetMapping("/services")
     public List<Service> getServices() {
-        return srvService.findAllEmployees();
+        return srvService.findAllServices();
     }
 
-    @GetMapping("/salesreport")
-    public List<Service> getReport() {
-        return srvService.findAllEmployees();
-    }
-
+    /*@GetMapping("/salesreport")
+    public ReportDTO getReport() {
+        return reportService.getReport();
+    }*/
+	
 }
 
