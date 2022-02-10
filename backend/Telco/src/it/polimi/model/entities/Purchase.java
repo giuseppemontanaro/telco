@@ -41,13 +41,13 @@ public class Purchase{
 	
 	// Eager because when we check a purchase, we also wanto to know what and who
 	@JsonBackReference(value="svp-orders")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 		@JoinColumn(name="service_pkg_fk")
 	private ServicePackage service_pkg;
 	
 	@JsonBackReference(value="user-orders")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 		CascadeType.REFRESH })
 	@JoinColumn(name="user_foreignk")
 	private User user;
