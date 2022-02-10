@@ -30,8 +30,7 @@ public class User implements Serializable {
 	private String eMail;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Purchase> orders;
 
 

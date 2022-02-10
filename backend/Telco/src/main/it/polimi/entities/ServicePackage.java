@@ -36,26 +36,22 @@ public class ServicePackage implements Serializable {
 	private String name;
 	
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Purchase> purchaseList;
 	
-	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinTable(name="service_package_product",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="product_fk"))
 	private Collection<Product> products;
 
-	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="service_package_service",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="service_fk"))
 	private Collection<Service> services;
 	
-	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="service_package_validity_period",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="validity_period_fk"))

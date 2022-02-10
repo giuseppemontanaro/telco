@@ -22,8 +22,7 @@ public class ValidityPeriod implements Serializable {
 	private int monthly_fee;
 
 	@JsonManagedReference(value="val-orders")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="validityPeriod", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="validityPeriod", cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	private Collection<Purchase> purchases;
 	
 	public ValidityPeriod() {

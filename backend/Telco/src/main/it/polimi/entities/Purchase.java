@@ -22,14 +22,12 @@ public class Purchase implements Serializable {
 	
 	
 	@JsonBackReference(value="svp-orders")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 		@JoinColumn(name="service_pkg_fk")
 	private ServicePackage service_pkg;
 	
 	@JsonBackReference(value="user-orders")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-		CascadeType.REFRESH })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="user_foreignk")
 	private User user;
 
@@ -40,8 +38,7 @@ public class Purchase implements Serializable {
 	private Collection<Product> products;
 
 	@JsonBackReference(value="val-orders")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="validity_period_fk")
 	private ValidityPeriod validityPeriod;
 
