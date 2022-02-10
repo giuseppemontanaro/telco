@@ -20,7 +20,7 @@ public class Service implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
 
 	private int ID;
-	private String Title;
+	private String title;
 	private Integer gigabytes;
 	private Float gigabytes_extra_fee;
 	private Integer SMS;
@@ -50,11 +50,11 @@ public class Service implements Serializable {
 	}
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
 
 	public Integer getGigabytes() {
@@ -120,10 +120,20 @@ public class Service implements Serializable {
 	public void setServicePackages(Collection<ServicePackage> servicePackages) {
 		this.servicePackages = servicePackages;
 	}
-	
-	
-	
-	
 
-    
+	@Override
+	public String toString() {
+		return "Service{" +
+				"ID=" + ID +
+				", title='" + title + '\'' +
+				", gigabytes=" + gigabytes +
+				", gigabytes_extra_fee=" + gigabytes_extra_fee +
+				", SMS=" + SMS +
+				", SMS_extra_fee=" + SMS_extra_fee +
+				", minutes=" + minutes +
+				", minutes_extra_fee=" + minutes_extra_fee +
+				", category='" + category + '\'' +
+				", servicePackages=" + servicePackages +
+				'}';
+	}
 }

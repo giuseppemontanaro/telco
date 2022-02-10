@@ -21,7 +21,7 @@ export class BuyPageComponent implements OnInit {
   chosenValidityPeriod!: ValidityPeriod;
   chosenDate!: Date;
   packages: Package[] = [];
-  currentPackage: Package = {name: '', services: [], validityPeriods: [], optionalProducts: []};
+  currentPackage: Package = {name: '', services: [], periods: [], products: []};
   selectedOptionals: OptionalProduct[] = [];
   selectedOptional!: OptionalProduct;
 
@@ -45,11 +45,11 @@ export class BuyPageComponent implements OnInit {
 
   addOptional(): void {
     this.selectedOptionals.push(this.selectedOptional);
-    this.currentPackage.optionalProducts = this.currentPackage.optionalProducts.filter(elem => elem.name != this.selectedOptional.name);
+    this.currentPackage.products = this.currentPackage.products.filter(elem => elem.name != this.selectedOptional.name);
   }
 
   removeOptional(index: number): void  {
-    this.currentPackage.optionalProducts.push(this.selectedOptionals[index]);
+    this.currentPackage.products.push(this.selectedOptionals[index]);
     this.selectedOptionals.splice(index, 1);
   }
 
@@ -65,7 +65,7 @@ export class BuyPageComponent implements OnInit {
     this.packageDao.getPackageDetails(currentPackage)
       .subscribe(currentPackage => {
         this.currentPackage = currentPackage;
-        this.optionalsLen = currentPackage.optionalProducts.length;
+        this.optionalsLen = currentPackage.products.length;
       })
   }
 

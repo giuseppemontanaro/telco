@@ -6,7 +6,7 @@
         <ul>
             <li *ngFor="let service of chosenPackage.services">{{service.title}}</li>
         </ul>
-        <h2>validity period: {{chosenPackage.validityPeriod.monthsNumber}} months</h2>
+        <h2>validity period: {{chosenPackage.validityPeriod.month_number}} months</h2>
         <h2>optional products:</h2>
         <ul>
             <li *ngFor="let optional of chosenPackage.optionalProducts">{{optional.name}}</li>

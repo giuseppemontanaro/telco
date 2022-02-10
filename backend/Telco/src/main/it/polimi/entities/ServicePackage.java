@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -27,32 +28,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NamedQuery(name = "AllServicePackage", query = "SELECT p FROM ServicePackage p")
 @NamedQuery(name = "AllServicePackageNames", query = "SELECT p.name FROM ServicePackage p")
 @NamedQuery(name = "GetPackage", query = "SELECT p FROM ServicePackage p where p.name = ?1")
-
-
 public class ServicePackage implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)		//To generate automatically primary keys
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	private String name;
 	
-
-	
-	//@JsonManagedReference(value="svp-orders")
 	@JsonBackReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Purchase> purchaseList;
 	
-	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
+	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinTable(name="service_package_product",
 			joinColumns=@JoinColumn(name="service_package_fk"),
 			inverseJoinColumns=@JoinColumn(name="product_fk"))
 	private Collection<Product> products;
-	
-	
+
 	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinTable(name="service_package_service",
@@ -67,74 +61,55 @@ public class ServicePackage implements Serializable {
 			inverseJoinColumns=@JoinColumn(name="validity_period_fk"))
 	private Collection<ValidityPeriod> periods;
 	
-	public ServicePackage() {
-		
-	}
-
+	public ServicePackage() {	}
 
 	public int getID() {
 		return ID;
 	}
 
-
 	public void setID(int iD) {
 		ID = iD;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public Collection<Product> getProducts() {
 		return products;
 	}
 
-
-
 	public void setProducts(Collection<Product> products) {
 		this.products = products;
 	}
-	
-	
-	
+
 	public Collection<Service> getServices() {
 		return services;
 	}
-
 
 	public void setServices(Collection<Service> services) {
 		this.services = services;
 	}
 
-
-
 	public Collection<ValidityPeriod> getPeriods() {
 		return periods;
 	}
-
-
 
 	public List<Purchase> getPurchaseList() {
 		return purchaseList;
 	}
 
-
 	public void setPurchaseList(List<Purchase> purchaseList) {
 		this.purchaseList = purchaseList;
 	}
 
-
 	public void setPeriods(Collection<ValidityPeriod> periods) {
 		this.periods = periods;
 	}
-
 
 	public void addProduct(Product p) {
 		this.getProducts().add(p);
@@ -147,9 +122,16 @@ public class ServicePackage implements Serializable {
 	public void addPeriod(ValidityPeriod s) {
 		this.getPeriods().add(s);
 	}
-	
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "ServicePackage{" +
+				"ID=" + ID +
+				", name='" + name + '\'' +
+				", purchaseList=" + purchaseList +
+				", products=" + products +
+				", services=" + services +
+				", periods=" + periods +
+				'}';
+	}
 }
