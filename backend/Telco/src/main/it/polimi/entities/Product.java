@@ -1,4 +1,4 @@
-¯package main.it.polimi.entities;
+package main.it.polimi.entities;
 
 
 import java.io.Serializable;
