@@ -13,8 +13,11 @@ CREATE TABLE best_seller_view(name VARCHAR(50), purchases int);
 -- trigger
 CREATE TRIGGER service_package_trigger  
 AFTER INSERT ON purchase 
-FOR EACH ROW  
-DELETE FROM service_package_view spw;
+FOR EACH ROW
+CREATE TRIGGER service_package_trigger  
+AFTER INSERT ON purchase 
+FOR EACH ROW
+DELETE FROM service_package_view spw WHERE spw.service_pkg_id = NEW.service_pkg_fk;
 INSERT INTO service_package_view   
 SELECT s.id as service_pkg_id, count(*) as total,
     count(case p.month_number when 12 then 1 else null end) as total_val_per_12,
