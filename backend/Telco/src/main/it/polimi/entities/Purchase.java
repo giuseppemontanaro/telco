@@ -1,4 +1,4 @@
-package main.it.polimi.entities;
+ package main.it.polimi.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,14 +22,14 @@ public class Purchase implements Serializable {
 	
 	
 	@JsonBackReference(value="svp-orders")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 		@JoinColumn(name="service_pkg_fk")
 	private ServicePackage service_pkg;
 	
 	@JsonBackReference(value="user-orders")
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="user_foreignk")
-	private User user;
+	private User user; 
 
 	@ManyToMany 
 	@JoinTable(name="order_product",

@@ -28,7 +28,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NamedQuery(name = "AllServicePackage", query = "SELECT p FROM ServicePackage p")
 @NamedQuery(name = "AllServicePackageNames", query = "SELECT p.name FROM ServicePackage p")
 @NamedQuery(name = "GetPackage", query = "SELECT p FROM ServicePackage p where p.name = ?1")
-public class ServicePackage implements Serializable {
+
+
+public class ServicePackage {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +38,7 @@ public class ServicePackage implements Serializable {
 	private String name;
 	
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Purchase> purchaseList;
 	
 	@ManyToMany (fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE})

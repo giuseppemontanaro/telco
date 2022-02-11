@@ -1,19 +1,14 @@
 package main.it.polimi.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity @Table(name="Telco.insolvent_user")
+@Entity
 public class InsolventUser {
 	
 	@Id 
-	@Column (name="id", nullable=false)
 	private int id;
-	@Column (name="username", nullable=false)
 	private String username;
-	@Column (name="email", nullable=false)
 	private String eMail;
 	
 	public InsolventUser() {

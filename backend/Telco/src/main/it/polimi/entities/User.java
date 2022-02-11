@@ -18,19 +18,14 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column
 	private String username;
-	@Column
 	private String password;
-	@Column
 	private boolean isInsolvent;
-	@Column
 	private boolean isEmployee;
-	@Column
 	private String eMail;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Purchase> orders;
 
 
