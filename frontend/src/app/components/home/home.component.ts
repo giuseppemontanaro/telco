@@ -25,12 +25,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.model.getBean(Const.USER);
-    this.orderDao.getRejectedOrders(user)
+    /*this.orderDao.getRejectedOrders(user)
       .subscribe(rejected => {
         this.rejected = rejected;
         console.log(this.rejected);
         this.isLoaded = true;
-      });
+      });*/
     this.packageDao.getPackages()
       .subscribe(packages => this.packages = packages);
   }

@@ -6,6 +6,9 @@ import main.it.polimi.entities.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class PurchaseService {
@@ -59,7 +62,14 @@ public class PurchaseService {
 
 
 	public List<Purchase> getRejectedOrders(User user) {
-		TypedQuery query = em.createQuery("SELECT p FROM Purchase p WHERE p.user = '" + user.getId() + "' and p.isRejected = true", Purchase.class);
-		return query.getResultList();
+		List<Purchase> query = em.createQuery("SELECT p FROM Purchase p WHERE p.user = '" + user.getId() + "' and p.isRejected = true", Purchase.class).getResultList();
+		if (query == null) {
+			List<Purchase> empty = Collections.<Purchase>emptyList();  
+			return empty;
+		}else {
+			return query;
+
+		}
+		
 	}
 }
