@@ -1,8 +1,12 @@
 package main.it.polimi.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class BestSeller {
 	
-	
+	@Id
 	private int ID;
 	private String name;
 	private int monthly_fee;

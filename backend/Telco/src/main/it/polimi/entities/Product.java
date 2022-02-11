@@ -1,10 +1,11 @@
-package main.it.polimi.entities;
+¯package main.it.polimi.entities;
 
 
 import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Product implements Serializable {
 	private String name;
 	
 	@JsonBackReference
-	@ManyToMany(mappedBy="products")
+	@ManyToMany(mappedBy="products",fetch = FetchType.LAZY)
 	private Collection<ServicePackage> servicePackages;
 	
 	

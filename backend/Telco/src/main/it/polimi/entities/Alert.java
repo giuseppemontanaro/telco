@@ -8,7 +8,6 @@ import javax.persistence.Id;
 @Entity
 public class Alert {
 	
-	
 	@Id
 	private int id;
 	private String username;
@@ -17,13 +16,8 @@ public class Alert {
 	private Date maxDate;
 	
 	
-	public Alert(int id, String username, String email, int sumCost, Date maxDate) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.sumCost = sumCost;
-		this.maxDate = maxDate;
+	public Alert() {
+
 	}
 
 
