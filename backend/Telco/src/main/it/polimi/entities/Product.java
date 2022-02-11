@@ -13,11 +13,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
 @NamedQuery(name = "AllProduct", query = "SELECT p FROM Product p")
-public class Product implements Serializable {
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +29,7 @@ public class Product implements Serializable {
 	private String name;
 	
 	@JsonBackReference
-	@ManyToMany(mappedBy="products",fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy="products")
 	private Collection<ServicePackage> servicePackages;
 	
 	
