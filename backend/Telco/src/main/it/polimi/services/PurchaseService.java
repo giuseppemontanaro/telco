@@ -37,20 +37,17 @@ public class PurchaseService {
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
 		User user = em.find(User.class, purchaseDTO.getUser().getId());
-		if(order.isRejected() == true) {
+		if(order.isRejected()) {
 			user.setInsolvent(true);
+			em.merge(user);
 		}
 		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getChosenPackage().getName()).getSingleResult();
 		ValidityPeriod v = em.find(ValidityPeriod.class, purchaseDTO.getValidityPeriod().getID());
 		
 		List<Product> products = new ArrayList<Product>();
-		
-		
 		for (Product elem : s.getProducts()) {
-			
 			products.add(em.createNamedQuery("GetProduct", Product.class).setParameter(1, elem.getName()).getSingleResult());
 		}
-
 		
 		em.getTransaction().begin();
 		order.setUser(user);

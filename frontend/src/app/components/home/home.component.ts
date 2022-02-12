@@ -32,7 +32,9 @@ export class HomeComponent implements OnInit {
         this.isLoaded = true;
       });*/
     this.packageDao.getPackages()
-      .subscribe(packages => this.packages = packages);
+      .subscribe(packages => {
+        console.log(packages)
+        this.packages = packages});
   }
 
   goToBuyPage(): void {
