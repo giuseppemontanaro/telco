@@ -5,7 +5,7 @@ CREATE TABLE insolvent_users_view(id int AUTO_INCREMENT, username VARCHAR(45), e
 
 CREATE TABLE suspended_order_view(id int AUTO_INCREMENT, total float, subscription_date datetime, date datetime, PRIMARY KEY(id));
 
-CREATE TABLE alert_view(user_id INT, username VARCHAR(45), email VARCHAR(45), order_id INT, amount DOUBLE, last_rejection_date DATETIME);
+CREATE TABLE alert_view(user_id INT, username VARCHAR(45), email VARCHAR(45), amount DOUBLE, last_rejection_date DATETIME);
 
 CREATE TABLE best_seller_view(name VARCHAR(50), purchases int);
 
@@ -46,7 +46,7 @@ AFTER INSERT ON purchase
 FOR EACH ROW 
 BEGIN  
 	IF (new.isRejected = true)     
-    THEN INSERT INTO suspended_order VALUES(id, total, subscription_date, date);  
+    THEN INSERT INTO suspended_order_view VALUES(id, total, subscription_date, date);  
     END IF; 
 END$$
 DELIMITER ;
@@ -55,9 +55,9 @@ DELIMITER ;
 CREATE TRIGGER alert_trigger 
 AFTER INSERT ON purchase 
 FOR EACH ROW INSERT INTO alert_view
-   SELECT u.id, u.username, u.email, sum(o.cost), max(o.date)
+   SELECT u.id, u.username, u.email, sum(o.total), max(o.date)
    FROM purchase o, user u
-   WHERE o.user_fk = u.id and u.insolvent = true
+   WHERE o.user_foreingk = u.id and u.isInsolvent = true
    GROUP BY u.id
    HAVING count(*) >= 3
 
