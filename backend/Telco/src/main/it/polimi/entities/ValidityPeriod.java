@@ -21,9 +21,6 @@ public class ValidityPeriod implements Serializable {
 	private int month_number;
 	private int monthly_fee;
 
-	@JsonManagedReference(value="val-orders")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="validityPeriod", cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
-	private Collection<Purchase> purchases;
 	
 	public ValidityPeriod() {
 	}
@@ -52,21 +49,12 @@ public class ValidityPeriod implements Serializable {
 		this.monthly_fee = monthly_fee;
 	}
 
-	public Collection<Purchase> getPurchases() {
-		return purchases;
-	}
-
-	public void setPurchases(Collection<Purchase> purchases) {
-		this.purchases = purchases;
-	}
-
 	@Override
 	public String toString() {
 		return "ValidityPeriod{" +
 				"ID=" + ID +
 				", month_number=" + month_number +
 				", monthly_fee=" + monthly_fee +
-				", purchases=" + purchases +
 				'}';
 	}
 }

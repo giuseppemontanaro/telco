@@ -27,7 +27,6 @@ public class Service implements Serializable {
 	private Float SMS_extra_fee;
 	private Integer minutes;
 	private Float minutes_extra_fee;
-	private String category;
 	
 	@JsonBackReference
 	@ManyToMany(mappedBy="services")
@@ -105,14 +104,6 @@ public class Service implements Serializable {
 		this.minutes_extra_fee = minutes_extra_fee;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public Collection<ServicePackage> getServicePackages() {
 		return servicePackages;
 	}
@@ -132,7 +123,6 @@ public class Service implements Serializable {
 				", SMS_extra_fee=" + SMS_extra_fee +
 				", minutes=" + minutes +
 				", minutes_extra_fee=" + minutes_extra_fee +
-				", category='" + category + '\'' +
 				", servicePackages=" + servicePackages +
 				'}';
 	}
