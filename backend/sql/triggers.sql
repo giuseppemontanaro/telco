@@ -14,9 +14,6 @@ CREATE TABLE best_seller_view(name VARCHAR(50), purchases int);
 CREATE TRIGGER service_package_trigger  
 AFTER INSERT ON purchase 
 FOR EACH ROW
-CREATE TRIGGER service_package_trigger  
-AFTER INSERT ON purchase 
-FOR EACH ROW
 DELETE FROM service_package_view spw WHERE spw.service_pkg_id = NEW.service_pkg_fk;
 INSERT INTO service_package_view   
 SELECT s.id as service_pkg_id, count(*) as total,
@@ -40,7 +37,7 @@ BEGIN
 	THEN INSERT INTO insolvent_users_view VALUES (new.id, new.username, new.email);  
 	END IF; 
 END$$
-DELIMITER;
+DELIMITER ;
 
 
 DELIMITER $$
@@ -66,7 +63,7 @@ FOR EACH ROW INSERT INTO alert_view
 
 
 CREATE TRIGGER bestseller_trigger
-AFTER UPDATE ON purchase 
+AFTER INSERT ON purchase 
 FOR EACH ROW 
 DELETE FROM best_seller_view bsw;
 INSERT INTO best_seller_view
