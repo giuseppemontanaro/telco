@@ -57,7 +57,7 @@ AFTER INSERT ON purchase
 FOR EACH ROW INSERT INTO alert_view
    SELECT u.id, u.username, u.email, sum(o.total), max(o.date)
    FROM purchase o, user u
-   WHERE o.user_foreingk = u.id and u.isInsolvent = true
+   WHERE o.user_foreignk = u.id and u.isInsolvent = true
    GROUP BY u.id
    HAVING count(*) >= 3
 
