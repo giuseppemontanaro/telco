@@ -53,6 +53,7 @@ DELIMITER ;
 
 
 CREATE TRIGGER alert_trigger 
+DELETE FROM alert_view WHERE userId = NEW.user_foreignk;
 AFTER INSERT ON purchase 
 FOR EACH ROW INSERT INTO alert_view
    SELECT u.id, u.username, u.email, sum(o.total), max(o.date)
