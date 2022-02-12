@@ -33,7 +33,7 @@ export class UserDaoService {
   }
 
   signUpUser(user: User): Observable<boolean> {
-    return this.http.post<boolean>(`${this.baseUrl}/users`, user, this.httpOptions)
+    return this.http.post<boolean>(`${this.baseUrl}/auth/signUp`, user, this.httpOptions)
       .pipe(
         catchError(
           handleError<boolean>('signUpUser', false)

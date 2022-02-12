@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -36,13 +37,23 @@ public class PurchaseService {
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
 		User user = em.find(User.class, purchaseDTO.getUser().getId());
-		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getPackageName()).getSingleResult();
+		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getChosenPackage().getName()).getSingleResult();
 		ValidityPeriod v = em.find(ValidityPeriod.class, purchaseDTO.getValidityPeriod().getID());
 
+		List<Product> products = new ArrayList<Product>();
+		
+		
+		for (Product elem : s.getProducts()) {
+			
+			products.add(em.createNamedQuery("GetProduct", Product.class).setParameter(1, elem.getName()).getSingleResult());
+		}
+
+		
 		em.getTransaction().begin();
 		order.setUser(user);
 		order.setService_pkg(s);
 		order.setValidityPeriod(v);
+		order.setProducts(products);
 		em.persist(order);
 		em.getTransaction().commit();
 	}

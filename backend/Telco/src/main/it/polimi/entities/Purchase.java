@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "purchase", schema = "Telco")
@@ -31,11 +32,12 @@ public class Purchase implements Serializable {
 	@JoinColumn(name="user_foreignk")
 	private User user; 
 
+	
 	@ManyToMany 
 	@JoinTable(name="order_product",
 			joinColumns=@JoinColumn(name="order_fk"),
 			inverseJoinColumns=@JoinColumn(name="product_fk"))
-	private Collection<Product> products;
+	private Collection<Product> toProducts;
 
 	@JsonBackReference(value="val-orders")
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
@@ -100,11 +102,11 @@ public class Purchase implements Serializable {
 	}
 
 	public Collection<Product> getProducts() {
-		return products;
+		return toProducts;
 	}
 
 	public void setProducts(Collection<Product> products) {
-		this.products = products;
+		this.toProducts = products;
 	}
 	
 	public void addProduct(Product p) {
@@ -153,7 +155,7 @@ public class Purchase implements Serializable {
 				", subscription_date=" + subscription_date +
 				", service_pkg=" + service_pkg +
 				", user=" + user +
-				", products=" + products +
+				", products=" + toProducts +
 				'}';
 	}
 }

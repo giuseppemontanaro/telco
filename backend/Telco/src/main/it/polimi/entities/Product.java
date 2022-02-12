@@ -18,7 +18,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @NamedQuery(name = "AllProduct", query = "SELECT p FROM Product p")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NamedQuery(name = "GetProduct", query = "SELECT p FROM Product p where p.name = ?1")
+
+
 
 public class Product {
 	
@@ -28,9 +30,15 @@ public class Product {
 	private int monthly_fee;
 	private String name;
 	
-	@JsonBackReference
+	@JsonBackReference(value="svpkg")
 	@ManyToMany(mappedBy="products")
 	private Collection<ServicePackage> servicePackages;
+	
+	@JsonBackReference(value="purchase")
+	@ManyToMany(mappedBy="toProducts")
+	private Collection<Purchase> purchases;
+	
+
 	
 	
 	public Product() {
@@ -72,6 +80,16 @@ public class Product {
 
 	public void setServicePackages(Collection<ServicePackage> servicePackages) {
 		this.servicePackages = servicePackages;
+	}
+	
+	
+
+	public Collection<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(Collection<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override

@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
 
   printDetails(service: Service) {
     if (service.title == 'Mobile Internet' || service.title == 'Fixed Internet') {
-      return (service as Internet).gigabytes + ' GB - $' + (service as Internet).gigabytesExtraFee + ' extra fee'
+      return (service as Internet).gigabytes + ' GB - $' + (service as Internet).gigabytes_extra_fee + ' extra fee'
     } else if (service.title == 'Mobile Phone') {
-      return (service as MobilePhone).sms + ' SMS - $' + (service as MobilePhone).smsExtraFee + ' extra fee ' + (service as MobilePhone).minutes + ' minutes - $' + (service as MobilePhone).smsExtraFee + ' extra fee'
+      return (service as MobilePhone).sms + ' SMS - $' + (service as MobilePhone).sms_extra_fee + ' extra fee ' + (service as MobilePhone).minutes + ' minutes - $' + (service as MobilePhone).minutes_extra_fee + ' extra fee'
     }
     return ''
   }

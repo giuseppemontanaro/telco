@@ -2,39 +2,40 @@ package main.it.polimi.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="best_seller_view")
+
 public class BestSeller {
 	
 	@Id
-	private int ID;
 	private String name;
-	private int monthly_fee;
+	private int purchases;
 	
 	
 	public BestSeller() {
 	}
 	
-	
-	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getMonthly_fee() {
-		return monthly_fee;
+
+
+	public int getPurchases() {
+		return purchases;
 	}
-	public void setMonthly_fee(int monthly_fee) {
-		this.monthly_fee = monthly_fee;
+
+
+	public void setPurchases(int purchases) {
+		this.purchases = purchases;
 	}
+	
+	
 	
 	
 	

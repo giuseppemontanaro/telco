@@ -4,16 +4,19 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="alert_view")
+
 public class Alert {
 	
 	@Id
-	private int id;
+	private int userId;
 	private String username;
 	private String email;
-	private int sumCost;
-	private Date maxDate;
+	private int amount;
+	private Date lastRejectionDate;
 	
 	
 	public Alert() {
@@ -21,13 +24,13 @@ public class Alert {
 	}
 
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 
@@ -51,29 +54,25 @@ public class Alert {
 	}
 
 
-	public int getSumCost() {
-		return sumCost;
+	public int getAmount() {
+		return amount;
 	}
 
 
-	public void setSumCost(int sumCost) {
-		this.sumCost = sumCost;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 
-	public Date getMaxDate() {
-		return maxDate;
+	public Date getLastRejectionDate() {
+		return lastRejectionDate;
 	}
 
 
-	public void setMaxDate(Date maxDate) {
-		this.maxDate = maxDate;
+	public void setLastRejectionDate(Date lastRejectionDate) {
+		this.lastRejectionDate = lastRejectionDate;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 

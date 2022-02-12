@@ -1,19 +1,20 @@
 package main.it.polimi.dto;
 
 import main.it.polimi.entities.Purchase;
+import main.it.polimi.entities.ServicePackage;
 import main.it.polimi.entities.User;
 import main.it.polimi.entities.ValidityPeriod;
 
 public class PurchaseDTO {
 
     Purchase purchase;
-    String packageName;
+    ServicePackage chosenPackage;
     User user;
     ValidityPeriod validityPeriod;
 
-    public PurchaseDTO(Purchase purchase, String packageName, User user, ValidityPeriod validityPeriod) {
+    public PurchaseDTO(Purchase purchase, ServicePackage packageName, User user, ValidityPeriod validityPeriod) {
         this.purchase = purchase;
-        this.packageName = packageName;
+        this.chosenPackage = packageName;
         this.user = user;
         this.validityPeriod = validityPeriod;
     }
@@ -26,15 +27,17 @@ public class PurchaseDTO {
         this.purchase = purchase;
     }
 
-    public String getPackageName() {
-        return packageName;
-    }
+    
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
+    public ServicePackage getChosenPackage() {
+		return chosenPackage;
+	}
 
-    public User getUser() {
+	public void setChosenPackage(ServicePackage chosenPackage) {
+		this.chosenPackage = chosenPackage;
+	}
+
+	public User getUser() {
         return user;
     }
 
@@ -54,7 +57,7 @@ public class PurchaseDTO {
     public String toString() {
         return "PurchaseDTO{" +
                 "purchase=" + purchase +
-                ", packageName='" + packageName + '\'' +
+                ", packageName='" + chosenPackage + '\'' +
                 ", user=" + user +
                 ", validityPeriod=" + validityPeriod +
                 '}';

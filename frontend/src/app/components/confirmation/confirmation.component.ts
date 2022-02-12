@@ -6,6 +6,7 @@ import { OrderDaoService } from 'src/app/services/order-dao.service';
 import { ChosenPackage } from 'src/app/models/chosenPackage';
 import { Order } from 'src/app/models/order';
 import { UserStatus } from 'src/app/models/userStatus';
+import { Package } from 'src/app/models/package';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ConfirmationComponent implements OnInit {
     this.isLoggedIn = !!this.model.getBean(Const.USER);
   }
 
+
   buy(isRejected: boolean) {
     const order: Order = {
       date: new Date(Date.now()),
@@ -33,8 +35,14 @@ export class ConfirmationComponent implements OnInit {
       isRejected: isRejected,
       package: this.chosenPackage
     }
+    let selectedPackage:Package = {name: this.chosenPackage.name, 
+      services: this.chosenPackage.services, 
+      products: this.chosenPackage.products,
+      periods : [this.chosenPackage.validityPeriod]}
+
+
     const user = this.model.getBean(Const.USER);
-    this.orderDao.createOrder({purchase: order, user: user, packageName: this.chosenPackage.name, validityPeriod: this.chosenPackage.validityPeriod}).subscribe();
+    this.orderDao.createOrder({purchase: order, user: user, chosenPackage: selectedPackage, validityPeriod: this.chosenPackage.validityPeriod}).subscribe();
     this.router.navigate(['/home']);
   }
 

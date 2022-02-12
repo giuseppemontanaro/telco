@@ -6,8 +6,13 @@ import main.it.polimi.entities.*;
 import main.it.polimi.exceptions.CredentialsException;
 import main.it.polimi.exceptions.UserNotFound;
 import main.it.polimi.services.*;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,9 +20,23 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import java.util.List;
 
+
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class Endpoints {
+	
+	
+	
+	/*@SuppressWarnings("deprecation")
+	@Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return (WebMvcConfigurer) new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }*/
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Telco");
 
@@ -125,4 +144,6 @@ public class Endpoints {
     }
 	
 }
+
+
 

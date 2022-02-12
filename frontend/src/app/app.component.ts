@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   
   title = 'Telco';
-  user: User = {username: '', password: '', email: '', isEmployee: false};
+  user: User = {username: '', password: '', eMail: '', isEmployee: false};
 
   constructor(private model: ModelService, private router: Router) {
     this.model.getBean$(Const.USER).subscribe(
@@ -25,7 +25,7 @@ export class AppComponent {
   }
 
   logout(): void {
-    this.model.putBean(Const.USER, {username: '', password: '', email: '', role: Role.User});
+    this.model.putBean(Const.USER, {username: '', password: '', eMail: '', role: Role.User});
     this.router.navigate(['login'])
   }
 }

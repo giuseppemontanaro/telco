@@ -2,14 +2,17 @@ package main.it.polimi.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="insolvent_users_view")
+
 public class InsolventUser {
 	
 	@Id 
 	private int id;
 	private String username;
-	private String eMail;
+	private String email;
 	
 	public InsolventUser() {
 	}
@@ -31,11 +34,11 @@ public class InsolventUser {
 	}
 
 	public String geteMail() {
-		return eMail;
+		return email;
 	}
 
 	public void seteMail(String eMail) {
-		this.eMail = eMail;
+		this.email = eMail;
 	}
 	
 	

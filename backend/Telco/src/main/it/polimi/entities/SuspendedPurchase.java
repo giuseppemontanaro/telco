@@ -6,14 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="suspendend_order_view")
+
 public class SuspendedPurchase {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
-	
+	private int id;
     private Date date; 
 	private float total;
 	private boolean isRejected;
@@ -28,14 +30,15 @@ public class SuspendedPurchase {
 
 
 
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
 
 
-	public void setID(int iD) {
-		ID = iD;
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
