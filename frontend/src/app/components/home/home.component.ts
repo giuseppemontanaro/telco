@@ -25,16 +25,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.model.getBean(Const.USER);
-    /*this.orderDao.getRejectedOrders(user)
+    this.orderDao.getRejectedOrders(user)
       .subscribe(rejected => {
         this.rejected = rejected;
-        console.log(this.rejected);
         this.isLoaded = true;
-      });*/
-    this.packageDao.getPackages()
-      .subscribe(packages => {
-        console.log(packages)
-        this.packages = packages});
+        console.log(this.rejected)
+        this.packageDao.getPackages()
+          .subscribe(packages => this.packages = packages);
+      });
   }
 
   goToBuyPage(): void {
@@ -42,6 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   toConfirmation(i: number): void {
+    console.log(this.rejected[i])
     this.model.putBean(Const.CHOSEN_PACKAGE, this.rejected[i].package);
     this.router.navigate(['confirmation'])
   }
@@ -53,5 +52,9 @@ export class HomeComponent implements OnInit {
       return (service as MobilePhone).sms + ' SMS - $' + (service as MobilePhone).sms_extra_fee + ' extra fee ' + (service as MobilePhone).minutes + ' minutes - $' + (service as MobilePhone).minutes_extra_fee + ' extra fee'
     }
     return ''
+  }
+
+  displayOrder(order: Order) {
+    return order.date.toLocaleString().substring(0, 10) + ' - $' + order.total;
   }
 }

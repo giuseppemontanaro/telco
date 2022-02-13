@@ -12,7 +12,10 @@
     </mat-card>
 
     <div *ngIf="isLoaded">
-        <h1 *ngFor="let order of rejected; let i = index" [attr.data-index]="i" (click)="toConfirmation(i)">{{order.date}}</h1>
+        <h2>Rejected orders:</h2>
+        <ul>
+            <li *ngFor="let order of rejected; let i = index" [attr.data-index]="i" (click)="toConfirmation(i)">{{displayOrder(order)}}</li>
+        </ul>
     </div>
 
     <button mat-fab color="primary" (click)="goToBuyPage()">

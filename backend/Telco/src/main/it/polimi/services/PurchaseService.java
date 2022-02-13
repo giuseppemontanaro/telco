@@ -44,9 +44,10 @@ public class PurchaseService {
 		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getChosenPackage().getName()).getSingleResult();
 		ValidityPeriod v = em.find(ValidityPeriod.class, purchaseDTO.getValidityPeriod().getID());
 		
-		List<Product> products = new ArrayList<Product>();
-		for (Product elem : s.getProducts()) {
-			products.add(em.createNamedQuery("GetProduct", Product.class).setParameter(1, elem.getName()).getSingleResult());
+		List<Product> products = new ArrayList<>();
+		for (Product elem : purchaseDTO.getChosenPackage().getProducts()) {
+			Product product = em.createNamedQuery("GetProduct", Product.class).setParameter(1, elem.getName()).getSingleResult();
+			products.add(product);
 		}
 		
 		em.getTransaction().begin();
@@ -73,13 +74,12 @@ public class PurchaseService {
 
 
 	public List<Purchase> getRejectedOrders(User user) {
-		List<Purchase> query = em.createQuery("SELECT p FROM Purchase p WHERE p.user = '" + user.getId() + "' and p.isRejected = true", Purchase.class).getResultList();
+		List<Purchase> query = em.createQuery("SELECT p FROM Purchase p, ServicePackage s WHERE p.user = " + user.getId() + " and p.service_pkg = s.id and p.isRejected = true", Purchase.class).getResultList();
 		if (query == null) {
 			List<Purchase> empty = Collections.<Purchase>emptyList();  
 			return empty;
-		}else {
+		} else {
 			return query;
-
 		}
 		
 	}

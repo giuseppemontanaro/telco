@@ -10,6 +10,6 @@ export interface Report {
     insolventsUsers: User[]; 
     suspendedOrders: Order[]; 
     alerts: Alert[];
-    bestSellerOptional: OptionalProduct;
+    bestSeller: OptionalProduct;
 
 }

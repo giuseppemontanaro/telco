@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Table(name = "service_package", schema = "Telco")
 @NamedQuery(name = "AllServicePackage", query = "SELECT p FROM ServicePackage p")
 @NamedQuery(name = "AllServicePackageNames", query = "SELECT p.name FROM ServicePackage p")

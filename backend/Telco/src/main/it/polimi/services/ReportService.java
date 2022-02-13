@@ -23,19 +23,19 @@ public class ReportService {
 
     public ReportDTO getReport() {
     	List<InsolventUser> insolventUsers = null;
-    	insolventUsers = em.createQuery("SELECT i FROM InsolventUser", InsolventUser.class).getResultList();
+    	insolventUsers = em.createQuery("SELECT i FROM InsolventUser i", InsolventUser.class).getResultList();
     	
     	List<SuspendedPurchase> suspendedPurchases = null;
-    	suspendedPurchases = em.createQuery("SELECT s FROM SuspendedPurchase", SuspendedPurchase.class).getResultList();
+    	suspendedPurchases = em.createQuery("SELECT s FROM SuspendedPurchase s", SuspendedPurchase.class).getResultList();
     	
     	List<Alert> alerts = null;
-    	alerts = em.createQuery("SELECT a FROM Alerts", Alert.class).getResultList();
+    	alerts = em.createQuery("SELECT a FROM Alert a", Alert.class).getResultList();
     	
     	List<ServiceReport> services = null;
-    	services = em.createQuery("SELECT serv FROM ServiceReport", ServiceReport.class).getResultList();
-    	
-    	
-    	Product best = em.createQuery("SELECT best FROM BestSeller", Product.class).getSingleResult();
+    	services = em.createQuery("SELECT serv FROM ServiceReport serv", ServiceReport.class).getResultList();
+
+
+		BestSeller best = em.createQuery("SELECT best FROM BestSeller best", BestSeller.class).getSingleResult();
     	
     	
     	ReportDTO r = new ReportDTO();
@@ -44,7 +44,7 @@ public class ReportService {
     	r.setAlerts(alerts);
     	r.setReport(services);
     	r.setBestSeller(best);
-    	
+		System.out.println(r);
 		return r;
 
     }

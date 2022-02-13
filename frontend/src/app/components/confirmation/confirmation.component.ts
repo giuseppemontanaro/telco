@@ -42,8 +42,8 @@ export class ConfirmationComponent implements OnInit {
 
 
     const user = this.model.getBean(Const.USER);
-    this.orderDao.createOrder({purchase: order, user: user, chosenPackage: selectedPackage, validityPeriod: this.chosenPackage.validityPeriod}).subscribe();
-    this.router.navigate(['/home']);
+    this.orderDao.createOrder({purchase: order, user: user, chosenPackage: selectedPackage, validityPeriod: this.chosenPackage.validityPeriod})
+      .subscribe(() => this.router.navigate(['/home']));
   }
 
   toLogin() {

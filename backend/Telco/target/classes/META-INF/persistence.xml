@@ -16,7 +16,7 @@
 			<property name="javax.persistence.jdbc.password" value="" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="eclipselink.logging.level" value="FINE"/>
-            
+
             <!-- TAG PER CREARE AUTOMATICAME property name = "javax.persistence.schema-generation.database.action" value = "create"/> -->
             
 <!--            <property name="spring.jpa.defer-datasource-initialization" value="true"/>-->

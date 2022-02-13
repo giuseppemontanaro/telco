@@ -1,15 +1,16 @@
 .background {
-    height: 93.75%;
+    min-height: 93.75%;
     width: 100%;
     background-color: #cd533b;
-    display: grid;
+    display: flex;
+    height: fit-content;
 
     mat-card {
         margin: 2rem;
     }
 
     button {
-        position: absolute;
+        position: fixed;
         z-index: 10;
         top: 90vh;
         right: 4vw;
