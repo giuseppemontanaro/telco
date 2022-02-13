@@ -27,11 +27,9 @@ public class UserService {
 	
 	
 	public void createUser(User u) {
-	
 		em.getTransaction().begin();
 		em.persist(u);
 		em.getTransaction().commit();
-		
 	}
 	
 	
@@ -42,22 +40,17 @@ public class UserService {
 	
 	public List<User> checkCredentials(String usrn, String pwd) throws CredentialsException, CredentialsException, NonUniqueResultException, UserNotFound {
 		List<User> uList = null;
-
 		try {
 			uList = em.createNamedQuery("checkCredentials", User.class).setParameter(1, usrn).setParameter(2, pwd)
 					.getResultList();
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Could not verify credentals");
-		
 		}
 		if (uList.isEmpty()) {
 			throw new UserNotFound("Nessun utente trovato");
-
-		}
-		else if (uList.size() == 1) {
+		} else if (uList.size() == 1) {
 			return uList;
 		}
-			
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 
 	}

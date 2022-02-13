@@ -8,6 +8,7 @@ import { ModelService } from 'src/app/services/model.service';
 import { Const } from 'src/app/shared/constants';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Role } from '../../models/role';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -80,7 +81,8 @@ export class LoginComponent implements OnInit {
     private userDao: UserDaoService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private model: ModelService
+    private model: ModelService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -104,7 +106,7 @@ export class LoginComponent implements OnInit {
     let user: User = this.loginForm.value;
     this.authService.login(user.username, user.password)
       .subscribe((response) => {
-        if (!!response) {
+        if (response.length !==  0) {
           this.model.putBean(Const.USER, response[0]);
           if (response[0].isEmployee) {
             this.router.navigate(['employee-home']);
@@ -112,7 +114,7 @@ export class LoginComponent implements OnInit {
           }
            this.isLandingFromLogin ? this.router.navigate(['confirmation']) : this.router.navigate(['home'])
         } else {
-          console.log("user not found")
+          this.snackBar.open('Wrong username or password ', '', {duration: 5000});
         }
       });
 

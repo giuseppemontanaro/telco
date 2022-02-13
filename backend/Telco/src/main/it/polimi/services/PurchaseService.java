@@ -37,22 +37,26 @@ public class PurchaseService {
 	
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
+		User user = em.find(User.class, purchaseDTO.getUser().getId());
 		Purchase order = purchaseDTO.getPurchase();
 		Purchase prevOrder = null;
 		prevOrder = em.find(Purchase.class, purchaseDTO.getOrderId());
 		if (prevOrder != null && !order.isRejected()) {
 			prevOrder.setIsRejected(false);
 			em.getTransaction().begin();
-			em.merge(order);
+			em.merge(prevOrder);
 			em.getTransaction().commit();
+			updateUserInsolvent(user, purchaseDTO);
 			return;
 		}
 
-		User user = em.find(User.class, purchaseDTO.getUser().getId());
-		if(order.isRejected()) {
+		if (order.isRejected()) {
 			user.setInsolvent(true);
+			em.getTransaction().begin();
 			em.merge(user);
+			em.getTransaction().commit();
 		}
+
 		ServicePackage s = em.createNamedQuery("GetPackage", ServicePackage.class).setParameter(1, purchaseDTO.getChosenPackage().getName()).getSingleResult();
 		ValidityPeriod v = em.find(ValidityPeriod.class, purchaseDTO.getValidityPeriod().getID());
 		
@@ -69,6 +73,16 @@ public class PurchaseService {
 		order.setProducts(products);
 		em.persist(order);
 		em.getTransaction().commit();
+	}
+
+	private void updateUserInsolvent(User user, PurchaseDTO purchaseDTO) {
+		List<SuspendedPurchase> suspendedPurchase = em.createQuery("SELECT sp FROM SuspendedPurchase sp WHERE sp.id = " + purchaseDTO.getUser().getId()).getResultList();
+		if (suspendedPurchase.isEmpty()) {
+			user.setInsolvent(false);
+			em.getTransaction().begin();
+			em.merge(user);
+			em.getTransaction().commit();
+		}
 	}
 	
 	

@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,31 +51,23 @@ public class Endpoints {
     @PostMapping("/auth/signUp")
     @ResponseBody
     public void signUp(@RequestBody User user) {
-
         userService.createUser(user);
     }
 
     @PostMapping("/auth/login")
     @ResponseBody
-    public List<User> test(@RequestBody User user) {
-
+    public List<User> login(@RequestBody User user) {
         try {
-
             List<User> userLogin = userService.checkCredentials(user.getUsername(), user.getPassword());
             return (userLogin);
-
         } catch (NonUniqueResultException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (CredentialsException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (UserNotFound e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return new ArrayList<>();
         }
         return null;
-
     }
 
 
