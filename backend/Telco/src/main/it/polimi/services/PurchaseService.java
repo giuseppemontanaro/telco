@@ -41,7 +41,9 @@ public class PurchaseService {
 		prevOrder = em.find(Purchase.class, purchaseDTO.getOrderId());
 		if (prevOrder != null && !order.isRejected()) {
 			prevOrder.setIsRejected(false);
-			em.merge(order);
+			em.getTransaction().begin();
+			em.merge(prevOrder);
+			em.getTransaction().commit();
 			return;
 		}
 

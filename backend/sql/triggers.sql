@@ -25,6 +25,18 @@ DELIMITER ;
 
 
 DELIMITER $$
+CREATE TRIGGER update_purchase_trigger
+AFTER UPDATE ON purchase 
+FOR EACH ROW 
+BEGIN  
+    IF (NEW.isRejected = false)     
+    THEN DELETE FROM suspended_order_view o WHERE o.id = NEW.id;
+    END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
 CREATE TRIGGER insert_purchase_trigger
 AFTER INSERT ON purchase 
 FOR EACH ROW 
