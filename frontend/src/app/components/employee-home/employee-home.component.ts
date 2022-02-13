@@ -48,10 +48,11 @@ export class EmployeeHomeComponent implements OnInit {
   report!: Report;
   columnsServicesTable: string[] = ['name', 'purchasestotal', 'purchases12months', 'purchases24months', 'purchases36months', 'totalSales', 'salesWithOptionals', 'avgOptionals'];
   columnsUsersTable: string[] = ['id', 'username', 'email'];
-  columnsOrdersTable: string[] = ['creationDate', 'total', 'subscriptionDate', 'status', 'packageName'];
+  columnsOrdersTable: string[] = ['creationDate', 'total', 'subscriptionDate'];
   columnsAlertTable: string[] = ['userId', 'username', 'email', 'amount', 'date'];
   bestSeller: string = '';
 
+  isLoaded: boolean = false;
   datePipe = new DatePipe('en-US');
 
   constructor(private optionalDao: OptionalProductDaoService, 
@@ -75,16 +76,17 @@ export class EmployeeHomeComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.optionalDao.getOptionalProducts()
-      .subscribe(optionals => {
-        this.optionals = optionals;
-        this.optionalsLen = optionals.length;
-      });
-    /*this.salesReportDao.getSalesReport()
-    .subscribe(report => {
-      this.report = report
-      console.log(this.report);
-    });*/
+    this.salesReportDao.getSalesReport()
+      .subscribe(report => {
+        this.report = report
+        console.log(this.report);
+        this.optionalDao.getOptionalProducts()
+          .subscribe(optionals => {
+            this.optionals = optionals;
+            this.optionalsLen = optionals.length;
+            this.isLoaded = true;
+        });
+    });
   }
 
   createServicePackage() {
@@ -95,7 +97,7 @@ export class EmployeeHomeComponent implements OnInit {
     let toAdd: Package = { name: this.nameService, services: this.selectedServices, periods: validities, products: this.selectedOptionals};
     console.log(toAdd);
     this.packageDao.addPackage(toAdd).subscribe();
-    this.snackBar.open('Service package created');
+    this.snackBar.open('Service package created', '', {duration: 5000});
     this.createPackageForm.reset();
   }
 

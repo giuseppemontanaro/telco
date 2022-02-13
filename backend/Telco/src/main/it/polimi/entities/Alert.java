@@ -8,15 +8,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="alert_view")
-
 public class Alert {
 	
 	@Id
-	private int userId;
+	private int user_id;
 	private String username;
 	private String email;
 	private int amount;
-	private Date lastRejectionDate;
+	private Date last_rejection_date;
 	
 	
 	public Alert() {
@@ -24,13 +23,13 @@ public class Alert {
 	}
 
 
-	public int getUserId() {
-		return userId;
+	public int getUser_id() {
+		return user_id;
 	}
 
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 
@@ -64,13 +63,13 @@ public class Alert {
 	}
 
 
-	public Date getLastRejectionDate() {
-		return lastRejectionDate;
+	public Date getLast_rejection_date() {
+		return last_rejection_date;
 	}
 
 
-	public void setLastRejectionDate(Date lastRejectionDate) {
-		this.lastRejectionDate = lastRejectionDate;
+	public void setLast_rejection_date(Date last_rejection_date) {
+		this.last_rejection_date = last_rejection_date;
 	}
 
 	

@@ -6,7 +6,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="best_seller_view")
-
 public class BestSeller {
 	
 	@Id

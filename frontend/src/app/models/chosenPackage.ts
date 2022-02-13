@@ -9,6 +9,7 @@ export class ChosenPackage {
     validityPeriod: ValidityPeriod;
     products: OptionalProduct[];
     startDate: Date;
+    orderId: number = -1;
     
     constructor(name: string, services: Service[], validityPeriod: ValidityPeriod, optionalProducts: OptionalProduct[], startDate: Date) {
         this.name = name;
@@ -22,4 +23,5 @@ export class ChosenPackage {
         return this.validityPeriod.monthly_fee * this.validityPeriod.month_number + 
         this.validityPeriod.month_number * this.products.map(elem => elem.monthly_fee).reduce((sum, elem) => sum + elem, 0)
     }
+
 }

@@ -1,12 +1,6 @@
 package main.it.polimi.dto;
 
-import main.it.polimi.entities.Alert;
-import main.it.polimi.entities.InsolventUser;
-import main.it.polimi.entities.Product;
-import main.it.polimi.entities.Purchase;
-import main.it.polimi.entities.ServiceReport;
-import main.it.polimi.entities.SuspendedPurchase;
-import main.it.polimi.entities.User;
+import main.it.polimi.entities.*;
 import main.it.polimi.services.ReportService;
 
 import java.util.List;
@@ -17,7 +11,7 @@ public class ReportDTO {
     List<InsolventUser> insolventUsers;
     List<SuspendedPurchase> suspendedOrders; //add user e service field
     List<Alert> alerts;
-    Product bestSeller;
+    BestSeller bestSeller;
     
     
 	public ReportDTO() {
@@ -54,12 +48,12 @@ public class ReportDTO {
 	}
 
 
-	public Product getBestSeller() {
+	public BestSeller getBestSeller() {
 		return bestSeller;
 	}
 
 
-	public void setBestSeller(Product bestSeller) {
+	public void setBestSeller(BestSeller bestSeller) {
 		this.bestSeller = bestSeller;
 	}
 
@@ -72,9 +66,16 @@ public class ReportDTO {
 	public void setReport(List<ServiceReport> report) {
 		this.report = report;
 	}
-	
-	
-    
-    
 
+
+	@Override
+	public String toString() {
+		return "ReportDTO{" +
+				"report=" + report +
+				", insolventUsers=" + insolventUsers +
+				", suspendedOrders=" + suspendedOrders +
+				", alerts=" + alerts +
+				", bestSeller=" + bestSeller +
+				'}';
+	}
 }

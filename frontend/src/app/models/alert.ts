@@ -1,7 +1,7 @@
 export interface Alert {
-    userId: string;
+    user_id: string;
     username: string;
     email: string;
     amount: number;
-    date: Date;
+    last_rejection_date: Date;
 }

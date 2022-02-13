@@ -8,4 +8,5 @@ export interface OrderDTO {
     user: User;
     chosenPackage: Package;
     validityPeriod: ValidityPeriod;
+    orderId: number;
 }

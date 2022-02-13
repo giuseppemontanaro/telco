@@ -6,10 +6,10 @@ import { User } from "./user";
 
 export interface Report {
     
-    servicesReports: ServiceReport[]; 
-    insolventsUsers: User[]; 
+    report: ServiceReport[]; 
+    insolventUsers: User[]; 
     suspendedOrders: Order[]; 
     alerts: Alert[];
-    bestSellerOptional: OptionalProduct;
+    bestSeller: OptionalProduct;
 
 }

@@ -1,18 +1,15 @@
 package main.it.polimi;
 
 import main.it.polimi.dto.PurchaseDTO;
+import main.it.polimi.dto.RejectedDTO;
 import main.it.polimi.dto.ReportDTO;
 import main.it.polimi.entities.*;
 import main.it.polimi.exceptions.CredentialsException;
 import main.it.polimi.exceptions.UserNotFound;
 import main.it.polimi.services.*;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -115,7 +112,7 @@ public class Endpoints {
 
     @PostMapping("/order/rejected")				// NON C'E' COME CAMPO, è STATUS??????
     @ResponseBody
-    public List<Purchase> getRejectedOrders(@RequestBody User user) {
+    public List<RejectedDTO> getRejectedOrders(@RequestBody User user) {
         return orderService.getRejectedOrders(user);
     }
 
