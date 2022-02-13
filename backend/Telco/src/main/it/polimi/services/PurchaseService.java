@@ -7,7 +7,6 @@ import main.it.polimi.entities.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
