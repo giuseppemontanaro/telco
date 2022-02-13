@@ -7,7 +7,6 @@ import main.it.polimi.entities.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,12 +37,12 @@ public class PurchaseService {
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
-		System.out.println(purchaseDTO.getOrderId());
 		Purchase prevOrder = null;
 		prevOrder = em.find(Purchase.class, purchaseDTO.getOrderId());
 		if (prevOrder != null && !order.isRejected()) {
 			prevOrder.setIsRejected(false);
 			em.merge(order);
+			return;
 		}
 
 		User user = em.find(User.class, purchaseDTO.getUser().getId());

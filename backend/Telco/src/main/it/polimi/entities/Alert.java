@@ -12,10 +12,11 @@ public class Alert {
 	
 	@Id
 	private int user_id;
-	private String username;
-	private String email;
 	private int amount;
+	private String email;
 	private Date last_rejection_date;
+	private String username;
+	
 	
 	
 	public Alert() {
