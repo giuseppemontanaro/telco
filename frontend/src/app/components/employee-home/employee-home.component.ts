@@ -48,7 +48,7 @@ export class EmployeeHomeComponent implements OnInit {
   report!: Report;
   columnsServicesTable: string[] = ['name', 'purchasestotal', 'purchases12months', 'purchases24months', 'purchases36months', 'totalSales', 'salesWithOptionals', 'avgOptionals'];
   columnsUsersTable: string[] = ['id', 'username', 'email'];
-  columnsOrdersTable: string[] = ['creationDate', 'total', 'subscriptionDate', 'status', 'packageName'];
+  columnsOrdersTable: string[] = ['creationDate', 'total', 'subscriptionDate'];
   columnsAlertTable: string[] = ['userId', 'username', 'email', 'amount', 'date'];
   bestSeller: string = '';
 

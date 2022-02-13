@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="alert_view")
-
 public class Alert {
 	
 	@Id

@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="suspended_order_view")
-
 public class SuspendedPurchase {
 	
 	@Id

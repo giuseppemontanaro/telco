@@ -6,7 +6,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="insolvent_users_view")
-
 public class InsolventUser {
 	
 	@Id 

@@ -150,45 +150,45 @@
     <mat-tab label="Sales report">
         <div *ngIf="isLoaded"></div>
             <h1>Service package report</h1>
-            <table mat-table [dataSource]="report.servicesReports" class="mat-elevation-z8">
+            <table mat-table [dataSource]="report.report" class="mat-elevation-z8">
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.service_pkg_id}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="purchasestotal">
                     <th mat-header-cell *matHeaderCellDef> Total </th>
-                    <td mat-cell *matCellDef="let element"> {{element.purchasestotal}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.total}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="purchases12months">
-                    <th mat-header-cell *matHeaderCellDef> Purchases 12 months </th>
-                    <td mat-cell *matCellDef="let element"> {{element.purchases12months}} </td>
+                    <th mat-header-cell *matHeaderCellDef> 12 months </th>
+                    <td mat-cell *matCellDef="let element"> {{element.total_val_per_12}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="purchases24months">
-                    <th mat-header-cell *matHeaderCellDef> Purchases 24 months </th>
-                    <td mat-cell *matCellDef="let element"> {{element.purchases24months}} </td>
+                    <th mat-header-cell *matHeaderCellDef> 24 months </th>
+                    <td mat-cell *matCellDef="let element"> {{element.total_val_per_24}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="purchases36months">
-                    <th mat-header-cell *matHeaderCellDef> Purchases 36 months </th>
-                    <td mat-cell *matCellDef="let element"> {{element.purchases36months}} </td>
+                    <th mat-header-cell *matHeaderCellDef> 36 months </th>
+                    <td mat-cell *matCellDef="let element"> {{element.total_val_per_36}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="totalSales">
                     <th mat-header-cell *matHeaderCellDef> Total sales </th>
-                    <td mat-cell *matCellDef="let element"> {{element.totalSales}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.sales_pkg_only}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="salesWithOptionals">
                     <th mat-header-cell *matHeaderCellDef> Total sales with optional products</th>
-                    <td mat-cell *matCellDef="let element"> {{element.salesWithOptionals}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.sales_with_opt_prods}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="avgOptionals">
                     <th mat-header-cell *matHeaderCellDef> Average optional products </th>
-                    <td mat-cell *matCellDef="let element"> {{element.avgOptionals}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.avg_prods}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="columnsServicesTable"></tr>
@@ -196,7 +196,7 @@
             </table>
 
             <h1>Insolvent users</h1>
-            <table mat-table [dataSource]="report.insolventsUsers" class="mat-elevation-z8">
+            <table mat-table [dataSource]="report.insolventUsers" class="mat-elevation-z8">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -209,7 +209,7 @@
 
                 <ng-container matColumnDef="email">
                     <th mat-header-cell *matHeaderCellDef> E-mail </th>
-                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.eMail}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="columnsUsersTable"></tr>
@@ -220,7 +220,7 @@
             <table mat-table [dataSource]="report.suspendedOrders" class="mat-elevation-z8">
                 <ng-container matColumnDef="creationDate">
                     <th mat-header-cell *matHeaderCellDef> Creation date </th>
-                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.creationDate, 'yyyy-MM-dd
+                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date, 'yyyy-MM-dd
                         HH:mm:ss', 'it')}} </td>
                 </ng-container>
 
@@ -231,19 +231,14 @@
 
                 <ng-container matColumnDef="subscriptionDate">
                     <th mat-header-cell *matHeaderCellDef> Subscription date </th>
-                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.subscriptionDate, 'yyyy-MM-dd
+                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.subscription_date, 'yyyy-MM-dd
                         HH:mm:ss', 'it')}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="packageName">
+                <!-- <ng-container matColumnDef="packageName">
                     <th mat-header-cell *matHeaderCellDef> Package name </th>
                     <td mat-cell *matCellDef="let element"> {{element.package.name}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <tr mat-header-row *matHeaderRowDef="columnsOrdersTable"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnsOrdersTable;"></tr>
@@ -253,7 +248,7 @@
             <table mat-table [dataSource]="report.alerts" class="mat-elevation-z8">
                 <ng-container matColumnDef="userId">
                     <th mat-header-cell *matHeaderCellDef> User id</th>
-                    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="username">
@@ -273,7 +268,7 @@
 
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef> Date </th>
-                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date, 'yyyy-MM-dd HH:mm:ss',
+                    <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.last_rejection_date, 'yyyy-MM-dd HH:mm:ss',
                         'it')}} </td>
                 </ng-container>
 
