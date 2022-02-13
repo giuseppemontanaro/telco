@@ -18,10 +18,7 @@ public class SuspendedPurchase {
 	private int id;
     private Date date; 
 	private float total;
-	private boolean isRejected;
 	private Date subscription_date;
-	private int user;
-	private int servicePackage;
 	
 	
 	
@@ -66,19 +63,6 @@ public class SuspendedPurchase {
 	}
 
 
-
-	public boolean isRejected() {
-		return isRejected;
-	}
-
-
-
-	public void setRejected(boolean isRejected) {
-		this.isRejected = isRejected;
-	}
-
-
-
 	public Date getSubscription_date() {
 		return subscription_date;
 	}
@@ -89,37 +73,5 @@ public class SuspendedPurchase {
 		this.subscription_date = subscription_date;
 	}
 
-
-
-	public int getUser() {
-		return user;
-	}
-
-
-
-	public void setUser(int user) {
-		this.user = user;
-	}
-
-
-
-	public int getServicePackage() {
-		return servicePackage;
-	}
-
-
-
-	public void setServicePackage(int servicePackage) {
-		this.servicePackage = servicePackage;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
