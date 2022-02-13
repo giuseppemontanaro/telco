@@ -38,12 +38,14 @@ public class PurchaseService {
 	
 	public void createOrder(PurchaseDTO purchaseDTO) {
 		Purchase order = purchaseDTO.getPurchase();
-		System.out.println(purchaseDTO.getOrderId());
 		Purchase prevOrder = null;
 		prevOrder = em.find(Purchase.class, purchaseDTO.getOrderId());
 		if (prevOrder != null && !order.isRejected()) {
 			prevOrder.setIsRejected(false);
+			em.getTransaction().begin();
 			em.merge(order);
+			em.getTransaction().commit();
+			return;
 		}
 
 		User user = em.find(User.class, purchaseDTO.getUser().getId());
