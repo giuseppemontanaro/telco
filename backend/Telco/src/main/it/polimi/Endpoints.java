@@ -1,6 +1,7 @@
 package main.it.polimi;
 
 import main.it.polimi.dto.PurchaseDTO;
+import main.it.polimi.dto.RejectedDTO;
 import main.it.polimi.dto.ReportDTO;
 import main.it.polimi.entities.*;
 import main.it.polimi.exceptions.CredentialsException;
@@ -111,7 +112,7 @@ public class Endpoints {
 
     @PostMapping("/order/rejected")				// NON C'E' COME CAMPO, è STATUS??????
     @ResponseBody
-    public List<Purchase> getRejectedOrders(@RequestBody User user) {
+    public List<RejectedDTO> getRejectedOrders(@RequestBody User user) {
         return orderService.getRejectedOrders(user);
     }
 

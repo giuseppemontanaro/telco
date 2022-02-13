@@ -35,14 +35,13 @@ export class ConfirmationComponent implements OnInit {
       isRejected: isRejected,
       package: this.chosenPackage
     }
-    let selectedPackage:Package = {name: this.chosenPackage.name, 
+    let selectedPackage: Package = {name: this.chosenPackage.name, 
       services: this.chosenPackage.services, 
       products: this.chosenPackage.products,
-      periods : [this.chosenPackage.validityPeriod]}
-
-
+      periods : [this.chosenPackage.validityPeriod]
+    }
     const user = this.model.getBean(Const.USER);
-    this.orderDao.createOrder({purchase: order, user: user, chosenPackage: selectedPackage, validityPeriod: this.chosenPackage.validityPeriod})
+    this.orderDao.createOrder({purchase: order, user: user, chosenPackage: selectedPackage, validityPeriod: this.chosenPackage.validityPeriod, orderId: this.chosenPackage.orderId})
       .subscribe(() => this.router.navigate(['/home']));
   }
 

@@ -11,6 +11,7 @@ public class PurchaseDTO {
     ServicePackage chosenPackage;
     User user;
     ValidityPeriod validityPeriod;
+    int orderId;
 
     public PurchaseDTO(Purchase purchase, ServicePackage packageName, User user, ValidityPeriod validityPeriod) {
         this.purchase = purchase;
@@ -26,8 +27,6 @@ public class PurchaseDTO {
     public void setPurchase(Purchase purchase) {
         this.purchase = purchase;
     }
-
-    
 
     public ServicePackage getChosenPackage() {
 		return chosenPackage;
@@ -53,13 +52,22 @@ public class PurchaseDTO {
         this.validityPeriod = validityPeriod;
     }
 
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     @Override
     public String toString() {
         return "PurchaseDTO{" +
                 "purchase=" + purchase +
-                ", packageName='" + chosenPackage + '\'' +
+                ", chosenPackage=" + chosenPackage +
                 ", user=" + user +
                 ", validityPeriod=" + validityPeriod +
+                ", orderId=" + orderId +
                 '}';
     }
 }

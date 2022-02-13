@@ -37,7 +37,7 @@ public class ServicePackage {
 	private int ID;
 	private String name;
 	
-	@JsonBackReference
+	@JsonBackReference(value="svp-orders")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service_pkg", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Purchase> purchaseList;
 	

@@ -5,8 +5,20 @@
     display: flex;
     height: fit-content;
 
-    mat-card {
-        margin: 2rem;
+    .card-container {
+        width: 60%;
+        display: grid;
+        grid-template-columns: 1fr;
+
+        mat-card {
+            width: 80%;
+            margin: 2rem;
+        }
+
+    }
+
+    .rejected-container {
+        width: 40%;
     }
 
     button {
@@ -18,5 +30,13 @@
 
     .package {
         width: 30%;
+    }
+
+    li {
+        cursor: pointer;
+    }
+
+    li:hover {
+        color: #ffffff;
     }
 }

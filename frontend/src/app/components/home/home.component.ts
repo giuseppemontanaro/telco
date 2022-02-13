@@ -9,6 +9,7 @@ import { Const } from 'src/app/shared/constants';
 import { Service } from 'src/app/models/service';
 import { MobilePhone } from 'src/app/models/mobilePhone';
 import { Internet } from 'src/app/models/internet';
+import { ChosenPackage } from 'src/app/models/chosenPackage';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { Internet } from 'src/app/models/internet';
 export class HomeComponent implements OnInit {
 
   packages: Package[] = [];
-  rejected: Order[] = [];
+  rejected: any[] = [];
   isLoaded: boolean = false;
 
   constructor(private router: Router, private packageDao: PackageDaoService, private orderDao: OrderDaoService, private model: ModelService) { }
@@ -40,8 +41,10 @@ export class HomeComponent implements OnInit {
   }
 
   toConfirmation(i: number): void {
-    console.log(this.rejected[i])
-    this.model.putBean(Const.CHOSEN_PACKAGE, this.rejected[i].package);
+    let pickedPackage = this.rejected[i].servicePackage;
+    let chosenPackage = new ChosenPackage(pickedPackage.name, pickedPackage.services, this.rejected[i].validityPeriod, this.rejected[i].purchase.products, this.rejected[i].purchase.subscription_date);
+    chosenPackage.orderId =  this.rejected[i].purchase.id;
+    this.model.putBean(Const.CHOSEN_PACKAGE, chosenPackage);
     this.router.navigate(['confirmation'])
   }
 

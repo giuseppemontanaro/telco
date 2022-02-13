@@ -34,18 +34,14 @@ public class ReportService {
     	List<ServiceReport> services = null;
     	services = em.createQuery("SELECT serv FROM ServiceReport serv", ServiceReport.class).getResultList();
 
-
 		BestSeller best = em.createQuery("SELECT best FROM BestSeller best", BestSeller.class).getSingleResult();
-    	
-    	
+
     	ReportDTO r = new ReportDTO();
     	r.setInsolventUsers(insolventUsers);
     	r.setSuspendedOrders(suspendedPurchases);
     	r.setAlerts(alerts);
     	r.setReport(services);
     	r.setBestSeller(best);
-		System.out.println(r);
 		return r;
-
     }
 }

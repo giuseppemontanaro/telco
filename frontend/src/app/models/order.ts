@@ -1,4 +1,3 @@
-import { UserStatus } from './userStatus';
 import { ChosenPackage } from './chosenPackage';
 
 export interface Order {
